@@ -1,0 +1,116 @@
+skills:
+  - name: ppt-master
+    role: native-pptx-generation
+    required: true
+    source: "${CODEX_HOME:-$HOME/.codex}/skills/ppt-master"
+    install: "local"
+    verify: "test -f ${CODEX_HOME:-$HOME/.codex}/skills/ppt-master/SKILL.md"
+    license_required: false
+
+  - name: frontend-slides
+    role: html-interactive-slides
+    required: true
+    source: "${CODEX_HOME:-$HOME/.codex}/skills/frontend-slides"
+    install: "local"
+    verify: "test -f ${CODEX_HOME:-$HOME/.codex}/skills/frontend-slides/SKILL.md"
+    license_required: false
+
+  - name: taste-skill
+    role: style-frame-and-anti-ai-review
+    required: false
+    source: "${CODEX_HOME:-$HOME/.codex}/skills/taste-skill"
+    install: "local"
+    verify: "test -f ${CODEX_HOME:-$HOME/.codex}/skills/taste-skill/SKILL.md"
+    license_required: false
+
+  - name: stylekit-skill
+    role: stylekit-design-library-and-style-direction
+    required: false
+    source: "${CODEX_HOME:-$HOME/.codex}/skills/stylekit-skill"
+    install: "local"
+    verify: "test -f ${CODEX_HOME:-$HOME/.codex}/skills/stylekit-skill/SKILL.md"
+    license_required: false
+
+  - name: headroom
+    role: context-compression
+    required: false
+    source: "skills/vendor/headroom"
+    install: "embedded"
+    verify: "test -f skills/vendor/headroom/SKILL.md"
+    license_required: false
+
+  - name: html-ppt-skill-main
+    role: html-ppt-basic-framework
+    required: false
+    source: "${CODEX_HOME:-$HOME/.codex}/skills/html-ppt-skill"
+    install: "local"
+    verify: "test -f ${CODEX_HOME:-$HOME/.codex}/skills/html-ppt-skill/SKILL.md"
+    license_required: false
+
+  - name: PPT-Design-DNA-main
+    role: design-dna-system-style-effects-and-page-taxonomy
+    required: false
+    source: "${CODEX_HOME:-$HOME/.codex}/skills/design-dna"
+    install: "local"
+    verify: "test -f ${CODEX_HOME:-$HOME/.codex}/skills/design-dna/SKILL.md"
+    license_required: false
+
+  - name: humanize-ppt-main
+    role: copy-compression-natural-expression
+    required: false
+    source: "${CODEX_HOME:-$HOME/.codex}/skills/humanize-ppt"
+    install: "local"
+    verify: "test -f ${CODEX_HOME:-$HOME/.codex}/skills/humanize-ppt/SKILL.md"
+    license_required: false
+
+  - name: huashu-ppt
+    role: narrative-structure
+    required: false
+    source: "${CODEX_HOME:-$HOME/.codex}/skills/huashu-slides"
+    install: "local"
+    verify: "test -f ${CODEX_HOME:-$HOME/.codex}/skills/huashu-slides/SKILL.md"
+    license_required: false
+
+  - name: guizang-ppt-skill
+    role: presentation-layout-theme-rhythm-and-motion-system
+    required: false
+    source: "${CODEX_HOME:-$HOME/.codex}/skills/guizang-ppt-skill"
+    install: "local"
+    verify: "test -f ${CODEX_HOME:-$HOME/.codex}/skills/guizang-ppt-skill/SKILL.md"
+    license_required: false
+
+online_toolchain:
+  - name: tavily-search
+    role: online-search-trends-excellent-cases
+    required: false
+    install: "requires-user-consent-and-api-key-or-connector"
+    verify: "requires-live-tool-check"
+    api_key_required: true
+
+  - name: brave-search
+    role: web-image-news-cross-search
+    required: false
+    install: "requires-user-consent-and-api-key-or-connector"
+    verify: "requires-live-tool-check"
+    api_key_required: true
+
+  - name: firecrawl
+    role: webpage-extraction-structure-and-design-system-pages
+    required: false
+    install: "requires-user-consent-and-api-key-or-connector"
+    verify: "requires-live-tool-check"
+    api_key_required: true
+
+  - name: context7
+    role: latest-frontend-library-official-docs
+    required: false
+    install: "requires-user-consent-or-connector"
+    verify: "requires-live-tool-check"
+    api_key_required: false
+
+  - name: playwright-mcp
+    role: browser-visual-validation-hover-focus-responsive-chrome
+    required: false
+    install: "requires-user-consent-or-local-mcp"
+    verify: "requires-live-browser-check"
+    api_key_required: false

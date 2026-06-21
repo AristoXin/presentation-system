@@ -1,0 +1,120 @@
+{
+  "lockfileVersion": 1,
+  "generatedFor": "presentation-system V6.0",
+  "skills": [
+    {
+      "name": "ppt-master",
+      "role": "native-pptx-generation",
+      "source": "${CODEX_HOME:-$HOME/.codex}/skills/ppt-master",
+      "verify": "test -f ${CODEX_HOME:-$HOME/.codex}/skills/ppt-master/SKILL.md",
+      "lockedAt": "2026-06-21",
+      "availability": "local-installed"
+    },
+    {
+      "name": "frontend-slides",
+      "role": "html-interactive-slides",
+      "source": "${CODEX_HOME:-$HOME/.codex}/skills/frontend-slides",
+      "verify": "test -f ${CODEX_HOME:-$HOME/.codex}/skills/frontend-slides/SKILL.md",
+      "lockedAt": "2026-06-21",
+      "availability": "local-installed"
+    },
+    {
+      "name": "taste-skill",
+      "role": "style-frame-and-anti-ai-review",
+      "source": "${CODEX_HOME:-$HOME/.codex}/skills/taste-skill",
+      "verify": "test -f ${CODEX_HOME:-$HOME/.codex}/skills/taste-skill/SKILL.md",
+      "lockedAt": "2026-06-21",
+      "availability": "local-installed"
+    },
+    {
+      "name": "stylekit-skill",
+      "role": "stylekit-design-library-and-style-direction",
+      "source": "${CODEX_HOME:-$HOME/.codex}/skills/stylekit-skill",
+      "verify": "test -f ${CODEX_HOME:-$HOME/.codex}/skills/stylekit-skill/SKILL.md",
+      "lockedAt": "2026-06-21",
+      "availability": "local-installed"
+    },
+    {
+      "name": "html-ppt-skill-main",
+      "role": "html-ppt-basic-framework",
+      "source": "${CODEX_HOME:-$HOME/.codex}/skills/html-ppt-skill",
+      "verify": "test -f ${CODEX_HOME:-$HOME/.codex}/skills/html-ppt-skill/SKILL.md",
+      "lockedAt": "2026-06-21",
+      "availability": "local-installed"
+    },
+    {
+      "name": "PPT-Design-DNA-main",
+      "role": "design-dna-system-style-effects-and-page-taxonomy",
+      "source": "${CODEX_HOME:-$HOME/.codex}/skills/design-dna",
+      "verify": "test -f ${CODEX_HOME:-$HOME/.codex}/skills/design-dna/SKILL.md",
+      "lockedAt": "2026-06-21",
+      "availability": "local-installed"
+    },
+    {
+      "name": "humanize-ppt-main",
+      "role": "copy-compression-natural-expression",
+      "source": "${CODEX_HOME:-$HOME/.codex}/skills/humanize-ppt",
+      "verify": "test -f ${CODEX_HOME:-$HOME/.codex}/skills/humanize-ppt/SKILL.md",
+      "lockedAt": "2026-06-21",
+      "availability": "local-installed"
+    },
+    {
+      "name": "huashu-ppt",
+      "role": "narrative-structure",
+      "source": "${CODEX_HOME:-$HOME/.codex}/skills/huashu-slides",
+      "verify": "test -f ${CODEX_HOME:-$HOME/.codex}/skills/huashu-slides/SKILL.md",
+      "lockedAt": "2026-06-21",
+      "availability": "local-installed"
+    },
+    {
+      "name": "guizang-ppt-skill",
+      "role": "presentation-layout-theme-rhythm-and-motion-system",
+      "source": "${CODEX_HOME:-$HOME/.codex}/skills/guizang-ppt-skill",
+      "verify": "test -f ${CODEX_HOME:-$HOME/.codex}/skills/guizang-ppt-skill/SKILL.md",
+      "lockedAt": "2026-06-21",
+      "availability": "local-installed"
+    }
+  ],
+  "onlineToolchain": [
+    {
+      "name": "tavily-search",
+      "role": "online-search-trends-excellent-cases",
+      "install": "requires-user-consent-and-api-key-or-connector",
+      "verify": "requires-live-tool-check",
+      "lockedAt": "2026-06-21",
+      "availability": "not-installed-or-not-verified"
+    },
+    {
+      "name": "brave-search",
+      "role": "web-image-news-cross-search",
+      "install": "requires-user-consent-and-api-key-or-connector",
+      "verify": "requires-live-tool-check",
+      "lockedAt": "2026-06-21",
+      "availability": "not-installed-or-not-verified"
+    },
+    {
+      "name": "firecrawl",
+      "role": "webpage-extraction-structure-and-design-system-pages",
+      "install": "requires-user-consent-and-api-key-or-connector",
+      "verify": "requires-live-tool-check",
+      "lockedAt": "2026-06-21",
+      "availability": "not-installed-or-not-verified"
+    },
+    {
+      "name": "context7",
+      "role": "latest-frontend-library-official-docs",
+      "install": "requires-user-consent-or-connector",
+      "verify": "requires-live-tool-check",
+      "lockedAt": "2026-06-21",
+      "availability": "not-installed-or-not-verified"
+    },
+    {
+      "name": "playwright-mcp",
+      "role": "browser-visual-validation-hover-focus-responsive-chrome",
+      "install": "requires-user-consent-or-local-mcp",
+      "verify": "requires-live-browser-check",
+      "lockedAt": "2026-06-21",
+      "availability": "not-installed-or-not-verified"
+    }
+  ]
+}
