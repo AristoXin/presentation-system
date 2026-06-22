@@ -1,10 +1,34 @@
 # 21-design-skill-stack-integration
 
-读取时机：当任务涉及完整视觉生产、Style Frame、HTML/PPT/Slides、审美退回、排版/UI不好看、动效单一，或用户质疑“stylekit/design-dna/guizang/taste/frontend-slides/html-ppt/huashu-design等Skill没有集成”时读取。本文件定义演示设计相关Skill的分层、调用顺序、吸收证据和QA阻断。
+读取时机：当任务涉及部门初始确认方向、完整视觉生产、Style Frame、HTML/PPT/Slides、审美退回、排版/UI不好看、动效单一，或用户质疑“stylekit/design-dna/guizang/taste/frontend-slides/html-ppt/huashu-design等Skill没有集成”时读取。本文件定义演示设计相关Skill的分层、双阶段调用顺序、吸收证据和QA阻断。
 
 ## 核心问题
 
-演示设计失败通常不是因为缺一个模板，而是因为多个设计Skill各自孤立：StyleKit给了风格，DNA给了字段，guizang给了版式，动效Skill给了动画，但没有被统一成页面族谱、UI语法、运动语法和QA证据。本文件要求先完成设计Skill栈决策，再进入Style Frame或全稿生产。
+演示设计失败通常不是因为缺一个模板，而是因为多个设计Skill各自孤立：StyleKit给了风格，DNA给了字段，guizang给了版式，动效Skill给了动画，但没有被统一成页面族谱、UI语法、运动语法和QA证据。本文件要求在部门初始确认方向时先完成设计Skill栈调用与吸收，再进入Style Frame或全稿生产；正式生产平台启动前还必须二次调用/复核，不能把初始方向记录当作生产证据。
+
+## 双阶段调用硬门禁
+
+### 阶段A：部门初始确认方向
+
+在需求与交付、语言内容、品牌审美、版式/UI、动效设计、交互工程和QA形成《部门一致意见表》之前，必须调用或人工等价吸收构成当前视觉方向的相关Skill。默认需要判断并记录：
+
+- `stylekit-skill`：给出风格候选、采用/弃用理由、style ownership和quality_gate。
+- `taste-skill`：调用其内部审美策略，完成Design Read、三拨盘、反模板排版预检、重复版式禁用和动效/色彩/卡片红线。
+- `PPT-Design-DNA-main` / `design-dna`：形成Presentation Design DNA、来源追踪、UI吸收和动效吸收。
+- `guizang-ppt-skill`：在方向层判断主题节奏、版式语法、A/B路线适配与弃用边界；此时不得直接套模板。
+- `frontend-slides`、`html-ppt`、`huashu-design`、`huashu-ppt` / `huashu-slides`、客户母版或其他实现Skill：按交付路线判断是否参与方向候选、页面族谱、动画语法、图片PPT路径或交互约束。
+
+阶段A的必填证据是《初始方向Skill调用记录》《内部审美策略吸收表》和带Skill证据列的《部门一致意见表》。可用但未调用必须写“为什么当前方向不需要”；不可用但方向依赖它时，必须按`08-skill-governance.md`记录安装/启用请求或阻断。缺少阶段A证据时，副总编不得接收部门初始方向，总编不得批准进入交付定义、页面族谱或Style Frame。
+
+### 阶段B：正式生产平台
+
+在制作工单下发、HTML/PPT/PDF/截图包创建、Style Frame扩展为全稿或任何Vx版本动作前，必须基于已确定的Page Spec、内容到UI/动效转译表和模板改造差异表，二次调用/复核阶段A采用的Skill。阶段B必须证明：
+
+- 初始方向中的StyleKit/Taste/DNA/guizang等结论已经落到逐页Page Spec、主题节奏、layout/Sxx映射、动效语法和QA字段。
+- 生产引擎只承接已确认方向，不重新替代方向；若生产阶段发现Skill输出与内容冲突，必须退回阶段A重新协商，而不是执行层自行改CSS或换模板。
+- 阶段B证据不能复用阶段A截图或摘要，必须引用当前版本的真实Page Spec、工单、源码路径、截图或验证结果。
+
+缺少阶段B证据时，不得创建全稿产物，不得称为候选稿、冻结稿或可验收版本。
 
 ## 相关Skill分层
 
@@ -17,21 +41,42 @@
 | HTML动画演示引擎 | `frontend-slides` | 固定1920x1080舞台、3个Style Preview、动画丰富的单文件HTML演示 | 16:9固定舞台规则、3方向视觉预览、density模式、动画pattern | 做成长网页、没有视觉预览、内容溢出或动效单薄 |
 | 模板型HTML PPT引擎 | `html-ppt` | 36主题、31 layout、full-deck templates、27 CSS动画和20 canvas FX | 主题/layout/animation映射、模板适配和改造表、演讲者模式规则 | 从零手写、随意换主题、动画类随便套 |
 | 高保真变体/动画专家 | `huashu-design` | 设计方向顾问、三套逻辑并行视觉、反AI slop、动画/MP4/GIF、专家评审 | 三方向可视化探索、品牌资产协议、动画导演/连续运动叙事、五维评审 | 只出一版、无真实视觉对比、动画像PPT淡入 |
+| 图片PPT/品牌资产协议引擎 | `huashu-ppt` / `huashu-slides` / `huashu-slide-codex` | 内容结构化、品牌资产协议、3个设计方向、图片PPT/Keynote/HTML图片deck、封面/配图路径 | 品牌资产协议、页面类型密度分级、3方向候选、图片/HTML/PPTX路径选择、项目内素材归档规则 | UI部门只说“不用图片PPT”、没有判断品牌资产协议、没有页面类型密度分级、没有路径弃用理由 |
+
+## 部门Skill使用矩阵
+
+部门不是只签署“通过”，而是要证明自己调动了对应Skill能力。每个适用部门在阶段A和阶段B都必须填写本矩阵；可用但不调用必须写理由，不可用但必要必须阻断。
+
+| 部门/副主编 | 默认必须判断的Skill | 阶段A吸收证据 | 阶段B生产证据 | 未充分使用信号 |
+| :--- | :--- | :--- | :--- | :--- |
+| 需求与交付 | `ppt-master`、`frontend-slides`、`html-ppt`、`guizang-ppt-skill`、`huashu-ppt`/`huashu-slides`、`humanize-ppt` | 交付格式矩阵、受众/使用场景、可编辑性、图片PPT/HTML/PPTX/PDF/Keynote路线、讲者备注需求、降级审批 | 交付定义卡、制作工单、格式/导出/素材路径、可编辑性声明、弃用理由、降级审批记录 | 只按默认HTML或PPTX生产，没有判断可编辑、图片PPT、讲者备注、导出或降级路线 |
+| 语言内容 | `humanize-ppt`、`huashu-ppt`/`huashu-slides`、`huashu-design`、`taste-skill`、`PPT-Design-DNA-main`/`design-dna` | AST/叙事结构、每页核心句、页面类型密度、讲师或使用者动作、术语组件、内容密度与拆页建议；正向参考中文字、标题、注释、口播和标签如何配合画面 | slide plan、内容到UI/动效转译表、讲者备注、标题判断、页面角色、密度控制、术语归一、正向参考文字协同结论 | 文案只是资料压缩或卡片标题并列，没有决定每页为什么存在、怎么讲、何时分步出现；正向参考只看视觉不看文字 |
+| 品牌审美 | `stylekit-skill`、`taste-skill`、`PPT-Design-DNA-main`/`design-dna`、`huashu-design`、`huashu-ppt`/`huashu-slides` | 风格候选与弃用、内部审美策略、Design DNA、品牌资产协议、3方向审美判断；正向参考的配色原因、字体气质、情绪和品牌适配 | 视觉母线、token、品牌色/禁用风格、参考转译落到截图或真实页面、正向参考配色/字体深拆 | 只写“高级感/瑞士风/杂志风”，没有候选和弃用；正向参考只写好看不解释为什么成立 |
+| 版式/UI | `taste-skill`、`guizang-ppt-skill`、`PPT-Design-DNA-main`/`design-dna`、`frontend-slides`、`html-ppt`、`huashu-ppt`/`huashu-slides` | Design Read、三拨盘、页面族谱、layout/Sxx或页面类型密度分级、图片PPT/HTML/PPTX路径判断；正向参考的版面规划、视觉重心、留白、跨页切换和替代方案 | 逐页Page Spec、网格/字阶/组件语法、模板改造差异、项目内素材槽位或图片路径、真实产物截图、正向参考2-3个可选设计方案 | UI部门没有判断huashu图片PPT路径、没有guizang映射、没有taste预检，直接画页面；把正向参考降级为方块、配色和文字填充 |
+| 动效设计 | `taste-skill`、`guizang-ppt-skill`、`frontend-slides`、`html-ppt`、`huashu-design`、`huashu-ppt`/`huashu-slides` | MOTION_INTENSITY、分步节奏、页间/同页/静止页语法、图片PPT是否适合动效、HTML是否需要状态机；正向参考的页面切换和动效方案 | Motion source map、首态/后续态矩阵、HTML状态机与交互合同、export稳定态、动画与页面角色绑定、正向参考动效重设计 | 全稿统一fade/translate、只点击出现下一项，或图片PPT/HTML动效路线未比较；正向参考没有动效假设 |
+| 交互/工程 | `frontend-slides`、`html-ppt`、`guizang-ppt-skill`、`ppt-master`、`huashu-ppt`/`huashu-slides` | 交付路径、可编辑性、图片PPT/HTML/PPTX/Keynote适配与弃用、HTML状态机与输入合同；正向参考若做成HTML时的输入、焦点、回退、重播和export稳定策略 | 工具链可行性、导出方式、素材复制到项目内、截图/验证路径、键盘/鼠标/触摸/滚轮/目录跳转/回退/重播/focus/aria/节流/export稳定态、正向参考交互实现边界 | 只按一个默认格式生产，或把HTML当PPT点击动画，没有记录为什么不用其他已安装Skill；正向参考只做静态复刻 |
+| QA | 全部被采用或弃用的设计/生产Skill | Stage-A调用完整性、每个部门矩阵行、可用但未调用理由、阻断记录 | Stage-B吸收字段、真实产物路径、截图/源码/validation是否证明Skill落地、部门复核闭环 | QA只看文件存在和页数，不查每个部门是否充分使用Skill |
+
+`huashu-ppt`/`huashu-slides`不得只被语言或叙事部门使用。只要任务涉及PPT/Slides、图片PPT、封面图、品牌资产、视觉方向候选、页面类型密度或图片生成路径，需求与交付、语言内容、品牌审美、版式/UI、动效设计、交互/工程和QA都必须按本部门职责判断它是否适用；适用时必须吸收其品牌资产协议、3方向候选、页面类型密度分级和项目内素材归档规则。不适用时必须写明弃用原因，例如用户强制要求可编辑矢量PPTX、禁止图片PPT、内容需要实时交互或当前交付路线不允许位图页。
+
+任一部门不得把“这是UI的事”“这是文案的事”“这是工程格式问题”作为不调用Skill的理由。部门可以判定某Skill不适用，但必须写出和本部门职责相关的弃用理由；没有理由的“不适用”视为未充分使用Skill，副总编不得接收该部门意见。
 
 ## 调用顺序
 
-完整视觉生产和审美退回恢复生产必须按以下顺序判断，不得反向：
+部门初始确认方向、完整视觉生产和审美退回恢复生产必须按以下顺序判断，不得反向：
 
 1. 当前资料、受众、场景、页数充分性、页面族谱。
-2. `stylekit-skill`：生成或人工等价完成风格候选、style ownership、quality_gate。
-3. `taste-skill`：完成Design Read、三拨盘和排版/UI反模板预检。
-4. `design-dna`：形成Presentation Design DNA档案。
-5. 选择演示引擎：`guizang-ppt-skill`、`frontend-slides`、`html-ppt`、`huashu-design`或客户母版，只能承接前面结论。
-6. 动效语法：结合`guizang`、`frontend-slides`和`huashu-design`规则，定义页间、同页、分步、低功耗和export稳定态。
-7. Style Frame截图或视觉草图。
-8. 实现后Skill吸收QA。
+2. 阶段A初始方向Skill调用：`stylekit-skill`、`taste-skill`、`design-dna`/`PPT-Design-DNA-main`、`guizang-ppt-skill`及交付路线相关Skill必须调用、人工等价吸收或记录阻断。
+3. `stylekit-skill`：生成或人工等价完成风格候选、style ownership、quality_gate。
+4. `taste-skill`：完成Design Read、三拨盘、内部审美策略和排版/UI反模板预检。
+5. `design-dna`：形成Presentation Design DNA档案。
+6. 选择演示引擎：`guizang-ppt-skill`、`frontend-slides`、`html-ppt`、`huashu-design`或客户母版，只能承接前面结论。
+7. 动效语法：结合`guizang`、`frontend-slides`和`huashu-design`规则，定义页间、同页、分步、低功耗和export稳定态。
+8. Style Frame截图或视觉草图。
+9. 阶段B正式生产平台Skill复核：把已采用Skill结论落入Page Spec、制作工单、真实产物和QA字段。
+10. 实现后Skill吸收QA。
 
-任何记录中先出现“采用某主题/某模板/某风格/Sxx编号”，再补StyleKit、taste或DNA，视为顺序违规。
+任何记录中先出现“采用某主题/某模板/某风格/Sxx编号”，再补StyleKit、taste或DNA，视为顺序违规。任何方向确认记录没有阶段A Skill调用证据，或正式生产记录没有阶段B Skill复核证据，也视为顺序违规。
 
 ## Design Skill Stack决策表
 
@@ -44,6 +89,9 @@
 | frontend-slides | 是/否 |  |  |  | 固定舞台、3预览、动画pattern | 变成长网页或无预览 |
 | html-ppt | 是/否 |  |  |  | theme/layout/animation映射 | 从零手写或乱套动画 |
 | huashu-design | 是/否 |  |  |  | 三方向探索、动画导演/评审 | 只出一版或动画无叙事 |
+| huashu-ppt / huashu-slides | 是/否 |  |  |  | 品牌资产协议、3方向候选、页面类型密度分级、图片PPT/HTML/PPTX路径判断 | UI部门未判断图片PPT路径或无弃用理由 |
+| humanize-ppt | 是/否 |  |  |  | AST叙事结构、页面媒体决策、逐页生产brief、讲者/使用者动作 | 语言内容未做叙事和密度判断，只把资料压缩成页面 |
+| ppt-master | 是/否 |  |  |  | PPTX可编辑性、模板/图表能力、交付格式约束 | 需求与交付未判断PPTX路线或可编辑需求 |
 
 可用但不调用也必须写理由。不可用时必须按`08-skill-governance.md`走降级审批；不得假装已使用。
 
