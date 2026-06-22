@@ -23,6 +23,7 @@
 | 动效只是最后加动画 | 动效部门必须基于讲述动作先输出脚本，决定静止/分步/揭示/导出稳定态 | 工程层临时加统一动画 |
 | QA只跑脚本，不看审美和截图 | QA必须检查非空截图、可见文字、重点页人工复核和审美硬伤 | 工程烟测冒充QA |
 | Skill修订时误碰HTML产物 | Skill治理任务只允许修改Skill系统文件；不得创建或修改交付物目录/HTML/PPT/PDF | 修Skill时创建或改动交付物 |
+| 过去总结没有按新规则全面整理 | Skill治理复盘必须枚举`versions/*/evidence/*.md`并建立《历史总结新规则对齐矩阵》，说明旧summary是现行、补强、历史快照还是被新规则覆盖 | 只口头说“总结都复盘过”，或直接改写旧evidence冒充当时已满足新规则 |
 
 ## 历史对话需求整合表
 
@@ -43,6 +44,17 @@
 | H-V014-01 | “请你对skill进行完整检查和更新。” | Skill治理/完整审计 | 完整Skill审计必须覆盖入口、流程、部门、内容、UI、审美、动效、QA、证据、经验回写、元数据和验证脚本；每条规则必须形成触发-证据-阻断-责任-验证闭环 | `SKILL.md`、`AGENTS.md`、`00-production-gate.md`、`10-version-evidence.md` | 已修 |
 | H-V014-02 | “还是skill写的不好，审美、ui等等还是没有深度集成guizang dna等skill。” | design-dna/guizang/UI/审美/动效集成失败 | 新增统一深度集成合同：Presentation Design DNA档案、DNA来源追踪、guizang桥接、UI吸收、动效吸收、QA吸收检查；只读取Skill或写风格名不算集成 | `SKILL.md`、`00-production-gate.md`、`04-design-standards.md`、`07-qa-checklist.md`、`08-skill-governance.md`、`11-aesthetic-anti-ai.md`、`17-motion-design-standards.md`、`20-design-dna-guizang-integration.md` | 已修 |
 | H-V014-03 | “stylekit-skill。这些skill不是也要集成进去吗？你先看一下有哪些skill是相关的吧。而且应该集成进去。现在最大的问题还是排版、ui不好看/动效设计十分单一。” | 设计Skill栈/排版UI/动效单一 | 新增Design Skill Stack集成合同：stylekit、taste、design-dna、guizang、frontend-slides、html-ppt、huashu-design必须进入决策表；排版/UI和动效退回必须完成StyleKit吸收、TasteSkill预检、演示引擎选择、Motion source map和QA字段 | `SKILL.md`、`00-production-gate.md`、`04-design-standards.md`、`07-qa-checklist.md`、`08-skill-governance.md`、`11-aesthetic-anti-ai.md`、`17-motion-design-standards.md`、`21-design-skill-stack-integration.md` | 已修 |
+| H-20260622-01 | “针对过去的什么总结进行全面复盘，确认所有的都已经按照新的规则进行了整理。然后检查skill文件，确认均已经全部修改完成。” | 历史总结/evidence对齐、完整Skill复盘 | 必须新增《历史总结新规则对齐矩阵》，逐项覆盖所有`versions/*/evidence/*.md`，并同步检查`SKILL.md`、`AGENTS.md`、`agents/openai.yaml`、全部references和skills配置文件是否已完成修改 | `SKILL.md`、`AGENTS.md`、`10-version-evidence.md`、`18-history-derived-governance.md`、`agents/openai.yaml`、`versions/20260622-retrospective-rule-alignment/evidence/*` | 已修 |
+
+## 历史总结新规则对齐矩阵
+
+当用户要求复盘过去总结、历史总结或所有evidence时，必须先枚举`versions/*/evidence/*.md`，再填写本表。旧summary不要求被改写成新时间点的证据；但必须明确它现在由哪些新规则补强或覆盖。
+
+| evidence路径 | 原始主题 | 新规则覆盖项 | 当前状态 | 处理结论 |
+| :--- | :--- | :--- | :--- | :--- |
+|  | 初始方向/Skill调用/动效/正向参考/QA/其他 | 初始方向Skill栈、全部门Skill矩阵、正向参考深拆、HTML状态机、完整Skill审计等 | 现行/已补强/历史快照/已覆盖 | 保留、补证据、更新reference、阻断生产或不适用 |
+
+本表未完成时，不得声明“所有过去总结都已按新规则整理完成”。发现旧summary与新规则冲突时，优先保留旧summary作为历史事实，并在本表中引用覆盖它的新规则路径；不得静默重写旧summary。
 
 ### V12/V13用户原话证据
 
