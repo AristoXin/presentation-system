@@ -23,3 +23,26 @@ Review Only and Production tasks have different blocker rules. Missing productio
 Do not fabricate online research, screenshot/browser, subagent, multi-agent, QA Freeze, or final-delivery evidence.
 
 `allow_implicit_invocation` is `true` because this Skill should auto-trigger for presentation, deck, HTML/PPT/PDF, visual QA, online research, failure recovery, and Skill governance tasks. It should not trigger for simple exports or tiny unrelated edits.
+
+## Visual Production Architecture
+
+presentation-system uses a pre-code visual production model.
+
+Core chain:
+
+1. Intent and mode detection
+2. Reference routing
+3. External Skill availability scan
+4. External Skill invocation and absorption
+5. Source material intake
+6. Design synthesis
+7. Motion opportunity mapping
+8. Anti-template review
+9. HTML experience contract
+10. Editorial approval
+11. Pre-code visual freeze
+12. Formal implementation
+13. Post-implementation visual QA
+14. QA Freeze
+
+No visual implementation should start before the pre-code visual freeze.

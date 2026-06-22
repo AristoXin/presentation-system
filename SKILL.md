@@ -50,10 +50,24 @@ All detailed rules must reference these gate numbers instead of redefining compe
 - **G4 Reference Routing Gate**: Read `references/index.yaml`, then load only the references required for the current mode and task triggers.
 - **G5 Multi-Agent Evidence Gate**: For Production, repair, QA Freeze, Style Frame, and Vx review, require real role/subagent evidence or mark the missing capability as a blocker. Review-only advice may recommend roles without blocking.
 - **G6 Research Gate**: Trigger online research for latest/current information, official docs, trends, external examples, user-requested search, market/policy/pricing/legal/version-sensitive facts, or browser-source validation. Never invent sources.
+- **G6A External Skill Invocation Gate**: When design, UI, aesthetic review, motion design, HTML/PPT production, current visual trends, or named external Skills are required, resolve each required Skill as `called`, `manual_equivalent`, `not_applicable`, or `blocked`. No visual Production may begin until Skill Availability Scan, Skill Invocation Ledger, and Skill Absorption Matrix exist.
 - **G7 Visual QA Freeze Gate**: For visual artifacts, require screenshot/browser or equivalent visual checks, implementation review, QA record, and freeze evidence before saying final, delivered, or QA-passed.
+- **G7A Design Synthesis Gate**: Visual Production is blocked until Content Creation, UI Design, Aesthetic Review, Motion Design, Interaction Engineering, and QA inputs are integrated into one Design Synthesis Contract.
+- **G7B Motion Opportunity Gate**: For HTML, interactive slides, or presentation artifacts, classify every page as `motion-required`, `motion-optional`, or `intentionally-static` before implementation.
+- **G7C Anti-Template Gate**: Before implementation, challenge repeated card grids, two-column blocks, glass panels, gradient heroes, icon-card matrices, and uniform fade/rise motion.
+- **G7D HTML Experience Gate**: HTML presentation work must define navigation, page, reveal, replay/back, input, reduced-motion, and export/print stable states before final implementation.
+- **G7E Editorial Design Approval Gate**: Relevant departments, deputy editors, and editor-in-chief approval must exist before a non-final reference draft may move to Formal Production.
 - **G8 Failure Freeze Gate**: On user negative feedback about quality, process, research, subagents, or mismatch, stop production and audit failed gates before continuing.
 
-## 6. Current Execution Card
+## 6. Visual Production Blockers
+
+For visual Production, do not start final HTML/CSS/JS/PPT/PDF implementation immediately.
+
+Before creating or editing final artifacts, produce or update Skill Availability Scan, Skill Invocation Ledger, Skill Absorption Matrix, Source Material Intake and Adaptation Contract, Design Synthesis Contract, Page Family System, Motion Opportunity Map, Anti-Template Review, HTML Experience Contract when HTML is involved, Editorial Design Board, and Pre-Code Visual Freeze.
+
+If these records are missing, stop with `PRE_CODE_VISUAL_BLOCKER`. Finished artifacts plus after-the-fact summaries cannot retroactively satisfy design synthesis, Skill invocation, editorial approval, motion opportunity, or HTML experience gates.
+
+## 7. Current Execution Card
 
 For long tasks, multi-file tasks, Skill Governance, Production, Failure Recovery, or Capability Limited tasks, create or maintain a Current Execution Card using `templates/current-execution-card.md`.
 
@@ -68,7 +82,7 @@ The card must lock:
 
 Small Review Only tasks may use a compact inline card.
 
-## 7. Reference Router
+## 8. Reference Router
 
 Before loading detailed rules, read `references/index.yaml`. Use its `read_when`, `gates`, and `required_outputs` fields to decide which reference files to load.
 
@@ -79,7 +93,7 @@ Rules:
 - If a task asks for complete Skill audit or full Skill refactor, read all relevant core files and all references because that is the task scope.
 - If `references/index.yaml` is missing or points to missing files, treat it as a Skill Governance defect and repair it before Production.
 
-## 8. Evidence Rules
+## 9. Evidence Rules
 
 Never claim evidence that was not actually produced.
 
@@ -87,17 +101,18 @@ Never claim evidence that was not actually produced.
 - No subagent or multi-agent claim without real thread/tool/role evidence or an explicit blocker.
 - No screenshot, browser validation, or visual QA claim without actual captured or inspected evidence.
 - No QA Freeze, final version, delivered status, or "all checks passed" wording unless G7 evidence exists.
+- No guizang, design-dna, PPT DNA, Taste, StyleKit, frontend-slides, html-ppt, huashu, ppt-master, humanize-ppt, or last30days claim without ledger and absorption evidence.
 - No Production downgrade just because tools are missing; switch to Mode E or ask the user to change scope.
 
-## 9. Failure Recovery
+## 10. Failure Recovery
 
-If the user says the result is ugly, AI-flavored, template-like, not according to process, missing search, missing subagents, missing review, not what they asked for, or similarly negative, enter Mode D and activate G8.
+If the user says the result is ugly, template-like, static, motionless, AI-flavored, not UI-designed, missing motion, missing guizang/design-dna/Skill invocation, missing department collaboration, missing deputy-editor review, missing editor-in-chief approval, or similarly negative, enter Mode D and activate G8.
 
 Allowed next actions:
 
 - Freeze production.
 - Build or update the Current Execution Card.
-- List failed gates and missing evidence.
+- List failed gates and missing evidence, including Skill Invocation Ledger, Skill Absorption Matrix, Design Synthesis Contract, Motion Opportunity Map, Anti-Template Review, HTML Experience Contract, Editorial Design Board, and Pre-Code Visual Freeze.
 - Read failure-related references from `references/index.yaml`.
 - Rebuild Page Spec, Style Frame, or governance rules before any new artifact production.
 
@@ -107,7 +122,7 @@ Not allowed:
 - Creating a new Vx/final artifact before failure audit and required gates are restored.
 - Claiming prior QA, subagent review, or research evidence retroactively.
 
-## 10. Final Response Rules
+## 11. Final Response Rules
 
 Final responses must match the selected mode.
 

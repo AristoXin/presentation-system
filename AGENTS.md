@@ -63,3 +63,27 @@ When editing this repository:
 - Summarize changed files, validation results, blockers, and remaining risk.
 
 `allow_implicit_invocation` is intentionally `true` in `agents/openai.yaml` because this Skill should auto-trigger for presentation, deck, HTML/PPT/PDF, visual QA, online research, failure recovery, and Skill governance tasks. It should not trigger for simple exports or tiny unrelated edits.
+
+## 8. Pre-Code Visual Production Rule
+
+For any visual Production task, Codex must not start by creating or editing final HTML/CSS/JS/PPT/PDF files.
+
+Before implementation, Codex must create or update Skill Availability Scan, Skill Invocation Ledger, Skill Absorption Matrix, Source Material Intake and Adaptation Contract, Design Synthesis Contract, Motion Opportunity Map, Anti-Template Review, HTML Experience Contract when HTML is involved, Editorial Design Board, and Pre-Code Visual Freeze.
+
+If these records are missing, Codex must stop with `PRE_CODE_VISUAL_BLOCKER`. Do not replace these artifacts with a checklist in the final response. Do not claim UI/aesthetic/motion integration unless the Design Synthesis Contract exists. Do not claim motion design unless the Motion Opportunity Map exists. Do not claim HTML is interactive or non-static unless the HTML Experience Contract exists. Do not start implementation and then write these records afterward.
+
+## 9. External Skill Invocation Rule
+
+Codex must not silently replace named external Skills with its own implementation.
+
+Before writing final visual artifacts, Codex must create or update Skill Availability Scan, Skill Invocation Ledger, Skill Absorption Matrix, Manual Equivalent Record when applicable, and Skill Capability Blocker when required.
+
+If `design-dna`, `PPT DNA`, `guizang`, `StyleKit`, `Taste`, `frontend-slides`, `html-ppt`, `huashu`, `ppt-master`, `humanize-ppt`, or `last30days` is required by the user, reference router, or delivery route, it must be resolved before implementation. Do not claim a named Skill was used or absorbed unless the ledger and absorption matrix exist.
+
+## 10. Editorial Approval Rule
+
+For visual Production, department collaboration is not a final-response claim.
+
+Codex must create or update Editorial Design Board, Department Draft Records, Deputy Editor Consensus Record, Editor-in-Chief Approval Record, and Formal Production Handoff.
+
+Only after these records approve the non-final reference draft may Codex start formal implementation. If records are missing, stop with `EDITORIAL_APPROVAL_BLOCKER`.

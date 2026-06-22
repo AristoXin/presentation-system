@@ -14,6 +14,10 @@ gates:
 required_outputs:
   - PresentationDesignDNA
   - EngineBridgeTable
+  - SkillInvocationLedger
+  - SkillAbsorptionMatrix
+  - DNAToPageMapping
+  - GuizangToPageMapping
 ---
 
 # 20-design-dna-guizang-integration
@@ -25,6 +29,31 @@ required_outputs:
 `design-dna`负责定义“这份内容应该长成什么设计身份”，`guizang-ppt-skill`负责在演示版式和横向翻页语法中承接该身份。二者都不是模板捷径。
 
 任何视觉生产必须先完成当前内容关系、页面族谱和Presentation Design DNA，再选择guizang A/B、html-ppt、frontend-slides或客户母版。先选瑞士风、杂志风、IKB、Sxx、模板路径或主题色，再倒推内容，直接判定为硬套模板。
+
+## DNA and Guizang Are Not Optional Labels
+
+design-dna 决定这份演示的设计身份。guizang-ppt-skill 决定演示版式语法和横向翻页节奏。
+
+二者不能被 Codex 的通用卡片布局、左右栏布局、渐变背景或普通 CSS 动画替代。
+
+如果 design-dna 被判定相关，必须输出：
+
+- design_system
+- design_style
+- visual_effects
+- DNA-to-page-family mapping
+- DNA-to-motion mapping
+
+如果 guizang 被判定相关，必须输出：
+
+- route decision
+- theme rhythm
+- layout/Sxx or equivalent mapping
+- adopted route
+- rejected routes
+- guizang-to-page mapping
+
+没有以上记录时，不得写“已使用 design-dna / guizang”。
 
 ## 四段式强制链路
 

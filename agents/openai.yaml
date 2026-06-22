@@ -1,7 +1,7 @@
 interface:
   display_name: "Presentation System"
   short_description: "Routes presentation governance, production gates, visual QA, and Skill audits"
-  default_prompt: "Use $presentation-system for presentation, deck, HTML/PPT/PDF, Style Frame, Page Spec, visual QA, multi-agent governance, online research, failure recovery, retrospective evidence alignment, or Skill governance work. First classify the task as Mode A Review Only, Mode B Skill Governance, Mode C Production, Mode D Failure Recovery, or Mode E Capability Limited. Read SKILL.md and references/index.yaml, then load only routed references. Do not fabricate research, subagent, screenshot, browser, QA Freeze, or final-delivery evidence. Production tasks must pass active gates G1-G8 as applicable; Review Only tasks are not blocked by missing production tools, but unverified scope must be disclosed."
+  default_prompt: "Use $presentation-system for presentation, deck, HTML/PPT/PDF, Style Frame, Page Spec, visual QA, multi-agent governance, online research, failure recovery, retrospective evidence alignment, or Skill governance work. First classify the task as Mode A Review Only, Mode B Skill Governance, Mode C Production, Mode D Failure Recovery, or Mode E Capability Limited. Read SKILL.md and references/index.yaml, then load only routed references. For visual Production, do not start final HTML/CSS/JS/PPT/PDF before external Skill resolution, source intake, design synthesis, motion opportunity mapping, anti-template review, HTML experience contract when relevant, editorial approval, and Pre-Code Visual Freeze. Do not fabricate research, Skill invocation, subagent, screenshot, browser, QA Freeze, or final-delivery evidence."
 
 policy:
   allow_implicit_invocation: true

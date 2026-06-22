@@ -14,6 +14,7 @@ gates:
 required_outputs:
   - AntiAIReview
   - AestheticRiskList
+  - AntiTemplateReview
 ---
 
 # 11-aesthetic-anti-ai

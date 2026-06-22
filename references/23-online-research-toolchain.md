@@ -14,6 +14,8 @@ required_outputs:
   - ResearchEvidence
   - SourceList
   - ResearchBlocker
+  - Last30DaysVisualPulse
+  - SourceToDesignTranslation
 ---
 
 # 23-online-research-toolchain
@@ -99,6 +101,23 @@ required_outputs:
 ## Last30Days 趋势脉冲
 
 当任务涉及“最近趋势”“当前审美”“社区正在讨论什么”“新工具/新框架/新设计范式反应”“某个品牌、产品、行业、演示风格最近30天舆情”时，优先把 `last30days-skill` 作为 G6 的条件性工具候选。
+
+## Last30Days Search Is Not Memory
+
+当任务要求 last30days、近期趋势、最新视觉案例、最新前端实现、当前审美趋势或外部参考时，必须真实执行搜索或标记阻断。
+
+不得从模型记忆生成 Last30DaysVisualPulse。
+
+Last30DaysVisualPulse 必须包含：
+
+- search queries
+- source list
+- dates
+- extracted patterns
+- adopt/reject decisions
+- source-to-design translation
+
+没有这些字段时，不得声称“结合最近30天趋势”。
 
 接入原则：
 

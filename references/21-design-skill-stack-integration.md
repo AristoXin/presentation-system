@@ -14,6 +14,9 @@ gates:
   - G8
 required_outputs:
   - DesignSkillStackDecision
+  - SkillAvailabilityScan
+  - SkillInvocationLedger
+  - SkillAbsorptionMatrix
 ---
 
 # 21-design-skill-stack-integration
@@ -23,6 +26,30 @@ required_outputs:
 ## 核心问题
 
 演示设计失败通常不是因为缺一个模板，而是因为多个设计Skill各自孤立：StyleKit给了风格，DNA给了字段，guizang给了版式，动效Skill给了动画，但没有被统一成页面族谱、UI语法、运动语法和QA证据。本文件要求在部门初始确认方向时先完成设计Skill栈调用与吸收，再进入Style Frame或全稿生产；正式生产平台启动前还必须二次调用/复核，不能把初始方向记录当作生产证据。
+
+## Named Skill Invocation Is Mandatory
+
+本文件中列出的 Skill 不是风格参考，也不是概念标签。
+
+当某 Skill 被判定为当前任务相关时，必须进入以下四态之一：
+
+- called
+- manual_equivalent
+- not_applicable
+- blocked
+
+禁止第五种状态：Codex 自己做了但声称等价调用。
+
+以下情况视为失败：
+
+- 没有调用 guizang，却声称 guizang 已吸收。
+- 没有 design-dna 输出，却声称已有 Design DNA。
+- 没有 Taste 预检，却声称完成反模板审美。
+- 没有 last30days 搜索，却声称结合最新趋势。
+- 没有 frontend-slides/html-ppt 适配表，却声称 HTML 体验已承接。
+- 没有 Skill Absorption Matrix，却声称 Skill 栈已集成。
+
+Skill 调用必须先于 Style Frame、Page Spec、HTML/CSS/JS/PPT/PDF 实现。
 
 ## 双阶段调用硬门禁
 
