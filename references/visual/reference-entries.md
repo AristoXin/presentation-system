@@ -1,3 +1,18 @@
+---
+id: RVIS
+title: Visual Reference Entries
+applies_to:
+  - visual_reference_library
+  - style_reference_lookup
+  - full_visual_audit
+gates:
+  - G4
+  - G6
+  - G7
+required_outputs:
+  - VisualReferenceEntryList
+---
+
 ## 参考条目明细
 
 ### REF-20260622-01：社媒营销 Campaign Deck 多页视觉系统正向样例

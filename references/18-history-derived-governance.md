@@ -1,3 +1,20 @@
+---
+id: R18
+title: History Derived Governance
+applies_to:
+  - skill_governance
+  - failure_recovery
+  - recurring_failure
+gates:
+  - G3
+  - G4
+  - G5
+  - G8
+required_outputs:
+  - HistoryRequirementTable
+  - RuleClosureMap
+---
+
 # 18-history-derived-governance
 
 读取时机：当用户要求修订本Skill、指出“同一个问题反复出现”、质疑subagent/副主编/模板/参考库/流行调研/审美/动效/QA没有真实发挥作用，或要求“基于历史对话全面修订”时必须先读。本文件来自用户在历史对话中的反复退回意见，是高于普通生产偏好的硬门禁补丁。

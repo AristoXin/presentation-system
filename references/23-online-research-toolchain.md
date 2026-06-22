@@ -1,3 +1,21 @@
+---
+id: R23
+title: Online Research Toolchain
+applies_to:
+  - latest_information
+  - user_requests_online_search
+  - official_sources
+  - current_trends
+gates:
+  - G6
+  - G7
+  - G8
+required_outputs:
+  - ResearchEvidence
+  - SourceList
+  - ResearchBlocker
+---
+
 # 23-online-research-toolchain
 
 读取时机：当任务涉及 HTML Pre、HTML PPT、HTML interactive presentation、网页幻灯片、视觉生产、Style Frame、审美退回、用户要求“联网搜索”“搜索参考”“查找优秀案例”“当前主流审美”“最新UI趋势”“最新组件库文档”“页面不好看”“AI味重”“像模板”“动效单一”时必须读取。
@@ -28,6 +46,7 @@
 | Tavily Extract / Firecrawl | 提取网页正文、结构、设计系统页面、案例页面 | 页面结构分析、组件/布局/文案模式提取 | 复制网页表层视觉或文案 |
 | Context7 | 获取 Tailwind、React、Vite、shadcn/ui、Framer Motion、GSAP 等最新文档 | 官方文档引用、API 使用依据、版本说明 | 使用过时 API 或凭记忆写代码 |
 | Playwright MCP | 打开真实页面、截图、检查响应式、hover/focus、presentation chrome | 截图证据、视觉复核记录、交互状态证据 | 只做静态代码检查或工程 smoke test |
+| last30days-skill | 检索最近30天跨 Reddit、X、YouTube、HN、Polymarket、GitHub、Web 等社区和趋势信号 | Last30Days 趋势脉冲、社区声音、采用/弃用判断 | 把它当普通搜索关键词；未运行引擎却声称已做近30天趋势研究 |
 | 本地参考库 `15` | 沉淀长期设计经验和失败经验 | REF 记录、经验回写 | 外部搜索结果没有回写 |
 
 ## 缺失控件与安装同意
@@ -76,6 +95,36 @@
 8. 审美退回后需要重做视觉方向。
 9. 用户质疑是否真的学习了外部参考。
 10. 需要验证当前设计趋势是否适合或应当弃用。
+
+## Last30Days 趋势脉冲
+
+当任务涉及“最近趋势”“当前审美”“社区正在讨论什么”“新工具/新框架/新设计范式反应”“某个品牌、产品、行业、演示风格最近30天舆情”时，优先把 `last30days-skill` 作为 G6 的条件性工具候选。
+
+接入原则：
+
+1. `last30days-skill` 不是普通 Web 搜索关键词。若安装并可用，必须读取其 `SKILL.md` 并按其 runtime contract 调用，不得临时改写为几次泛搜索。
+2. 该工具适合捕捉近期社区声音、真实互动热度、争议点、用户语言、设计/产品趋势和工具采用信号；不适合替代官方文档、品牌规范、法律/合规来源或本项目 QA。
+3. 若涉及设计审美趋势，结果必须转译为可执行设计判断：采用原则、弃用原则、页面族谱影响、motion/UI/copy 影响和 QA 可见证据。
+4. 若工具未安装、缺少 API key、缺少平台授权或运行失败，必须写入 `ResearchBlocker`，不得声称已完成最近30天趋势扫描。
+5. 若用户只要求只读审计，缺少 `last30days-skill` 不阻断分析；若用户要求正式生产并明确依赖最近趋势，缺失会影响 G6，必要时进入 Mode E。
+
+必须输出：
+
+```text
+Last30Days 趋势脉冲
+- 研究主题：
+- 触发原因：最近趋势/当前审美/社区声音/工具反应/用户明确要求
+- 工具状态：可用/不可用/未安装/授权缺失/运行失败
+- 调用方式或阻断原因：
+- 覆盖来源：
+- 近30天高信号结论：
+- 社区原话或高互动信号：
+- 对当前项目的采用原则：
+- 对当前项目的弃用原则：
+- 影响页面/组件/动效/文案：
+- 回写位置：
+- 不能宣称的能力：
+```
 
 ## 搜索范围
 

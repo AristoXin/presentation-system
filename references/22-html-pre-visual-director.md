@@ -1,3 +1,22 @@
+---
+id: R22
+title: HTML Pre Visual Director
+applies_to:
+  - html_pre
+  - html_ppt
+  - presentation_chrome
+  - browser_validation
+gates:
+  - G1
+  - G4
+  - G6
+  - G7
+  - G8
+required_outputs:
+  - HTMLPreDirectorContract
+  - BrowserValidationPlan
+---
+
 # 22-html-pre-visual-director
 
 读取时机：当任务涉及 HTML Pre、HTML PPT、HTML interactive presentation、web slides、网页幻灯片、HTML演示审美专项、Style Frame、审美退回、页面不好看、AI味重、像模板、排版/UI失败、动效单一、presentation chrome碍眼时读取。若用户明确要求联网搜索、搜索参考、当前主流审美、最新UI趋势、优秀案例、最新组件库文档，或发生审美退回，必须同时读取 `23-online-research-toolchain.md`。
@@ -48,7 +67,7 @@ HTML Pre 审美专项不得只依赖本地参考库。
 
 ## 浏览器视觉验证
 
-有可运行 HTML 后，视觉导演必须把 Playwright MCP 或等价浏览器工具的检查结果交给 QA。浏览器检查包括：
+有可运行 HTML 且已具备真实subagent证据、制作工单、工作平台编制、文件所有权映射和`PROCESS_READY_WORK_PLATFORM`后，视觉导演必须把 Playwright MCP 或等价浏览器工具的检查结果交给 QA。缺少工作平台证据时，不得运行截图验证、Playwright、validation或工程烟测。浏览器检查包括：
 
 - 1440、1280、768、390 四类视口；
 - cover、章节、正文密集、流程、表格/矩阵、数据、收束页；
@@ -70,6 +89,7 @@ HTML Pre 审美专项不得只依赖本地参考库。
 - 必要控件缺失但没有安装提请记录；
 - 用户拒绝安装/授权必要工具后仍继续执行；
 - 无真实 subagent 证据或 `SUBAGENT-BLOCKER`；
+- 无工作平台编制/交付记录/文件所有权映射或 `PROCESS_BLOCKED_NO_WORK_PLATFORM`；
 - 只做静态代码检查或 validation，却声明完成视觉验证；
 - 只有统一 fade/rise、机械位移动效或无首态/后续态矩阵；
 - presentation chrome 默认抢画面，或 export/print 截图不干净。

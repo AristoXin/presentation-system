@@ -1,23 +1,34 @@
 skills:
+  - name: presentation-system
+    role: lightweight-router-production-governance
+    required: required
+    source: "."
+    install: "project-local"
+    verify: "test -f SKILL.md && test -f references/index.yaml"
+    license_required: false
+    notes: "Entry router; detailed rules are routed through references/index.yaml."
+
   - name: ppt-master
     role: native-pptx-generation
-    required: true
+    required: conditional
     source: "${CODEX_HOME:-$HOME/.codex}/skills/ppt-master"
     install: "local"
     verify: "test -f ${CODEX_HOME:-$HOME/.codex}/skills/ppt-master/SKILL.md"
     license_required: false
+    required_when: "The approved delivery route requires native editable PPTX generation."
 
   - name: frontend-slides
     role: html-interactive-slides
-    required: true
+    required: conditional
     source: "${CODEX_HOME:-$HOME/.codex}/skills/frontend-slides"
     install: "local"
     verify: "test -f ${CODEX_HOME:-$HOME/.codex}/skills/frontend-slides/SKILL.md"
     license_required: false
+    required_when: "The approved delivery route requires HTML interactive slides."
 
   - name: taste-skill
     role: style-frame-and-anti-ai-review
-    required: false
+    required: optional
     source: "${CODEX_HOME:-$HOME/.codex}/skills/taste-skill"
     install: "local"
     verify: "test -f ${CODEX_HOME:-$HOME/.codex}/skills/taste-skill/SKILL.md"
@@ -25,23 +36,24 @@ skills:
 
   - name: stylekit-skill
     role: stylekit-design-library-and-style-direction
-    required: false
+    required: optional
     source: "${CODEX_HOME:-$HOME/.codex}/skills/stylekit-skill"
     install: "local"
     verify: "test -f ${CODEX_HOME:-$HOME/.codex}/skills/stylekit-skill/SKILL.md"
     license_required: false
 
   - name: headroom
-    role: context-compression
-    required: false
+    role: long-task-context-recommended-mechanism
+    required: recommended
     source: "skills/vendor/headroom"
     install: "embedded"
     verify: "test -f skills/vendor/headroom/SKILL.md"
     license_required: false
+    recommended_when: "Long tasks, many files, many screenshots, many subagents, or risk of context compression."
 
   - name: html-ppt-skill-main
     role: html-ppt-basic-framework
-    required: false
+    required: optional
     source: "${CODEX_HOME:-$HOME/.codex}/skills/html-ppt-skill"
     install: "local"
     verify: "test -f ${CODEX_HOME:-$HOME/.codex}/skills/html-ppt-skill/SKILL.md"
@@ -49,7 +61,7 @@ skills:
 
   - name: PPT-Design-DNA-main
     role: design-dna-system-style-effects-and-page-taxonomy
-    required: false
+    required: optional
     source: "${CODEX_HOME:-$HOME/.codex}/skills/design-dna"
     install: "local"
     verify: "test -f ${CODEX_HOME:-$HOME/.codex}/skills/design-dna/SKILL.md"
@@ -57,7 +69,7 @@ skills:
 
   - name: humanize-ppt-main
     role: copy-compression-natural-expression
-    required: false
+    required: optional
     source: "${CODEX_HOME:-$HOME/.codex}/skills/humanize-ppt"
     install: "local"
     verify: "test -f ${CODEX_HOME:-$HOME/.codex}/skills/humanize-ppt/SKILL.md"
@@ -65,7 +77,7 @@ skills:
 
   - name: huashu-ppt
     role: narrative-structure
-    required: false
+    required: optional
     source: "${CODEX_HOME:-$HOME/.codex}/skills/huashu-slides"
     install: "local"
     verify: "test -f ${CODEX_HOME:-$HOME/.codex}/skills/huashu-slides/SKILL.md"
@@ -73,44 +85,87 @@ skills:
 
   - name: guizang-ppt-skill
     role: presentation-layout-theme-rhythm-and-motion-system
-    required: false
+    required: optional
     source: "${CODEX_HOME:-$HOME/.codex}/skills/guizang-ppt-skill"
     install: "local"
     verify: "test -f ${CODEX_HOME:-$HOME/.codex}/skills/guizang-ppt-skill/SKILL.md"
     license_required: false
 
+  - name: last30days-skill
+    role: recent-community-and-trend-research
+    required: conditional
+    source: "${CODEX_HOME:-$HOME/.codex}/skills/last30days"
+    install: "external: npx skills add mvanhorn/last30days-skill -g"
+    verify: "test -f ${CODEX_HOME:-$HOME/.codex}/skills/last30days/SKILL.md"
+    license_required: false
+    required_when: "G6 requires recent community/trend signals, current aesthetic discourse, or last-30-days product/tool reactions."
+    repository: "https://github.com/mvanhorn/last30days-skill"
+
 online_toolchain:
   - name: tavily-search
     role: online-search-trends-excellent-cases
-    required: false
+    required: conditional
     install: "requires-user-consent-and-api-key-or-connector"
     verify: "requires-live-tool-check"
     api_key_required: true
+    required_when: "G6 is active and this tool is the chosen search provider."
 
   - name: brave-search
     role: web-image-news-cross-search
-    required: false
+    required: conditional
     install: "requires-user-consent-and-api-key-or-connector"
     verify: "requires-live-tool-check"
     api_key_required: true
+    required_when: "G6 is active and web/image/news cross-search is needed."
 
   - name: firecrawl
     role: webpage-extraction-structure-and-design-system-pages
-    required: false
+    required: conditional
     install: "requires-user-consent-and-api-key-or-connector"
     verify: "requires-live-tool-check"
     api_key_required: true
+    required_when: "G6 is active and webpage extraction or structured capture is needed."
 
   - name: context7
     role: latest-frontend-library-official-docs
-    required: false
+    required: conditional
     install: "requires-user-consent-or-connector"
     verify: "requires-live-tool-check"
     api_key_required: false
+    required_when: "G6 is active for latest frontend or library official docs."
 
   - name: playwright-mcp
     role: browser-visual-validation-hover-focus-responsive-chrome
-    required: false
+    required: conditional
     install: "requires-user-consent-or-local-mcp"
     verify: "requires-live-browser-check"
     api_key_required: false
+    required_when: "G7 requires browser visual validation and no equivalent local evidence exists."
+
+capabilities:
+  - name: subagent
+    role: multi-agent-evidence-and-review
+    required: conditional
+    verify: "requires-live-tool-check"
+    required_when: "Production, repair, Style Frame, Vx review, or QA Freeze needs G5 evidence."
+    blocker_gate: G5
+
+  - name: browser
+    role: browser-rendering-and-interaction-check
+    required: conditional
+    verify: "requires-live-browser-check"
+    required_when: "Visual QA, browser validation, screenshots, or interactive HTML checks are required."
+    blocker_gate: G7
+
+  - name: visual QA
+    role: screenshot-and-human-visual-freeze
+    required: conditional
+    verify: "requires-screenshot-or-equivalent-evidence"
+    required_when: "The agent claims QA Freeze, final visual delivery, or browser/screenshot verification."
+    blocker_gate: G7
+
+  - name: context compression
+    role: long-task-continuity
+    required: recommended
+    verify: "headroom-or-equivalent-summary-available"
+    recommended_when: "The task spans many files, references, subagents, screenshots, or long context."

@@ -1,3 +1,20 @@
+---
+id: R13
+title: Template Intake
+applies_to:
+  - template
+  - reference_deck
+  - fixed_page_count
+gates:
+  - G1
+  - G3
+  - G4
+  - G7
+required_outputs:
+  - TemplateIntake
+  - PageCountDecision
+---
+
 # 13-template-intake
 
 读取时机：当用户提供模板、旧PPT、参考deck、客户母版、品牌模板、示例演示文稿、固定页数要求或“参考这个风格/结构”时读取。

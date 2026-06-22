@@ -1,3 +1,20 @@
+---
+id: R15
+title: Visual Reference Library
+applies_to:
+  - visual_reference
+  - moodboard
+  - design_dna
+  - style_frame
+gates:
+  - G1
+  - G4
+  - G6
+  - G7
+required_outputs:
+  - ReferenceTranslationCard
+---
+
 # 15-visual-reference-library
 
 读取时机：当任务涉及视觉参考图、风格调研、Design DNA 提取、Style Frame 方向、审美策略沉淀、或用户提供外部设计参考链接时读取。若进入正式视觉生产，同时读取 `04-design-standards.md` 与 `11-aesthetic-anti-ai.md`。

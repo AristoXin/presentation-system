@@ -1,3 +1,21 @@
+---
+id: R20
+title: Design DNA Guizang Integration
+applies_to:
+  - design_dna
+  - guizang
+  - visual_production
+  - style_frame
+gates:
+  - G1
+  - G4
+  - G7
+  - G8
+required_outputs:
+  - PresentationDesignDNA
+  - EngineBridgeTable
+---
+
 # 20-design-dna-guizang-integration
 
 读取时机：当任务涉及完整视觉生产、Style Frame、HTML/PPT/Slides、审美/UI/动效退回、用户质疑“没有深度集成design-dna/guizang/审美/UI/动效”等情况时读取。本文件是`design-dna`、`guizang-ppt-skill`、UI、审美和动效的统一落地合同；其他reference可以追加要求，不能降低本文件门槛。

@@ -1,3 +1,20 @@
+---
+id: R08
+title: Skill Governance
+applies_to:
+  - skill_governance
+  - skill_dependency
+  - manifest
+gates:
+  - G2
+  - G4
+  - G5
+  - G6
+required_outputs:
+  - SkillDecisionTable
+  - CapabilityBlockerList
+---
+
 # 08-skill-governance
 
 读取时机：当任务依赖ppt-master、frontend-slides、taste-skill、stylekit-skill、Headroom、html-ppt-skill-main、PPT-Design-DNA-main、humanize-ppt-main、huashu-ppt、guizang-ppt-skill、huashu-design等外部或本地Skill，或需要安装、验证、阻断、锁定版本、检查license时读取。若用户质疑design-dna/guizang/审美/UI/动效没有深度集成，同时读取`20-design-dna-guizang-integration.md`。若用户质疑stylekit/taste/frontend-slides/html-ppt/huashu-design等相关Skill没有集成，或指出排版/UI不好看、动效单一，同时读取`21-design-skill-stack-integration.md`。若用户要求联网搜索、外部参考、当前趋势、最新文档、浏览器视觉验证，或涉及Tavily、Brave、Firecrawl、Context7、Playwright MCP，同时读取`23-online-research-toolchain.md`。
@@ -99,13 +116,13 @@ StyleKit只有进入以下五类产物，才算被本系统完整吸收：
 
 涉及排版/UI不好看、动效单一或用户点名相关Skill未集成时，必须先按`21-design-skill-stack-integration.md`建立Design Skill Stack决策表。`stylekit-skill`、`taste-skill`、`design-dna`、`guizang-ppt-skill`、`frontend-slides`、`html-ppt`、`huashu-design`均必须被标记为调用/不调用/降级/阻断之一；可用但不调用时必须写明理由。
 
-设计Skill后置规则：主设计Skill只能在《部门一致意见表》《参考经验转译卡》《页数充分性判断表》《内容到UI/动效转译表》《动效方向》和QA前置风险完成后选择。Skill、模板、主题色、风格B/风格A、Sxx版式编号都只是实现约束，不是设计结论。若执行记录中先出现“采用某Skill/某风格/某主题色”，再补写内容转译、页数判断或部门意见，该记录无效，产物不得创建或冻结。
+设计Skill后置规则：主设计Skill只能在《部门会议记录》《交付文件初始备忘录》《参考经验转译卡》《页数充分性判断表》《内容到UI/动效转译表》《动效方向》和QA前置风险完成后选择。Skill、模板、主题色、风格B/风格A、Sxx版式编号都只是实现约束，不是设计结论。若执行记录中先出现“采用某Skill/某风格/某主题色”，再补写内容转译、页数判断或部门意见，该记录无效，产物不得创建或冻结。
 
 深度定制证明：调用任何设计Skill前，必须写明当前用户资料如何生成页数充分性判断和页面族谱，例如哪些页必须新增、拆分、合并或进入附录，哪些页是讲授、哪些页是案例剧场、哪些页是工作台、哪些页是AI复核、哪些页需要静止、哪些页需要分步揭示。若无法说明“为什么当前内容必须这样长出来”，不得调用模板生成全稿。
 
 模板适配性证明：调用任何设计Skill前，必须先证明候选模板/版式适合当前内容；不能只证明它“好看”或“可用”。证明字段至少包含：当前内容需求、候选模板可承载项、无法承载项、弃用模板/趋势、是否会扭曲用户内容、最终是否采用。只要出现“模板不完全合适但先套上再说”的判断，工具链副主编必须阻断调用。
 
-模板改造证明：候选模板被采用后，调用设计Skill前还必须有《模板改造差异表》。字段至少包含：页码、原模板/版式、保留项、改写项、新增项、删除项、内容密度调整、视觉锚点替换、动效调整、责任副主编、是否允许执行层生产。没有该表，工具链副主编不得执行模板复制、模板生成、Sxx套用或全稿HTML/PPT创建。
+模板改造证明：候选模板被采用后，调用设计Skill前还必须有《模板改造差异表》。字段至少包含：页码、原模板/版式、保留项、改写项、新增项、删除项、内容密度调整、视觉锚点替换、动效调整、责任副主编、是否允许工作平台关键页试生产/正式全稿生产。没有该表，工具链副主编不得执行模板复制、模板生成、Sxx套用、关键页或全稿HTML/PPT创建。
 
 | Skill | 真正调用的最低证据 |
 | :--- | :--- |
@@ -203,10 +220,10 @@ guizang只有满足以下条件才算吸收：
 
 ## 版本存储规则
 
-- 每次生成新版本后，必须将完整版本文件包存入专门版本目录。
+- 每次在Subagent Evidence Lock、`PROCESS_READY_WORK_PLATFORM`、制作工单、实现后复核和QA前置条件满足后生成新版本，才可将完整版本文件包存入专门版本目录。
 - 项目根目录只保留最新版本文件，作为默认入口。
 - 历史版本建议放入`versions/<version>/`，并保留对应Skill确认单、QA记录和证据链。
-- 冻结版本不可直接覆盖；如需修复，生成新的版本目录。
+- 冻结版本不可直接覆盖；如需修复，必须重新走副主编分发、工作平台修订、同一副主编复审、全部适用副主编一致审核、副总编一致性审核和总编二级复核；只有前置证据齐全时才可生成新的版本目录。
 
 ## Skill可用性确认步骤
 

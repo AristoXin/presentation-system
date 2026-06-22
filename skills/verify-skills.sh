@@ -107,12 +107,16 @@ flush_skill() {
       verify_status="not-configured"
       ;;
     *)
-      verify_status="configured"
+      if eval "$current_verify" >/dev/null 2>&1; then
+        verify_status="passes"
+      else
+        verify_status="fails"
+      fi
       ;;
   esac
 
   availability="unproven"
-  if [ "$global_status" = "present" ] || [ "$vendor_status" = "present" ] || [ "$verify_status" = "configured" ]; then
+  if [ "$global_status" = "present" ] || [ "$vendor_status" = "present" ] || [ "$verify_status" = "passes" ]; then
     availability="available"
   fi
 
@@ -148,6 +152,8 @@ while IFS= read -r line; do
       ;;
     "    verify:"*)
       current_verify="${line#*verify: }"
+      current_verify="${current_verify%\"}"
+      current_verify="${current_verify#\"}"
       current_verify="${current_verify%\\\"}"
       current_verify="${current_verify#\\\"}"
       ;;

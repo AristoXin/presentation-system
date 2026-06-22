@@ -1,3 +1,21 @@
+---
+id: R11
+title: Aesthetic Anti-AI
+applies_to:
+  - visual_design
+  - style_frame
+  - anti_ai_flavor
+  - failure_recovery
+gates:
+  - G1
+  - G4
+  - G7
+  - G8
+required_outputs:
+  - AntiAIReview
+  - AestheticRiskList
+---
+
 # 11-aesthetic-anti-ai
 
 读取时机：当用户要求“更高级”“不像AI做的”“提升审美”“避免模板感”，或任务涉及完整视觉生产、Style Frame、品牌气质、视觉方向确认、真实素材审查时读取。若涉及design-dna、PPT-DNA、guizang、HTML/PPT/Slides视觉生产或用户质疑审美/UI/动效没有深度集成，同时读取`20-design-dna-guizang-integration.md`。若用户指出排版/UI不好看、动效单一，或质疑stylekit/taste/frontend-slides/html-ppt/huashu-design等Skill没有集成，同时读取`21-design-skill-stack-integration.md`。
@@ -158,7 +176,7 @@ StyleKit不得覆盖当前用户资料、品牌色、受众场景和内容关系
 | 阶段 | 允许产出 | 禁止动作 |
 | :--- | :--- | :--- |
 | 失败审计期 | 失败审计、旧版否决、文字Page Spec、版式草图说明 | 生成HTML/PPT/PDF/截图包、命名Vx、跑Playwright/validation |
-| 用户批准Style Frame探索期 | 不少于2个方向的受控局部视觉证据；可为1-3页HTML样张截图、PPTX截图、Figma截图或清晰版式草图 | 扩展全稿、命名候选交付、QA冻结、复制旧版作为母版 |
+| 用户批准Style Frame探索期 | 在`SEL-real`、制作工单、工作平台编制、文件所有权映射和`PROCESS_READY_WORK_PLATFORM`齐全后，不少于2个方向的受控局部视觉证据；可为1-3页HTML样张截图、PPTX截图、Figma截图或清晰版式草图 | 缺少subagent或工作平台证据时生成文件/截图；扩展全稿、命名候选交付、QA冻结、复制旧版作为母版 |
 | 用户确认恢复全稿生产期 | 按正式生产流程生成全稿HTML/PPT/PDF和截图证据 | 跳过页数充分性、subagent复核、Style Frame协同输入 |
 
 不得直接进入全稿，不得只用文字描述“瑞士风、杂志风、高级感”。
@@ -169,7 +187,7 @@ StyleKit不得覆盖当前用户资料、品牌色、受众场景和内容关系
 
 若用户退回的是“看着不舒服、黑白蓝混用、排版瞎搞”等视觉舒适问题，下一轮Style Frame必须先给出《视觉舒适度检查》：主背景、正文背景、强调色、文字色、明度节奏、观看距离、连续页面色温变化、强对比使用理由。没有该表，不得进入全稿。
 
-Style Frame必须是真正的视觉证据，不只是文字描述。正常生产或用户批准Style Frame探索期可接受证据包括：1-3页HTML样张截图、PPTX截图、Figma截图或清晰的版式草图。失败审计期尚未获用户批准探索时，只能提交文字Page Spec或版式草图说明，不能生成新的HTML/PPT/PDF/截图包。只写“稳健专业、克制高级、反AI味”这类形容词，不算通过。
+Style Frame必须是真正的视觉证据，不只是文字描述。正常生产或用户批准Style Frame探索期，在真实subagent证据、制作工单、工作平台编制和文件所有权映射齐全后，可接受证据包括：1-3页HTML样张截图、PPTX截图、Figma截图或清晰的版式草图。失败审计期尚未获用户批准探索时，只能提交文字Page Spec或版式草图说明，不能生成新的HTML/PPT/PDF/截图包；缺少工作平台证据时也不能生成文件或截图。只写“稳健专业、克制高级、反AI味”这类形容词，不算通过。
 
 若基于既有HTML版本迭代，Style Frame闸门必须先回看旧版关键页。检查顺序：
 

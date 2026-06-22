@@ -1,0 +1,202 @@
+version: 1
+description: Reference routing index for presentation-system. Load only references matching the selected mode and task triggers.
+
+modes:
+  review_only:
+    description: Read-only audit or recommendation tasks.
+    gates: [G1, G2, G4]
+  skill_governance:
+    description: Tasks that modify the skill system itself.
+    gates: [G1, G2, G3, G4]
+  production:
+    description: Tasks that create, repair, freeze, or deliver final visual artifacts.
+    gates: [G1, G2, G3, G4, G5, G6, G7]
+  failure_recovery:
+    description: Tasks triggered by user dissatisfaction, process failure, or missing evidence.
+    gates: [G3, G4, G5, G7, G8]
+  capability_limited:
+    description: Tasks affected by missing tools or unavailable capabilities.
+    gates: [G2, G4, G5, G6, G7]
+
+references:
+  - id: R00
+    path: references/00-production-gate.md
+    title: Production Gate
+    read_when: [production, repair, qa_freeze, style_frame, failure_recovery, visual_qa]
+    gates: [G1, G2, G3, G5, G7, G8]
+    required_outputs: [ProductionGateDecision, BlockerList]
+
+  - id: R00B
+    path: references/00-system-overview.md
+    title: System Overview
+    read_when: [review_only, skill_governance, production, explain_system, full_audit]
+    gates: [G1, G2, G4]
+    required_outputs: [SystemScopeDecision]
+
+  - id: R01
+    path: references/01-team-roles.md
+    title: Team Roles
+    read_when: [production, repair, qa_freeze, team_governance, multi_agent, work_platform]
+    gates: [G1, G5, G7]
+    required_outputs: [RoleMap, ResponsibilityMatrix]
+
+  - id: R02
+    path: references/02-workflow.md
+    title: Workflow
+    read_when: [production, skill_governance, project_start, template_intake, unclear_intent]
+    gates: [G1, G2, G3, G4]
+    required_outputs: [WorkflowDecision, RequirementLock]
+
+  - id: R03
+    path: references/03-delivery-routing.md
+    title: Delivery Routing
+    read_when: [production, delivery_format, html, pptx, pdf, screenshot_pack, notes]
+    gates: [G1, G2, G4, G7]
+    required_outputs: [DeliveryRouteDecision]
+
+  - id: R04
+    path: references/04-design-standards.md
+    title: Design Standards
+    read_when: [production, visual_design, style_frame, page_spec, failure_recovery, anti_ai_flavor]
+    gates: [G1, G4, G7, G8]
+    required_outputs: [DesignStandardChecklist, PageSpecRiskList]
+
+  - id: R05
+    path: references/05-content-standards.md
+    title: Content Standards
+    read_when: [production, content_rewrite, narrative, speaker_notes, report_to_deck, teaching_material]
+    gates: [G1, G3, G4]
+    required_outputs: [ContentGapList, NarrativeDraft]
+
+  - id: R06
+    path: references/06-interaction-standards.md
+    title: Interaction Standards
+    read_when: [html, interactive_slides, browser_validation, presentation_chrome, controls, responsive]
+    gates: [G1, G4, G7]
+    required_outputs: [InteractionChecklist]
+
+  - id: R07
+    path: references/07-qa-checklist.md
+    title: QA Checklist
+    read_when: [production, repair, qa_freeze, screenshot, browser_check, visual_qa, failure_recovery]
+    gates: [G5, G7, G8]
+    required_outputs: [QAResult, FreezeStatus]
+
+  - id: R08
+    path: references/08-skill-governance.md
+    title: Skill Governance
+    read_when: [skill_governance, skill_dependency, manifest, external_skill, install_or_verify_skill]
+    gates: [G2, G4, G5, G6]
+    required_outputs: [SkillDecisionTable, CapabilityBlockerList]
+
+  - id: R09
+    path: references/09-context-engineering.md
+    title: Context Engineering
+    read_when: [long_task, many_files, multi_agent, many_screenshots, context_compression, headroom]
+    gates: [G2, G4]
+    required_outputs: [ContextPlan]
+
+  - id: R10
+    path: references/10-version-evidence.md
+    title: Version Evidence
+    read_when: [production, versioning, evidence_pack, qa_freeze, screenshot_pack, repair]
+    gates: [G3, G5, G7, G8]
+    required_outputs: [EvidenceRecord, VersionStatus]
+
+  - id: R11
+    path: references/11-aesthetic-anti-ai.md
+    title: Aesthetic Anti-AI
+    read_when: [visual_design, style_frame, anti_ai_flavor, user_says_ai, user_says_ugly, failure_recovery]
+    gates: [G1, G4, G7, G8]
+    required_outputs: [AntiAIReview, AestheticRiskList]
+
+  - id: R12
+    path: references/12-project-type-patterns.md
+    title: Project Type Patterns
+    read_when: [intent_detection, project_type, avoid_training_default, audience_unclear]
+    gates: [G1, G2, G3]
+    required_outputs: [ProjectTypeDecision]
+
+  - id: R13
+    path: references/13-template-intake.md
+    title: Template Intake
+    read_when: [template, reference_deck, old_ppt, fixed_page_count, page_count_can_change]
+    gates: [G1, G3, G4, G7]
+    required_outputs: [TemplateIntake, PageCountDecision]
+
+  - id: R14
+    path: references/14-narrative-patterns.md
+    title: Narrative Patterns
+    read_when: [narrative, story_structure, teaching, client_report, roadshow, research_report]
+    gates: [G1, G3, G4]
+    required_outputs: [NarrativePatternDecision]
+
+  - id: R15
+    path: references/15-visual-reference-library.md
+    title: Visual Reference Library
+    read_when: [visual_reference, moodboard, design_dna, trend_reference, style_frame, external_example]
+    gates: [G1, G4, G6, G7]
+    required_outputs: [ReferenceTranslationCard]
+
+  - id: R16
+    path: references/16-multi-agent-governance.md
+    title: Multi-Agent Governance
+    read_when: [production, repair, qa_freeze, style_frame, v_review, multi_agent, subagent, work_platform]
+    gates: [G5, G7, G8]
+    required_outputs: [AgentEvidence, SubagentBlocker]
+
+  - id: R17
+    path: references/17-motion-design-standards.md
+    title: Motion Design Standards
+    read_when: [html, motion, animation, reveal_steps, transition, video_export, user_says_motion_bad]
+    gates: [G1, G4, G7, G8]
+    required_outputs: [MotionScript, StepStateMatrix, OfficialMotionTranslation]
+
+  - id: R18
+    path: references/18-history-derived-governance.md
+    title: History Derived Governance
+    read_when: [skill_governance, failure_recovery, recurring_failure, historical_audit, user_questions_process]
+    gates: [G3, G4, G5, G8]
+    required_outputs: [HistoryRequirementTable, RuleClosureMap]
+
+  - id: R19
+    path: references/19-approved-production-flow.md
+    title: Approved Production Flow
+    read_when: [production, repair, rollback, review_for_delivery, qa_freeze, style_frame, failure_recovery]
+    gates: [G2, G5, G7, G8]
+    required_outputs: [ProductionFlowStatus, UserReviewStatus]
+
+  - id: R20
+    path: references/20-design-dna-guizang-integration.md
+    title: Design DNA Guizang Integration
+    read_when: [design_dna, guizang, ppt_dna, visual_production, style_frame, user_questions_design_integration]
+    gates: [G1, G4, G7, G8]
+    required_outputs: [PresentationDesignDNA, EngineBridgeTable]
+
+  - id: R21
+    path: references/21-design-skill-stack-integration.md
+    title: Design Skill Stack Integration
+    read_when: [stylekit, taste, frontend_slides, html_ppt, huashu_design, design_skill_stack, layout_failure]
+    gates: [G1, G4, G7, G8]
+    required_outputs: [DesignSkillStackDecision]
+
+  - id: R22
+    path: references/22-html-pre-visual-director.md
+    title: HTML Pre Visual Director
+    read_when: [html_pre, html_ppt, html_interactive, presentation_chrome, browser_validation, style_frame, visual_failure]
+    gates: [G1, G4, G6, G7, G8]
+    required_outputs: [HTMLPreDirectorContract, BrowserValidationPlan]
+
+  - id: R23
+    path: references/23-online-research-toolchain.md
+    title: Online Research Toolchain
+    read_when: [latest_information, user_requests_online_search, official_sources, current_trends, external_examples, market_or_policy_or_technical_updates, last30days, community_trends]
+    gates: [G6, G7, G8]
+    required_outputs: [ResearchEvidence, SourceList, ResearchBlocker, Last30DaysPulse]
+
+  - id: RVIS
+    path: references/visual/reference-entries.md
+    title: Visual Reference Entries
+    read_when: [visual_reference_library, style_reference_lookup, full_visual_audit]
+    gates: [G4, G6, G7]
+    required_outputs: [VisualReferenceEntryList]

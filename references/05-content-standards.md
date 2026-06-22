@@ -1,3 +1,19 @@
+---
+id: R05
+title: Content Standards
+applies_to:
+  - production
+  - content_rewrite
+  - narrative
+gates:
+  - G1
+  - G3
+  - G4
+required_outputs:
+  - ContentGapList
+  - NarrativeDraft
+---
+
 # 05-content-standards
 
 读取时机：当任务涉及内容核查、文案提炼、叙事骨架、内容差距、讲者备注、演讲稿、报告转演示或把资料重构成页面时读取。需要按项目类型选择叙事结构时，同时读取`14-narrative-patterns.md`。

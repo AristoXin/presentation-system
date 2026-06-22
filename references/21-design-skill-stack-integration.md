@@ -1,3 +1,21 @@
+---
+id: R21
+title: Design Skill Stack Integration
+applies_to:
+  - design_skill_stack
+  - stylekit
+  - taste
+  - frontend_slides
+  - layout_failure
+gates:
+  - G1
+  - G4
+  - G7
+  - G8
+required_outputs:
+  - DesignSkillStackDecision
+---
+
 # 21-design-skill-stack-integration
 
 读取时机：当任务涉及部门初始确认方向、完整视觉生产、Style Frame、HTML/PPT/Slides、审美退回、排版/UI不好看、动效单一，或用户质疑“stylekit/design-dna/guizang/taste/frontend-slides/html-ppt/huashu-design等Skill没有集成”时读取。本文件定义演示设计相关Skill的分层、双阶段调用顺序、吸收证据和QA阻断。

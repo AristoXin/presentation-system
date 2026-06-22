@@ -1,3 +1,18 @@
+---
+id: R06
+title: Interaction Standards
+applies_to:
+  - html
+  - interactive_slides
+  - browser_validation
+gates:
+  - G1
+  - G4
+  - G7
+required_outputs:
+  - InteractionChecklist
+---
+
 # 06-interaction-standards
 
 读取时机：当任务涉及HTML交互演示、Web slides、前端演示框架、快捷键、滚轮、触摸、目录、全屏、讲者备注、控制栏、presentation chrome、audience/presenter/export模式时读取。若涉及动效、动画、分步呈现、转场节奏，同时读取`17-motion-design-standards.md`；动效策略由动效设计部负责，交互工程只负责实现。

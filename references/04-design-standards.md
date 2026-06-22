@@ -1,3 +1,21 @@
+---
+id: R04
+title: Design Standards
+applies_to:
+  - production
+  - visual_design
+  - style_frame
+  - failure_recovery
+gates:
+  - G1
+  - G4
+  - G7
+  - G8
+required_outputs:
+  - DesignStandardChecklist
+  - PageSpecRiskList
+---
+
 # 04-design-standards
 
 读取时机：当任务涉及视觉系统、版式、表格页、正文色阶、中英混排、页面族谱、问题页结构修复或设计质量审查时读取。若涉及“AI味/审美/高级感/Style Frame”，同时读取`11-aesthetic-anti-ai.md`。若用户提供视觉参考图、设计风格链接或灵感板，同时读取`15-visual-reference-library.md`。若涉及design-dna、PPT-DNA、guizang、HTML/PPT/Slides视觉生产或用户质疑审美/UI/动效没有深度集成，同时读取`20-design-dna-guizang-integration.md`。若用户指出排版/UI不好看、layout重复、卡片感重、stylekit/taste等Skill未集成，同时读取`21-design-skill-stack-integration.md`。

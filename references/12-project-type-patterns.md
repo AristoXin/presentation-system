@@ -1,3 +1,18 @@
+---
+id: R12
+title: Project Type Patterns
+applies_to:
+  - intent_detection
+  - project_type
+  - avoid_training_default
+gates:
+  - G1
+  - G2
+  - G3
+required_outputs:
+  - ProjectTypeDecision
+---
+
 # 12-project-type-patterns
 
 读取时机：当需要识别项目类型、避免把材料误判为培训课件、或根据不同场景选择内容重点和交付物时读取。

@@ -1,3 +1,17 @@
+---
+id: R09
+title: Context Engineering
+applies_to:
+  - long_task
+  - context_compression
+  - headroom
+gates:
+  - G2
+  - G4
+required_outputs:
+  - ContextPlan
+---
+
 # 09-context-engineering
 
 读取时机：当任务跨多轮、输入资料很多、日志很长、截图/导出很多、需要版本归档、或模型开始失焦时读取。

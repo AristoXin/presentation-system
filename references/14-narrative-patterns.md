@@ -1,3 +1,20 @@
+---
+id: R14
+title: Narrative Patterns
+applies_to:
+  - narrative
+  - teaching
+  - client_report
+  - roadshow
+  - research_report
+gates:
+  - G1
+  - G3
+  - G4
+required_outputs:
+  - NarrativePatternDecision
+---
+
 # 14-narrative-patterns
 
 读取时机：当需要根据项目类型选择叙事结构、重构章节、生成叙事蓝图或避免所有材料套用同一结构时读取。

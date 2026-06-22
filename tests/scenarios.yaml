@@ -1,0 +1,88 @@
+scenarios:
+  - id: S01
+    user_request: "帮我核查一下这个 skill，然后提出修改建议。"
+    expected_mode: review_only
+    should_create_final_artifact: false
+    required_gates: [G1, G2, G4]
+    should_block_if_no_subagent: false
+
+  - id: S02
+    user_request: "请你修改这个 Skill，让它更稳定。"
+    expected_mode: skill_governance
+    should_create_final_artifact: false
+    required_gates: [G1, G2, G3, G4]
+
+  - id: S03
+    user_request: "根据我上传的资料做一份客户汇报PPT。"
+    expected_mode: production
+    should_create_final_artifact: true
+    required_gates: [G1, G2, G3, G4, G5, G7]
+
+  - id: S04
+    user_request: "这个页面太丑了，AI味太重。"
+    expected_mode: failure_recovery
+    should_create_final_artifact: false
+    required_gates: [G3, G7, G8]
+
+  - id: S05
+    user_request: "请联网查最新资料再做。"
+    expected_mode: production
+    required_gates: [G1, G2, G3, G4, G6]
+
+  - id: S06
+    user_request: "我只是要你给 Codex 一份修改提示词，不要生成页面。"
+    expected_mode: skill_governance
+    should_create_final_artifact: false
+    forbidden_actions:
+      - generate_html_page
+      - generate_ppt
+      - claim_visual_qa_freeze
+
+  - id: S07
+    user_request: "参考这个20页模板，但你可以根据内容增减页数。"
+    expected_mode: production
+    required_gates: [G1, G3, G4, G7]
+    notes:
+      - Must not mechanically copy 20 pages.
+      - Must explain page count decision.
+
+  - id: S08
+    user_request: "你没有调用 subagent，重新做。"
+    expected_mode: failure_recovery
+    required_gates: [G5, G8]
+    should_continue_directly: false
+
+  - id: S09
+    user_request: "做一个授课用的课件。"
+    expected_mode: production
+    required_gates: [G1, G2, G3, G4, G7]
+    notes:
+      - Teaching use case is explicit.
+
+  - id: S10
+    user_request: "做一份客户路演材料，不是培训课件。"
+    expected_mode: production
+    required_gates: [G1, G2, G3, G4, G7]
+    forbidden_assumptions:
+      - training_course_default
+
+  - id: S11
+    user_request: "现在工具不能联网，你先分析结构问题。"
+    expected_mode: review_only
+    should_block_if_no_online_search: false
+
+  - id: S12
+    user_request: "生成最终版HTML，并完成截图验证。"
+    expected_mode: production
+    required_gates: [G1, G2, G3, G4, G7]
+    should_block_if_no_browser_or_screenshot: true
+
+  - id: S13
+    user_request: "做之前先看看最近30天大家怎么评价这种演示风格和UI趋势。"
+    expected_mode: production
+    required_gates: [G1, G2, G3, G4, G6]
+    conditional_tools:
+      - last30days-skill
+    required_outputs:
+      - Last30DaysPulse
+    should_block_if_recent_trend_tool_required_but_missing: true
