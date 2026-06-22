@@ -62,3 +62,17 @@ A Skill output is not absorbed until it affects downstream production fields.
 | last30days | source list, extracted patterns, adopt/reject table |
 
 Reading a Skill description is not absorption. Mentioning a Skill name is not absorption. Copying a template is not absorption.
+
+## Installation Assistance
+
+If a user downloads `presentation-system` without the companion Skills installed, Codex must help resolve the missing capabilities before Production.
+
+Minimum sequence:
+
+1. Run or ask the user to run `bash skills/verify-skills.sh`.
+2. For public GitHub-backed Skills known to this repository, run or offer `bash skills/install-skills.sh --install-missing`.
+3. For local, private, connector, MCP, API-key, or account-bound capabilities, explain the exact missing item and ask for user consent or credentials before setup.
+4. Re-run `bash skills/verify-skills.sh` after installation.
+5. Record each Skill as `called`, `manual_equivalent`, `not_applicable`, or `blocked`.
+
+If installation is declined, unavailable, or cannot be verified, do not continue as if the Skill was available. Use `SkillCapabilityBlocker` or an approved `ManualEquivalentRecord`.

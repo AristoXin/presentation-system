@@ -69,6 +69,10 @@ global_skill_candidates() {
     huashu-ppt)
       printf '%s\n' "huashu-slides"
       ;;
+    last30days-skill)
+      printf '%s\n' "last30days-skill"
+      printf '%s\n' "last30days"
+      ;;
   esac
   printf '%s\n' "$1"
 }
@@ -176,6 +180,7 @@ echo
 echo "Interpretation:"
 echo "- global=present means a user-installed skill exists and can be invoked by reading its SKILL.md."
 echo "- vendor=missing alone does not mean unavailable; treat a skill as missing only when global=missing, vendor=missing, and verify=not-configured."
+echo "- If a public GitHub-backed companion skill is missing, run: bash skills/install-skills.sh --install-missing"
 echo "- online toolchain entries are not installed by this script; request user consent/API keys/connectors before enabling them."
 echo "- Do not promise capabilities for unverified required skills; pause, request install/enablement when appropriate, or record a blocker."
 echo "Verification completed."

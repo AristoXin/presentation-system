@@ -24,6 +24,24 @@ Do not fabricate online research, screenshot/browser, subagent, multi-agent, QA 
 
 `allow_implicit_invocation` is `true` because this Skill should auto-trigger for presentation, deck, HTML/PPT/PDF, visual QA, online research, failure recovery, and Skill governance tasks. It should not trigger for simple exports or tiny unrelated edits.
 
+## Companion Skill Installation
+
+Users who download `presentation-system` may not have every companion Skill installed locally. Codex must help them verify and install missing Skills before claiming related capabilities.
+
+Run:
+
+```bash
+bash skills/verify-skills.sh
+```
+
+To install public GitHub-backed companion Skills known to this repository, run:
+
+```bash
+bash skills/install-skills.sh --install-missing
+```
+
+Currently this installer can directly install `last30days-skill` from `mvanhorn/last30days-skill`. Account-bound, private, local, connector, MCP, or API-key-backed capabilities still require explicit user consent and setup. If a required Skill cannot be installed or enabled, record it as `manual_equivalent`, `not_applicable`, or `blocked` in the Skill Invocation Ledger; do not claim it was called.
+
 ## Visual Production Architecture
 
 presentation-system uses a pre-code visual production model.

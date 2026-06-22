@@ -94,9 +94,9 @@ skills:
   - name: last30days-skill
     role: recent-community-and-trend-research
     required: conditional
-    source: "${CODEX_HOME:-$HOME/.codex}/skills/last30days"
-    install: "external: npx skills add mvanhorn/last30days-skill -g"
-    verify: "test -f ${CODEX_HOME:-$HOME/.codex}/skills/last30days/SKILL.md"
+    source: "${CODEX_HOME:-$HOME/.codex}/skills/last30days-skill"
+    install: "github: mvanhorn/last30days-skill path=skills/last30days name=last30days-skill"
+    verify: "test -f ${CODEX_HOME:-$HOME/.codex}/skills/last30days-skill/SKILL.md"
     license_required: false
     required_when: "G6 requires recent community/trend signals, current aesthetic discourse, or last-30-days product/tool reactions."
     repository: "https://github.com/mvanhorn/last30days-skill"

@@ -73,6 +73,15 @@
       "verify": "test -f ${CODEX_HOME:-$HOME/.codex}/skills/guizang-ppt-skill/SKILL.md",
       "lockedAt": "2026-06-21",
       "availability": "local-installed"
+    },
+    {
+      "name": "last30days-skill",
+      "role": "recent-community-and-trend-research",
+      "source": "${CODEX_HOME:-$HOME/.codex}/skills/last30days-skill",
+      "install": "github: mvanhorn/last30days-skill path=skills/last30days name=last30days-skill",
+      "verify": "test -f ${CODEX_HOME:-$HOME/.codex}/skills/last30days-skill/SKILL.md",
+      "lockedAt": "2026-06-22",
+      "availability": "public-github-installable"
     }
   ],
   "onlineToolchain": [
