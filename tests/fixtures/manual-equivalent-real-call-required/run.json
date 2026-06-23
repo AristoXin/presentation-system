@@ -1,0 +1,1 @@
+{"schema_version":1,"run_id":"manual-real-required","mode":"production","delivery_route":"html_interactive","current_stage":"design","user_requires_real_skill_invocation":true,"required_skill_ids":["design-dna"],"active_gate_ids":["G6A"],"active_reference_ids":["R30"],"qa_freeze_requested":false,"created_at":"2026-06-23T00:00:00Z","updated_at":"2026-06-23T00:00:00Z"}

@@ -1,0 +1,1 @@
+{"run_id":"pptx-route","approvals":[{"department":"Delivery","author_agent_id":"agent-a","deputy_editor_agent_id":"agent-b","editor_in_chief_agent_id":"agent-c","execution_ref":"fixture","reviewed_artifact_path":"draft.json","reviewed_artifact_sha256":"fixture-sha","decision":"approved","comments":"pptx route reviewed","approved_at":"2026-06-23T00:00:00Z"}]}

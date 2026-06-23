@@ -1,0 +1,159 @@
+{
+  "schema_version": 1,
+  "skills": [
+    {
+      "id": "design-dna",
+      "aliases": ["PPT-Design-DNA-main", "PPT DNA", "ppt_dna", "design_dna"],
+      "role": "design identity, visual tokens, page families, effects, and motion grammar",
+      "required_when": ["design-dna", "ppt_dna", "visual_production", "style_frame"],
+      "required_outputs": ["PresentationDesignDNA", "DNAToPageMapping"],
+      "installation": {
+        "type": "local",
+        "candidate_names": ["design-dna", "PPT-Design-DNA-main"],
+        "public_repository": null
+      },
+      "manual_equivalent_allowed": true,
+      "block_if_user_requires_real_call": true
+    },
+    {
+      "id": "guizang-ppt-skill",
+      "aliases": ["guizang", "guizang-ppt", "guizang_ppt_skill"],
+      "role": "presentation layout engine, theme rhythm, page-family mapping",
+      "required_when": ["guizang-ppt-skill", "guizang", "page_family", "horizontal_presentation"],
+      "required_outputs": ["GuizangRouteDecision", "GuizangToPageMapping"],
+      "installation": {
+        "type": "local",
+        "candidate_names": ["guizang-ppt-skill"],
+        "public_repository": null
+      },
+      "manual_equivalent_allowed": true,
+      "block_if_user_requires_real_call": true
+    },
+    {
+      "id": "stylekit-skill",
+      "aliases": ["StyleKit", "stylekit", "stylekit-style-prompts"],
+      "role": "style candidate generation and quality gates",
+      "required_when": ["stylekit-skill", "stylekit", "style_frame", "aesthetic_recovery"],
+      "required_outputs": ["StyleCandidateTable", "StyleOwnership", "QualityGate"],
+      "installation": {
+        "type": "local",
+        "candidate_names": ["stylekit-skill", "stylekit-style-prompts"],
+        "public_repository": null
+      },
+      "manual_equivalent_allowed": true,
+      "block_if_user_requires_real_call": true
+    },
+    {
+      "id": "taste-skill",
+      "aliases": ["Taste", "taste", "design-taste-frontend"],
+      "role": "aesthetic preflight and anti-template critique",
+      "required_when": ["taste-skill", "taste", "anti_template_risk", "user_says_template"],
+      "required_outputs": ["DesignRead", "DesignDials", "AntiTemplatePreflight"],
+      "installation": {
+        "type": "local",
+        "candidate_names": ["taste-skill", "design-taste-frontend"],
+        "public_repository": null
+      },
+      "manual_equivalent_allowed": true,
+      "block_if_user_requires_real_call": true
+    },
+    {
+      "id": "frontend-slides",
+      "aliases": ["frontend_slides"],
+      "role": "HTML interactive slide engine and animation implementation constraints",
+      "required_when": ["frontend-slides", "html_interactive", "interactive_slides"],
+      "required_outputs": ["HTMLExperienceConstraints", "AnimationPatternMap"],
+      "installation": {
+        "type": "local",
+        "candidate_names": ["frontend-slides"],
+        "public_repository": null
+      },
+      "manual_equivalent_allowed": true,
+      "block_if_user_requires_real_call": true
+    },
+    {
+      "id": "html-ppt",
+      "aliases": ["html-ppt-skill-main", "html-ppt-skill", "HTML PPT", "html_ppt"],
+      "role": "HTML deck template framework, presenter mode, export decisions",
+      "required_when": ["html-ppt", "html_ppt", "html_deck"],
+      "required_outputs": ["ThemeLayoutAnimationMapping", "ExportModeDecision"],
+      "installation": {
+        "type": "local",
+        "candidate_names": ["html-ppt", "html-ppt-skill", "html-ppt-skill-main"],
+        "public_repository": null
+      },
+      "manual_equivalent_allowed": true,
+      "block_if_user_requires_real_call": true
+    },
+    {
+      "id": "huashu-design",
+      "aliases": ["huashu", "huashu-design"],
+      "role": "high-fidelity visual directions and motion review",
+      "required_when": ["huashu-design", "high_fidelity", "design_variants"],
+      "required_outputs": ["ThreeDirectionExploration", "VisualCritique"],
+      "installation": {
+        "type": "local",
+        "candidate_names": ["huashu-design"],
+        "public_repository": null
+      },
+      "manual_equivalent_allowed": true,
+      "block_if_user_requires_real_call": true
+    },
+    {
+      "id": "huashu-slides",
+      "aliases": ["huashu-ppt", "huashu-slide-codex", "huashu-slides"],
+      "role": "image-deck and brand-asset protocol path; distinct from huashu-design unless verified",
+      "required_when": ["huashu-slides", "image_deck", "brand_asset_protocol"],
+      "required_outputs": ["BrandAssetProtocol", "ImageDeckRouteDecision"],
+      "installation": {
+        "type": "local",
+        "candidate_names": ["huashu-slides", "huashu-slide-codex"],
+        "public_repository": null
+      },
+      "manual_equivalent_allowed": true,
+      "block_if_user_requires_real_call": true
+    },
+    {
+      "id": "humanize-ppt",
+      "aliases": ["humanize-ppt-main"],
+      "role": "narrative AST, page brief, and media decisions",
+      "required_when": ["humanize-ppt", "content_to_deck", "narrative_structure"],
+      "required_outputs": ["NarrativeAST", "PageBrief"],
+      "installation": {
+        "type": "local",
+        "candidate_names": ["humanize-ppt"],
+        "public_repository": null
+      },
+      "manual_equivalent_allowed": true,
+      "block_if_user_requires_real_call": true
+    },
+    {
+      "id": "ppt-master",
+      "aliases": ["ppt_master"],
+      "role": "editable PPTX route and export constraints",
+      "required_when": ["ppt-master", "pptx_editable", "editable_ppt"],
+      "required_outputs": ["PPTXRouteDecision", "EditabilityDecision"],
+      "installation": {
+        "type": "local",
+        "candidate_names": ["ppt-master"],
+        "public_repository": null
+      },
+      "manual_equivalent_allowed": true,
+      "block_if_user_requires_real_call": true
+    },
+    {
+      "id": "last30days-search",
+      "aliases": ["last30days", "last30days-skill", "last30days_search"],
+      "role": "recent source-backed visual trend and community signal research",
+      "required_when": ["last30days-search", "current_trends", "latest_visual_reference"],
+      "required_outputs": ["Last30DaysVisualPulse", "SourceList", "SourceToDesignTranslation"],
+      "installation": {
+        "type": "public-github",
+        "candidate_names": ["last30days-skill", "last30days"],
+        "public_repository": "https://github.com/mvanhorn/last30days-skill"
+      },
+      "manual_equivalent_allowed": false,
+      "block_if_user_requires_real_call": true
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+{"schema_version":1,"run_id":"skill-na","mode":"production","delivery_route":"pdf_static","current_stage":"design","user_requires_real_skill_invocation":false,"required_skill_ids":["frontend-slides"],"active_gate_ids":["G6A"],"active_reference_ids":["R30"],"qa_freeze_requested":false,"created_at":"2026-06-23T00:00:00Z","updated_at":"2026-06-23T00:00:00Z"}

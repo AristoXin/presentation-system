@@ -21,6 +21,12 @@ required_outputs:
 
 # 21-design-skill-stack-integration
 
+Use canonical IDs from `skills/visual-skill-registry.json` in machine evidence:
+`stylekit-skill`, `taste-skill`, `design-dna`, `guizang-ppt-skill`,
+`frontend-slides`, `html-ppt`, `huashu-design`, `huashu-slides`,
+`humanize-ppt`, `ppt-master`, and `last30days-search`. Aliases remain valid only
+for parsing user input.
+
 读取时机：当任务涉及部门初始确认方向、完整视觉生产、Style Frame、HTML/PPT/Slides、审美退回、排版/UI不好看、动效单一，或用户质疑“stylekit/design-dna/guizang/taste/frontend-slides/html-ppt/huashu-design等Skill没有集成”时读取。本文件定义演示设计相关Skill的分层、双阶段调用顺序、吸收证据和QA阻断。
 
 ## 核心问题

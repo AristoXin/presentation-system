@@ -1,0 +1,1 @@
+{"schema_version":1,"run_id":"blank-html","mode":"production","delivery_route":"html_interactive","current_stage":"design","user_requires_real_skill_invocation":false,"required_skill_ids":[],"active_gate_ids":["G7"],"active_reference_ids":["R25"],"qa_freeze_requested":false,"created_at":"2026-06-23T00:00:00Z","updated_at":"2026-06-23T00:00:00Z"}

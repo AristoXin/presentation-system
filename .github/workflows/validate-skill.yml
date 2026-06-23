@@ -1,0 +1,20 @@
+name: validate-skill
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+      - name: Structure validation
+        run: python3 scripts/validate-skill-structure.py
+      - name: Scenario regression tests
+        run: python3 scripts/run-scenario-tests.py
+      - name: Offline skill runtime lock
+        run: bash skills/verify-skills.sh

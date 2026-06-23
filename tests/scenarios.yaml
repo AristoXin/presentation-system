@@ -1,276 +1,53 @@
-scenarios:
-  - id: S01
-    user_request: "帮我核查一下这个 skill，然后提出修改建议。"
-    expected_mode: review_only
-    should_create_final_artifact: false
-    required_gates: [G1, G2, G4]
-    should_block_if_no_subagent: false
-
-  - id: S02
-    user_request: "请你修改这个 Skill，让它更稳定。"
-    expected_mode: skill_governance
-    should_create_final_artifact: false
-    required_gates: [G1, G2, G3, G4]
-
-  - id: S03
-    user_request: "根据我上传的资料做一份客户汇报PPT。"
-    expected_mode: production
-    should_create_final_artifact: true
-    required_gates: [G1, G2, G3, G4, G5, G7]
-
-  - id: S04
-    user_request: "这个页面太丑了，AI味太重。"
-    expected_mode: failure_recovery
-    should_create_final_artifact: false
-    required_gates: [G3, G7, G8]
-
-  - id: S05
-    user_request: "请联网查最新资料再做。"
-    expected_mode: production
-    required_gates: [G1, G2, G3, G4, G6]
-
-  - id: S06
-    user_request: "我只是要你给 Codex 一份修改提示词，不要生成页面。"
-    expected_mode: skill_governance
-    should_create_final_artifact: false
-    forbidden_actions:
-      - generate_html_page
-      - generate_ppt
-      - claim_visual_qa_freeze
-
-  - id: S07
-    user_request: "参考这个20页模板，但你可以根据内容增减页数。"
-    expected_mode: production
-    required_gates: [G1, G3, G4, G7]
-    notes:
-      - Must not mechanically copy 20 pages.
-      - Must explain page count decision.
-
-  - id: S08
-    user_request: "你没有调用 subagent，重新做。"
-    expected_mode: failure_recovery
-    required_gates: [G5, G8]
-    should_continue_directly: false
-
-  - id: S09
-    user_request: "做一个授课用的课件。"
-    expected_mode: production
-    required_gates: [G1, G2, G3, G4, G7]
-    notes:
-      - Teaching use case is explicit.
-
-  - id: S10
-    user_request: "做一份客户路演材料，不是培训课件。"
-    expected_mode: production
-    required_gates: [G1, G2, G3, G4, G7]
-    forbidden_assumptions:
-      - training_course_default
-
-  - id: S11
-    user_request: "现在工具不能联网，你先分析结构问题。"
-    expected_mode: review_only
-    should_block_if_no_online_search: false
-
-  - id: S12
-    user_request: "生成最终版HTML，并完成截图验证。"
-    expected_mode: production
-    required_gates: [G1, G2, G3, G4, G7]
-    should_block_if_no_browser_or_screenshot: true
-
-  - id: S13
-    user_request: "做之前先看看最近30天大家怎么评价这种演示风格和UI趋势。"
-    expected_mode: production
-    required_gates: [G1, G2, G3, G4, G6]
-    conditional_tools:
-      - last30days-skill
-    required_outputs:
-      - Last30DaysPulse
-    should_block_if_recent_trend_tool_required_but_missing: true
-
-  - id: S17
-    user_request: "帮我生成一个好看的HTML演示稿。"
-    expected_mode: production
-    must_not_start_with:
-      - create_index_html
-      - write_css
-      - write_js
-    required_before_implementation:
-      - SkillAvailabilityScan
-      - SkillInvocationLedger
-      - DesignSynthesisContract
-      - MotionOpportunityMap
-      - AntiTemplateReview
-      - HTMLExperienceContract
-      - EditorialDesignBoard
-      - PreCodeVisualFreeze
-
-  - id: S18
-    user_request: "不要做成静态PPT，要有适合内容的动效。"
-    expected_mode: production
-    required_before_implementation:
-      - MotionOpportunityMap
-      - MotionStateMatrix
-      - HTMLExperienceContract
-    forbidden_patterns:
-      - uniform_fade_rise
-      - static_slide_only
-      - next_prev_only
-
-  - id: S19
-    user_request: "你这个太像模板了，不好看。"
-    expected_mode: failure_recovery
-    required_action:
-      - freeze_production
-      - rebuild_design_synthesis_contract
-      - rebuild_anti_template_review
-      - rebuild_page_family_system
-    forbidden_action:
-      - direct_css_patch_only
-
-  - id: S20
-    user_request: "为什么很多地方该动效没有动？"
-    expected_mode: failure_recovery
-    required_action:
-      - audit_motion_opportunity_map
-      - classify_pages_motion_required_optional_static
-      - rebuild_motion_state_matrix
-    forbidden_action:
-      - add_random_animations
-
-  - id: S21
-    user_request: "UI、审美、动效、内容部门要深度合作后再实现。"
-    expected_mode: production
-    required_before_implementation:
-      - DepartmentInputs
-      - DesignSynthesisContract
-      - DeputyEditorConsensusRecord
-      - PreCodeVisualFreeze
-    forbidden_action:
-      - direct_html_implementation
-
-  - id: S22
-    user_request: "把这个旧PPT改成HTML演示，不能只是网页翻页。"
-    expected_mode: production
-    required_before_implementation:
-      - SourceMaterialIntake
-      - DesignSynthesisContract
-      - MotionOpportunityMap
-      - AntiTemplateReview
-      - HTMLExperienceContract
-    static_ppt_risk_must_be_checked: true
-
-  - id: S23
-    user_request: "这个页面是流程讲解，应该逐步展开。"
-    expected_mode: production
-    required_before_implementation:
-      - MotionOpportunityMap
-      - MotionStateMatrix
-    page_should_not_be_static: true
-
-  - id: S24
-    user_request: "这个页面是对比页，不能一上来全露出。"
-    expected_mode: production
-    required_before_implementation:
-      - MotionOpportunityMap
-      - RevealStrategy
-    required_motion_reason:
-      - comparison_attention_control
-
-  - id: S25
-    user_request: "这个页面信息很密，需要静态对照阅读。"
-    expected_mode: production
-    required_before_implementation:
-      - StaticPageJustification
-    note:
-      - Static is allowed only if justified as a design decision.
-
-  - id: S26
-    user_request: "不要套模板，根据我的内容重新设计。"
-    expected_mode: production
-    required_before_implementation:
-      - AntiTemplateReview
-      - PageFamilyDiversityReport
-    forbidden_patterns:
-      - repeated_card_grid
-      - repeated_two_column_layout
-      - generic_gradient_template
-
-  - id: S27
-    user_request: "调用归藏 skill 和 PPT DNA skill，帮我做一个高质量 HTML 演示。"
-    expected_mode: production
-    required_before_implementation:
-      - SkillAvailabilityScan
-      - SkillInvocationLedger
-      - SkillAbsorptionMatrix
-      - DesignSynthesisContract
-      - PreCodeVisualFreeze
-    forbidden_action:
-      - self_implement_without_skill_resolution
-
-  - id: S28
-    user_request: "你没有真正调用 guizang，只是自己套了模板。"
-    expected_mode: failure_recovery
-    required_action:
-      - freeze_production
-      - audit_skill_invocation_ledger
-      - rebuild_skill_absorption_matrix
-      - mark_previous_artifact_as_bypass_if_no_evidence
-    forbidden_action:
-      - direct_css_patch_only
-
-  - id: S29
-    user_request: "必须结合最近30天的视觉趋势。"
-    expected_mode: production
-    required_before_implementation:
-      - Last30DaysVisualPulse
-      - SourceList
-      - SourceToDesignTranslation
-    should_block_if_no_real_search: true
-
-  - id: S30
-    user_request: "用 design-dna 确定风格身份，用 guizang 确定版式语法。"
-    expected_mode: production
-    required_before_implementation:
-      - SkillInvocationLedger
-      - PresentationDesignDNA
-      - GuizangRouteDecision
-      - DNAToPageMapping
-      - GuizangToPageMapping
-    forbidden_action:
-      - generic_card_layout
-
-  - id: S31
-    user_request: "如果某个 skill 不可用，先告诉我，不要假装用了。"
-    expected_mode: capability_limited
-    required_action:
-      - SkillAvailabilityScan
-      - SkillCapabilityBlocker
-    forbidden_action:
-      - claim_called_unavailable_skill
-
-  - id: S32
-    user_request: "你说你用了 Taste 和 StyleKit，证据在哪里？"
-    expected_mode: failure_recovery
-    required_action:
-      - audit_skill_invocation_ledger
-      - audit_skill_absorption_matrix
-      - report_missing_evidence
-    forbidden_action:
-      - invent_retroactive_evidence
-
-  - id: S33
-    user_request: "做一个不要模板化、审美高级、动效丰富的 HTML deck。"
-    expected_mode: production
-    required_before_implementation:
-      - SkillAvailabilityScan
-      - SkillInvocationLedger
-      - DesignSynthesisContract
-      - MotionOpportunityMap
-      - AntiTemplateReview
-      - HTMLExperienceContract
-    required_skill_resolution:
-      - taste-skill
-      - stylekit-skill
-      - design-dna
-      - frontend-slides
-      - html-ppt
+{
+  "schema_version": 1,
+  "scenarios": [
+    {
+      "id": "S01",
+      "user_request": "audit the skill and suggest fixes",
+      "context": {"mode": "review_only", "delivery_route": "review_only", "stage": "startup", "triggers": ["startup"], "named_skills": [], "user_requires_real_skill_invocation": false},
+      "expected": {"reference_ids": ["R00B", "R02"], "required_skill_ids": [], "active_gates": ["G1", "G2", "G4"], "implementation_allowed": false, "blocker_codes": [], "max_initial_references": 8}
+    },
+    {
+      "id": "S02",
+      "user_request": "modify presentation-system governance",
+      "context": {"mode": "skill_governance", "delivery_route": "skill_governance", "stage": "startup", "triggers": ["skill_governance"], "named_skills": [], "user_requires_real_skill_invocation": false},
+      "expected": {"reference_ids": ["R00B", "R02", "R08"], "required_skill_ids": [], "active_gates": ["G1", "G2", "G3", "G4"], "implementation_allowed": false, "blocker_codes": [], "max_initial_references": 8}
+    },
+    {
+      "id": "S03",
+      "user_request": "make an interactive HTML deck from user assets",
+      "context": {"mode": "production", "delivery_route": "html_interactive", "stage": "intake", "triggers": ["user_assets_present"], "named_skills": [], "user_requires_real_skill_invocation": false},
+      "expected": {"reference_ids": ["R13", "R24"], "required_skill_ids": ["frontend-slides"], "active_gates": ["G1", "G3", "G4", "G7", "G7A", "G7C", "G8"], "implementation_allowed": false, "blocker_codes": [], "max_initial_references": 8}
+    },
+    {
+      "id": "S04",
+      "user_request": "use guizang and PPT DNA before producing HTML",
+      "context": {"mode": "production", "delivery_route": "html_interactive", "stage": "design", "triggers": ["visual_design"], "named_skills": ["guizang", "PPT DNA"], "user_requires_real_skill_invocation": true},
+      "expected": {"reference_ids": ["R25", "R30", "R20"], "required_skill_ids": ["design-dna", "frontend-slides", "guizang-ppt-skill"], "active_gates": ["G1", "G4", "G5", "G6", "G6A", "G7", "G7A", "G7E", "G8"], "implementation_allowed": false, "blocker_codes": [], "max_initial_references": 8}
+    },
+    {
+      "id": "S05",
+      "user_request": "HTML QA Freeze",
+      "context": {"mode": "production", "delivery_route": "html_interactive", "stage": "qa_freeze", "triggers": ["qa_freeze"], "named_skills": [], "user_requires_real_skill_invocation": false},
+      "expected": {"reference_ids": ["R19"], "required_skill_ids": ["frontend-slides"], "active_gates": ["G2", "G5", "G7", "G7B", "G7C", "G7D", "G8"], "implementation_allowed": true, "blocker_codes": [], "max_initial_references": 8}
+    },
+    {
+      "id": "S06",
+      "user_request": "editable PPTX without HTML state machine",
+      "context": {"mode": "production", "delivery_route": "pptx_editable", "stage": "implementation", "triggers": ["pptx_editable"], "named_skills": [], "user_requires_real_skill_invocation": false},
+      "expected": {"reference_ids": [], "required_skill_ids": ["ppt-master"], "active_gates": [], "implementation_allowed": true, "blocker_codes": [], "max_initial_references": 8}
+    },
+    {
+      "id": "S07",
+      "user_request": "latest trends before style frame",
+      "context": {"mode": "production", "delivery_route": "html_interactive", "stage": "intake", "triggers": ["current_trends"], "named_skills": ["last30days"], "user_requires_real_skill_invocation": true},
+      "expected": {"reference_ids": ["R23"], "required_skill_ids": ["frontend-slides", "last30days-search"], "active_gates": ["G6", "G7", "G8"], "implementation_allowed": false, "blocker_codes": [], "max_initial_references": 8}
+    },
+    {
+      "id": "S08",
+      "user_request": "startup full audit exception",
+      "context": {"mode": "production", "delivery_route": "html_interactive", "stage": "startup", "triggers": ["startup"], "named_skills": [], "full_audit": true, "user_requires_real_skill_invocation": false},
+      "expected": {"reference_ids": ["R00", "R00B", "R01", "R02", "R03", "R04", "R05", "R06", "R07", "R08"], "required_skill_ids": ["frontend-slides"], "active_gates": ["G1", "G2", "G3", "G4", "G5", "G6", "G6A", "G7", "G7A", "G7B", "G7C", "G7D", "G7E", "G8"], "implementation_allowed": false, "blocker_codes": [], "max_initial_references": 8, "budget_exception": "full_audit"}
+    }
+  ]
+}

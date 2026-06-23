@@ -1,5 +1,10 @@
 # Skill Invocation Ledger
 
+This Markdown ledger is a human-readable worksheet only. It cannot satisfy
+runtime validation. Machine evidence must be written to
+`evidence/<run_id>/skill-invocations.json` and must reference the current
+`skills/runtime-lock.json` entry for every `called` Skill.
+
 ## Invocation Summary
 
 | Skill | State | Invocation method | Input | Output path | Evidence | Notes |

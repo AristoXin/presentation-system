@@ -67,6 +67,13 @@ Before creating or editing final artifacts, produce or update Skill Availability
 
 If these records are missing, stop with `PRE_CODE_VISUAL_BLOCKER`. Finished artifacts plus after-the-fact summaries cannot retroactively satisfy design synthesis, Skill invocation, editorial approval, motion opportunity, or HTML experience gates.
 
+Markdown templates are not evidence. Machine evidence is the current
+`evidence/<run_id>/*.json` set, anchored by `run.json`.
+
+Route-specific validation takes precedence over one universal evidence list:
+HTML, editable PPTX, static PDF, screenshot packs, review-only work, and Skill
+governance each have different required evidence.
+
 ## 7. Current Execution Card
 
 For long tasks, multi-file tasks, Skill Governance, Production, Failure Recovery, or Capability Limited tasks, create or maintain a Current Execution Card using `templates/current-execution-card.md`.
@@ -76,6 +83,7 @@ The card must lock:
 - Selected mode and why other modes do not apply.
 - Latest user requirements and forbidden assumptions.
 - Active gates G1-G8.
+- Active gates G1-G8, including G6A and G7A-G7E.
 - Required references from `references/index.yaml`.
 - Evidence requirements for research, subagents, screenshots/browser checks, QA Freeze, and blockers.
 - Allowed next actions and disallowed actions.
@@ -84,7 +92,10 @@ Small Review Only tasks may use a compact inline card.
 
 ## 8. Reference Router
 
-Before loading detailed rules, read `references/index.yaml`. Use its `read_when`, `gates`, and `required_outputs` fields to decide which reference files to load.
+Before loading detailed rules, read `references/index.yaml` and use
+`scripts/resolve-reference-route.py` for deterministic routing. Use its stage,
+format, trigger, gate, owner, and required output fields to decide which
+reference files to load.
 
 Rules:
 
@@ -102,6 +113,8 @@ Never claim evidence that was not actually produced.
 - No screenshot, browser validation, or visual QA claim without actual captured or inspected evidence.
 - No QA Freeze, final version, delivered status, or "all checks passed" wording unless G7 evidence exists.
 - No guizang, design-dna, PPT DNA, Taste, StyleKit, frontend-slides, html-ppt, huashu, ppt-master, humanize-ppt, or last30days claim without ledger and absorption evidence.
+- No external Skill `called` claim without the current `skills/runtime-lock.json`
+  and structured invocation/output evidence for the same `run_id`.
 - No Production downgrade just because tools are missing; switch to Mode E or ask the user to change scope.
 
 ## 10. Failure Recovery

@@ -10,6 +10,7 @@ You are the implementation agent for this repository. Treat `presentation-system
 - `references/index.yaml` defines reference routing by mode, trigger, gate, and required output.
 - `references/*.md` define detailed procedures for production, design, QA, multi-agent work, online research, failure recovery, and Skill governance.
 - `templates/*.md` define evidence formats such as the Current Execution Card.
+- `evidence/<run_id>/*.json` is the machine-validated runtime evidence model.
 - `scripts/validate-skill-structure.py` checks structural drift.
 - `tests/scenarios.yaml` lists regression scenarios for mode and gate behavior.
 
@@ -19,6 +20,7 @@ Before modifying behavior, read:
 
 - `SKILL.md`
 - `references/index.yaml`
+- `scripts/resolve-reference-route.py` output for the current mode, stage, route, triggers, and named Skills
 - Files directly relevant to the user's selected mode and task
 
 Do not read every reference by default. Full reference reads are appropriate only when the user asks for complete Skill audit/refactor or when the Current Execution Card requires them.
@@ -39,6 +41,10 @@ For Skill Governance, modify only Skill-system files unless the user explicitly 
 
 Never claim research, subagent work, screenshots, browser checks, QA Freeze, final delivery, or all-checks-passed status unless there is actual evidence.
 
+Use the current `run_id` for all machine evidence. Do not use copied Markdown
+templates, final summaries, or placeholder records as validator evidence.
+External Skill `called` records must reference the current `skills/runtime-lock.json`.
+
 Production, repair, Style Frame, Vx review, and QA Freeze tasks usually require real multi-agent/subagent, browser/screenshot, and QA evidence. Review Only tasks may disclose missing evidence without blocking analysis.
 
 ## 6. Blocker Handling
@@ -50,6 +56,8 @@ For Production tasks, missing required tools can block final delivery:
 - Missing browser/screenshot capability affects G7.
 - User dissatisfaction or process failure activates G8.
 
+QA Freeze must run `scripts/validate-visual-production.py <target> --run-id <id> --phase qa-freeze --strict` or be reported as unverified.
+
 For Review Only or suggestion tasks, missing tools should be disclosed as unverified scope, not treated as a blocker.
 
 ## 7. Commit Discipline
@@ -60,6 +68,7 @@ When editing this repository:
 - Reduce duplication rather than adding another hard-gate block.
 - Update `references/index.yaml` when adding or repurposing references.
 - Run `python3 scripts/validate-skill-structure.py` when available.
+- Run `python3 scripts/run-scenario-tests.py` after routing, validator, fixture, or scenario changes.
 - Summarize changed files, validation results, blockers, and remaining risk.
 
 `allow_implicit_invocation` is intentionally `true` in `agents/openai.yaml` because this Skill should auto-trigger for presentation, deck, HTML/PPT/PDF, visual QA, online research, failure recovery, and Skill governance tasks. It should not trigger for simple exports or tiny unrelated edits.

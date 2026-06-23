@@ -1,738 +1,88 @@
-version: 1
-description: Reference routing index for presentation-system. Load only references matching the selected mode and task triggers.
-
-modes:
-  review_only:
-    description: Read-only audit or recommendation tasks.
-    gates:
-      - G1
-      - G2
-      - G4
-  skill_governance:
-    description: Tasks that modify the skill system itself.
-    gates:
-      - G1
-      - G2
-      - G3
-      - G4
-  production:
-    description: Tasks that create, repair, freeze, or deliver final visual artifacts.
-    gates:
-      - G1
-      - G2
-      - G3
-      - G4
-      - G5
-      - G6
-      - G6A
-      - G7
-      - G7A
-      - G7B
-      - G7C
-      - G7D
-      - G7E
-  failure_recovery:
-    description: Tasks triggered by user dissatisfaction, process failure, or missing evidence.
-    gates:
-      - G3
-      - G4
-      - G5
-      - G7
-      - G7A
-      - G7B
-      - G7C
-      - G7D
-      - G7E
-      - G8
-  capability_limited:
-    description: Tasks affected by missing tools or unavailable capabilities.
-    gates:
-      - G2
-      - G4
-      - G5
-      - G6
-      - G6A
-      - G7
-
-references:
-  - id: R00
-    path: references/00-production-gate.md
-    title: Production Gate
-    read_when:
-      - production
-      - repair
-      - qa_freeze
-      - style_frame
-      - failure_recovery
-      - visual_qa
-    gates:
-      - G1
-      - G2
-      - G3
-      - G5
-      - G7
-      - G8
-    required_outputs:
-      - ProductionGateDecision
-      - BlockerList
-
-  - id: R00B
-    path: references/00-system-overview.md
-    title: System Overview
-    read_when:
-      - review_only
-      - skill_governance
-      - production
-      - explain_system
-      - full_audit
-    gates:
-      - G1
-      - G2
-      - G4
-    required_outputs:
-      - SystemScopeDecision
-
-  - id: R01
-    path: references/01-team-roles.md
-    title: Team Roles
-    read_when:
-      - production
-      - repair
-      - qa_freeze
-      - team_governance
-      - multi_agent
-      - work_platform
-    gates:
-      - G1
-      - G5
-      - G7
-    required_outputs:
-      - RoleMap
-      - ResponsibilityMatrix
-
-  - id: R02
-    path: references/02-workflow.md
-    title: Workflow
-    read_when:
-      - production
-      - skill_governance
-      - project_start
-      - template_intake
-      - unclear_intent
-    gates:
-      - G1
-      - G2
-      - G3
-      - G4
-    required_outputs:
-      - WorkflowDecision
-      - RequirementLock
-
-  - id: R03
-    path: references/03-delivery-routing.md
-    title: Delivery Routing
-    read_when:
-      - production
-      - delivery_format
-      - html
-      - pptx
-      - pdf
-      - screenshot_pack
-      - notes
-    gates:
-      - G1
-      - G2
-      - G4
-      - G7
-    required_outputs:
-      - DeliveryRouteDecision
-
-  - id: R04
-    path: references/04-design-standards.md
-    title: Design Standards
-    read_when:
-      - production
-      - visual_design
-      - style_frame
-      - page_spec
-      - failure_recovery
-      - anti_ai_flavor
-    gates:
-      - G1
-      - G4
-      - G7
-      - G7A
-      - G7C
-      - G8
-    required_outputs:
-      - DesignStandardChecklist
-      - PageSpecRiskList
-      - DesignSynthesisContract
-      - AntiTemplateReview
-
-  - id: R05
-    path: references/05-content-standards.md
-    title: Content Standards
-    read_when:
-      - production
-      - content_rewrite
-      - narrative
-      - speaker_notes
-      - report_to_deck
-      - teaching_material
-    gates:
-      - G1
-      - G3
-      - G4
-    required_outputs:
-      - ContentGapList
-      - NarrativeDraft
-
-  - id: R06
-    path: references/06-interaction-standards.md
-    title: Interaction Standards
-    read_when:
-      - html
-      - interactive_slides
-      - browser_validation
-      - presentation_chrome
-      - controls
-      - responsive
-    gates:
-      - G1
-      - G4
-      - G7
-      - G7D
-    required_outputs:
-      - InteractionChecklist
-
-  - id: R07
-    path: references/07-qa-checklist.md
-    title: QA Checklist
-    read_when:
-      - production
-      - repair
-      - qa_freeze
-      - screenshot
-      - browser_check
-      - visual_qa
-      - failure_recovery
-    gates:
-      - G5
-      - G7
-      - G8
-    required_outputs:
-      - QAResult
-      - FreezeStatus
-
-  - id: R08
-    path: references/08-skill-governance.md
-    title: Skill Governance
-    read_when:
-      - skill_governance
-      - skill_dependency
-      - manifest
-      - external_skill
-      - install_or_verify_skill
-    gates:
-      - G2
-      - G4
-      - G5
-      - G6
-      - G6A
-    required_outputs:
-      - SkillDecisionTable
-      - CapabilityBlockerList
-
-  - id: R09
-    path: references/09-context-engineering.md
-    title: Context Engineering
-    read_when:
-      - long_task
-      - many_files
-      - multi_agent
-      - many_screenshots
-      - context_compression
-      - headroom
-    gates:
-      - G2
-      - G4
-    required_outputs:
-      - ContextPlan
-
-  - id: R10
-    path: references/10-version-evidence.md
-    title: Version Evidence
-    read_when:
-      - production
-      - versioning
-      - evidence_pack
-      - qa_freeze
-      - screenshot_pack
-      - repair
-    gates:
-      - G3
-      - G5
-      - G7
-      - G8
-    required_outputs:
-      - EvidenceRecord
-      - VersionStatus
-
-  - id: R11
-    path: references/11-aesthetic-anti-ai.md
-    title: Aesthetic Anti-AI
-    read_when:
-      - visual_design
-      - style_frame
-      - anti_ai_flavor
-      - user_says_ai
-      - user_says_ugly
-      - failure_recovery
-    gates:
-      - G1
-      - G4
-      - G7
-      - G7C
-      - G8
-    required_outputs:
-      - AntiAIReview
-      - AestheticRiskList
-      - AntiTemplateReview
-
-  - id: R12
-    path: references/12-project-type-patterns.md
-    title: Project Type Patterns
-    read_when:
-      - intent_detection
-      - project_type
-      - avoid_training_default
-      - audience_unclear
-    gates:
-      - G1
-      - G2
-      - G3
-    required_outputs:
-      - ProjectTypeDecision
-
-  - id: R13
-    path: references/13-template-intake.md
-    title: Template Intake
-    read_when:
-      - template
-      - reference_deck
-      - old_ppt
-      - fixed_page_count
-      - page_count_can_change
-    gates:
-      - G1
-      - G3
-      - G4
-      - G7
-    required_outputs:
-      - TemplateIntake
-      - PageCountDecision
-
-  - id: R14
-    path: references/14-narrative-patterns.md
-    title: Narrative Patterns
-    read_when:
-      - narrative
-      - story_structure
-      - teaching
-      - client_report
-      - roadshow
-      - research_report
-    gates:
-      - G1
-      - G3
-      - G4
-    required_outputs:
-      - NarrativePatternDecision
-
-  - id: R15
-    path: references/15-visual-reference-library.md
-    title: Visual Reference Library
-    read_when:
-      - visual_reference
-      - moodboard
-      - design_dna
-      - trend_reference
-      - style_frame
-      - external_example
-    gates:
-      - G1
-      - G4
-      - G6
-      - G7
-    required_outputs:
-      - ReferenceTranslationCard
-
-  - id: R16
-    path: references/16-multi-agent-governance.md
-    title: Multi-Agent Governance
-    read_when:
-      - production
-      - repair
-      - qa_freeze
-      - style_frame
-      - v_review
-      - multi_agent
-      - subagent
-      - work_platform
-    gates:
-      - G5
-      - G7
-      - G7E
-      - G8
-    required_outputs:
-      - AgentEvidence
-      - SubagentBlocker
-      - EditorialDesignBoard
-      - DeputyEditorConsensusRecord
-      - EditorInChiefApprovalRecord
-
-  - id: R17
-    path: references/17-motion-design-standards.md
-    title: Motion Design Standards
-    read_when:
-      - html
-      - motion
-      - animation
-      - reveal_steps
-      - transition
-      - video_export
-      - user_says_motion_bad
-    gates:
-      - G1
-      - G4
-      - G7
-      - G7B
-      - G7D
-      - G8
-    required_outputs:
-      - MotionScript
-      - StepStateMatrix
-      - OfficialMotionTranslation
-      - MotionOpportunityMap
-      - MotionStateMatrix
-      - StaticPageJustification
-
-  - id: R18
-    path: references/18-history-derived-governance.md
-    title: History Derived Governance
-    read_when:
-      - skill_governance
-      - failure_recovery
-      - recurring_failure
-      - historical_audit
-      - user_questions_process
-    gates:
-      - G3
-      - G4
-      - G5
-      - G8
-    required_outputs:
-      - HistoryRequirementTable
-      - RuleClosureMap
-
-  - id: R19
-    path: references/19-approved-production-flow.md
-    title: Approved Production Flow
-    read_when:
-      - production
-      - repair
-      - rollback
-      - review_for_delivery
-      - qa_freeze
-      - style_frame
-      - failure_recovery
-    gates:
-      - G2
-      - G5
-      - G7
-      - G8
-    required_outputs:
-      - ProductionFlowStatus
-      - UserReviewStatus
-
-  - id: R20
-    path: references/20-design-dna-guizang-integration.md
-    title: Design DNA Guizang Integration
-    read_when:
-      - design_dna
-      - guizang
-      - ppt_dna
-      - visual_production
-      - style_frame
-      - user_questions_design_integration
-    gates:
-      - G1
-      - G4
-      - G6A
-      - G7
-      - G8
-    required_outputs:
-      - PresentationDesignDNA
-      - EngineBridgeTable
-      - SkillInvocationLedger
-      - SkillAbsorptionMatrix
-      - DNAToPageMapping
-      - GuizangToPageMapping
-
-  - id: R21
-    path: references/21-design-skill-stack-integration.md
-    title: Design Skill Stack Integration
-    read_when:
-      - stylekit
-      - taste
-      - frontend_slides
-      - html_ppt
-      - huashu_design
-      - design_skill_stack
-      - layout_failure
-    gates:
-      - G1
-      - G4
-      - G6A
-      - G7
-      - G8
-    required_outputs:
-      - DesignSkillStackDecision
-      - SkillAvailabilityScan
-      - SkillInvocationLedger
-      - SkillAbsorptionMatrix
-
-  - id: R22
-    path: references/22-html-pre-visual-director.md
-    title: HTML Pre Visual Director
-    read_when:
-      - html_pre
-      - html_ppt
-      - html_interactive
-      - presentation_chrome
-      - browser_validation
-      - style_frame
-      - visual_failure
-    gates:
-      - G1
-      - G4
-      - G6
-      - G7
-      - G7D
-      - G8
-    required_outputs:
-      - HTMLPreDirectorContract
-      - BrowserValidationPlan
-      - HTMLExperienceContract
-      - HTMLStateModel
-
-  - id: R23
-    path: references/23-online-research-toolchain.md
-    title: Online Research Toolchain
-    read_when:
-      - latest_information
-      - user_requests_online_search
-      - official_sources
-      - current_trends
-      - external_examples
-      - market_or_policy_or_technical_updates
-      - last30days
-      - community_trends
-    gates:
-      - G6
-      - G7
-      - G8
-    required_outputs:
-      - ResearchEvidence
-      - SourceList
-      - ResearchBlocker
-      - Last30DaysPulse
-      - Last30DaysVisualPulse
-      - SourceToDesignTranslation
-
-  - id: R24
-    path: references/24-user-asset-intake-and-adaptation.md
-    title: User Asset Intake and Adaptation
-    read_when:
-      - production
-      - visual_design
-      - html
-      - ppt
-      - user_uploads_files
-      - user_provides_template
-      - user_provides_old_ppt
-      - user_provides_images
-      - user_provides_visual_reference
-      - failure_recovery
-    gates:
-      - G3
-      - G7A
-      - G7C
-      - G8
-    required_outputs:
-      - SourceMaterialIntake
-      - AssetToPageMapping
-      - AssetStyleExtraction
-      - AssetGapAndFallbackPlan
-
-  - id: R25
-    path: references/25-design-synthesis-governance.md
-    title: Design Synthesis Governance
-    read_when:
-      - production
-      - visual_design
-      - style_frame
-      - html
-      - ppt
-      - user_says_ui_bad
-      - user_says_aesthetic_bad
-      - user_says_departments_not_integrated
-      - failure_recovery
-    gates:
-      - G5
-      - G7
-      - G7A
-      - G7E
-      - G8
-    required_outputs:
-      - DesignSynthesisContract
-      - PageFamilySystem
-      - PreCodeVisualFreeze
-
-  - id: R26
-    path: references/26-motion-opportunity-governance.md
-    title: Motion Opportunity Governance
-    read_when:
-      - production
-      - html
-      - interactive_slides
-      - motion
-      - animation
-      - user_says_motion_missing
-      - user_says_static_ppt
-      - failure_recovery
-    gates:
-      - G7B
-      - G7D
-      - G8
-    required_outputs:
-      - MotionOpportunityMap
-      - MotionStateMatrix
-      - StaticPageJustification
-
-  - id: R27
-    path: references/27-anti-template-governance.md
-    title: Anti Template Governance
-    read_when:
-      - production
-      - visual_design
-      - html
-      - ppt
-      - style_frame
-      - user_says_template
-      - user_says_not_beautiful
-      - user_says_ai_flavor
-      - failure_recovery
-    gates:
-      - G7C
-      - G8
-    required_outputs:
-      - AntiTemplateReview
-      - PageFamilyDiversityReport
-
-  - id: R28
-    path: references/28-html-experience-governance.md
-    title: HTML Experience Governance
-    read_when:
-      - production
-      - html
-      - interactive_slides
-      - html_ppt
-      - browser_presentation
-      - user_says_static_ppt
-      - failure_recovery
-    gates:
-      - G7D
-      - G8
-    required_outputs:
-      - HTMLExperienceContract
-      - HTMLStateModel
-      - InteractionModel
-      - ExportPrintStableState
-
-  - id: R29
-    path: references/29-editorial-design-approval.md
-    title: Editorial Design Approval
-    read_when:
-      - production
-      - visual_design
-      - html
-      - ppt
-      - style_frame
-      - user_says_departments_not_integrated
-      - user_says_no_editorial_review
-      - failure_recovery
-    gates:
-      - G5
-      - G7E
-      - G8
-    required_outputs:
-      - EditorialDesignBoard
-      - DepartmentDraftRecords
-      - DeputyEditorConsensusRecord
-      - EditorInChiefApprovalRecord
-      - FormalProductionHandoff
-
-  - id: R30
-    path: references/30-external-skill-invocation-governance.md
-    title: External Skill Invocation Governance
-    read_when:
-      - production
-      - visual_design
-      - style_frame
-      - html
-      - ppt
-      - motion
-      - design_dna
-      - ppt_dna
-      - guizang
-      - stylekit
-      - taste
-      - frontend_slides
-      - html_ppt
-      - huashu_design
-      - ppt_master
-      - humanize_ppt
-      - last30days
-      - user_says_skill_not_called
-      - user_says_guizang_not_used
-      - user_says_dna_not_used
-      - failure_recovery
-    gates:
-      - G4
-      - G5
-      - G6
-      - G6A
-      - G7
-      - G8
-    required_outputs:
-      - SkillAvailabilityScan
-      - SkillInvocationLedger
-      - SkillAbsorptionMatrix
-      - ManualEquivalentRecord
-      - SkillCapabilityBlocker
-
-  - id: RVIS
-    path: references/visual/reference-entries.md
-    title: Visual Reference Entries
-    read_when:
-      - visual_reference_library
-      - style_reference_lookup
-      - full_visual_audit
-    gates:
-      - G4
-      - G6
-      - G7
-    required_outputs:
-      - VisualReferenceEntryList
+{
+  "version": 2,
+  "description": "Deterministic reference routing index for presentation-system. This file is JSON-compatible YAML so validators can parse it with the Python standard library.",
+  "load_policy": {
+    "max_initial_references": 8,
+    "full_audit_requires_reason": true,
+    "stages": ["startup", "intake", "design", "editorial_review", "implementation", "post_build_qa", "qa_freeze", "failure_recovery"]
+  },
+  "delivery_routes": ["html_interactive", "pptx_editable", "pdf_static", "screenshot_pack", "review_only", "skill_governance"],
+  "outputs": {
+    "ProductionGateDecision": {"owner": "R00", "contributors": ["R02", "R03"], "reviewer": "R19"},
+    "BlockerList": {"owner": "R00", "contributors": ["R08", "R16", "R30"], "reviewer": "R19"},
+    "SystemScopeDecision": {"owner": "R00B", "contributors": [], "reviewer": "R08"},
+    "WorkflowDecision": {"owner": "R02", "contributors": ["R00B"], "reviewer": "R19"},
+    "RequirementLock": {"owner": "R02", "contributors": ["R00"], "reviewer": "R19"},
+    "DeliveryRouteDecision": {"owner": "R03", "contributors": ["R06", "R22"], "reviewer": "R19"},
+    "DesignSynthesisContract": {"owner": "R25", "contributors": ["R04", "R11", "R17", "R24"], "reviewer": "R29"},
+    "MotionOpportunityMap": {"owner": "R26", "contributors": ["R17", "R22"], "reviewer": "R29"},
+    "MotionStateMatrix": {"owner": "R26", "contributors": ["R17", "R28"], "reviewer": "R29"},
+    "StaticPageJustification": {"owner": "R26", "contributors": ["R17"], "reviewer": "R29"},
+    "AntiTemplateReview": {"owner": "R27", "contributors": ["R04", "R11", "R25"], "reviewer": "R29"},
+    "PageFamilyDiversityReport": {"owner": "R27", "contributors": ["R04", "R25"], "reviewer": "R29"},
+    "HTMLExperienceContract": {"owner": "R28", "contributors": ["R06", "R17", "R22"], "reviewer": "R29"},
+    "HTMLStateModel": {"owner": "R28", "contributors": ["R06", "R22"], "reviewer": "R29"},
+    "InteractionModel": {"owner": "R28", "contributors": ["R06"], "reviewer": "R29"},
+    "ExportPrintStableState": {"owner": "R28", "contributors": ["R17", "R22"], "reviewer": "R29"},
+    "EditorialDesignBoard": {"owner": "R29", "contributors": ["R16", "R25", "R26", "R27", "R28"], "reviewer": "R19"},
+    "DepartmentDraftRecords": {"owner": "R29", "contributors": ["R16", "R25"], "reviewer": "R19"},
+    "DeputyEditorConsensusRecord": {"owner": "R29", "contributors": ["R16"], "reviewer": "R19"},
+    "EditorInChiefApprovalRecord": {"owner": "R29", "contributors": ["R16", "R25"], "reviewer": "R19"},
+    "FormalProductionHandoff": {"owner": "R29", "contributors": ["R19"], "reviewer": "R00"},
+    "SkillAvailabilityScan": {"owner": "R30", "contributors": ["R08", "R20", "R21"], "reviewer": "R29"},
+    "SkillInvocationLedger": {"owner": "R30", "contributors": ["R08", "R20", "R21"], "reviewer": "R29"},
+    "SkillAbsorptionMatrix": {"owner": "R30", "contributors": ["R20", "R21", "R25"], "reviewer": "R29"},
+    "ManualEquivalentRecord": {"owner": "R30", "contributors": ["R08"], "reviewer": "R29"},
+    "SkillCapabilityBlocker": {"owner": "R30", "contributors": ["R08"], "reviewer": "R00"},
+    "SourceMaterialIntake": {"owner": "R24", "contributors": ["R13"], "reviewer": "R25"},
+    "AssetToPageMapping": {"owner": "R24", "contributors": ["R13", "R25"], "reviewer": "R25"},
+    "AssetStyleExtraction": {"owner": "R24", "contributors": ["R15"], "reviewer": "R25"},
+    "AssetGapAndFallbackPlan": {"owner": "R24", "contributors": ["R13"], "reviewer": "R25"},
+    "PresentationDesignDNA": {"owner": "R20", "contributors": ["R25"], "reviewer": "R29"},
+    "EngineBridgeTable": {"owner": "R20", "contributors": ["R21"], "reviewer": "R29"},
+    "DNAToPageMapping": {"owner": "R20", "contributors": ["R25", "R26"], "reviewer": "R29"},
+    "GuizangToPageMapping": {"owner": "R20", "contributors": ["R21"], "reviewer": "R29"},
+    "DesignSkillStackDecision": {"owner": "R21", "contributors": ["R20", "R30"], "reviewer": "R29"},
+    "HTMLPreDirectorContract": {"owner": "R22", "contributors": ["R06", "R17"], "reviewer": "R28"},
+    "BrowserValidationPlan": {"owner": "R22", "contributors": ["R07"], "reviewer": "R28"},
+    "ResearchEvidence": {"owner": "R23", "contributors": [], "reviewer": "R07"},
+    "SourceList": {"owner": "R23", "contributors": [], "reviewer": "R07"},
+    "Last30DaysVisualPulse": {"owner": "R23", "contributors": ["R30"], "reviewer": "R29"},
+    "SourceToDesignTranslation": {"owner": "R23", "contributors": ["R25"], "reviewer": "R29"}
+  },
+  "references": [
+    {"id": "R00", "path": "references/00-production-gate.md", "title": "Production Gate", "stage": "startup", "modes": ["production", "failure_recovery"], "formats": ["html_interactive", "pptx_editable", "pdf_static", "screenshot_pack"], "triggers": ["production", "qa_freeze", "failure_recovery"], "gates": ["G1", "G2", "G3", "G5", "G7", "G8"], "owns_outputs": ["ProductionGateDecision", "BlockerList"], "contributes_to": [], "review_role": "gatekeeper", "priority": 10},
+    {"id": "R00B", "path": "references/00-system-overview.md", "title": "System Overview", "stage": "startup", "modes": ["review_only", "skill_governance", "production"], "formats": ["review_only", "skill_governance", "html_interactive", "pptx_editable", "pdf_static"], "triggers": ["startup", "explain_system", "full_audit"], "gates": ["G1", "G2", "G4"], "owns_outputs": ["SystemScopeDecision"], "contributes_to": [], "review_role": "router", "priority": 5},
+    {"id": "R01", "path": "references/01-team-roles.md", "title": "Team Roles", "stage": "editorial_review", "modes": ["production", "failure_recovery"], "formats": ["html_interactive", "pptx_editable", "pdf_static"], "triggers": ["multi_agent", "subagent", "editorial_review"], "gates": ["G1", "G5", "G7"], "owns_outputs": [], "contributes_to": ["EditorialDesignBoard"], "review_role": "contributor", "priority": 50},
+    {"id": "R02", "path": "references/02-workflow.md", "title": "Workflow", "stage": "startup", "modes": ["production", "skill_governance", "review_only"], "formats": ["html_interactive", "pptx_editable", "pdf_static", "review_only", "skill_governance"], "triggers": ["startup", "project_start", "unclear_intent"], "gates": ["G1", "G2", "G3", "G4"], "owns_outputs": ["WorkflowDecision", "RequirementLock"], "contributes_to": [], "review_role": "router", "priority": 15},
+    {"id": "R03", "path": "references/03-delivery-routing.md", "title": "Delivery Routing", "stage": "startup", "modes": ["production"], "formats": ["html_interactive", "pptx_editable", "pdf_static", "screenshot_pack"], "triggers": ["delivery_format", "html_interactive", "pptx_editable", "pdf_static"], "gates": ["G1", "G2", "G4", "G7"], "owns_outputs": ["DeliveryRouteDecision"], "contributes_to": [], "review_role": "router", "priority": 20},
+    {"id": "R04", "path": "references/04-design-standards.md", "title": "Design Standards", "stage": "design", "modes": ["production", "failure_recovery"], "formats": ["html_interactive", "pptx_editable", "pdf_static", "screenshot_pack"], "triggers": ["visual_design", "style_frame", "anti_template_risk", "failure_recovery"], "gates": ["G1", "G4", "G7", "G7A", "G7C", "G8"], "owns_outputs": [], "contributes_to": ["DesignSynthesisContract", "AntiTemplateReview"], "review_role": "contributor", "priority": 40},
+    {"id": "R05", "path": "references/05-content-standards.md", "title": "Content Standards", "stage": "intake", "modes": ["production"], "formats": ["html_interactive", "pptx_editable", "pdf_static"], "triggers": ["content_rewrite", "narrative", "teaching_material"], "gates": ["G1", "G3", "G4"], "owns_outputs": [], "contributes_to": ["DesignSynthesisContract"], "review_role": "contributor", "priority": 45},
+    {"id": "R06", "path": "references/06-interaction-standards.md", "title": "Interaction Standards", "stage": "implementation", "modes": ["production"], "formats": ["html_interactive"], "triggers": ["html_interactive", "interactive_slides", "controls", "responsive"], "gates": ["G1", "G4", "G7", "G7D"], "owns_outputs": [], "contributes_to": ["HTMLExperienceContract", "InteractionModel"], "review_role": "contributor", "priority": 60},
+    {"id": "R07", "path": "references/07-qa-checklist.md", "title": "QA Checklist", "stage": "post_build_qa", "modes": ["production", "failure_recovery"], "formats": ["html_interactive", "pptx_editable", "pdf_static", "screenshot_pack"], "triggers": ["post_build_qa", "qa_freeze", "browser_check", "visual_qa"], "gates": ["G5", "G7", "G8"], "owns_outputs": [], "contributes_to": ["BlockerList"], "review_role": "reviewer", "priority": 70},
+    {"id": "R08", "path": "references/08-skill-governance.md", "title": "Skill Governance", "stage": "startup", "modes": ["skill_governance", "production"], "formats": ["skill_governance", "html_interactive", "pptx_editable", "pdf_static"], "triggers": ["skill_governance", "external_skill", "install_or_verify_skill"], "gates": ["G2", "G4", "G5", "G6", "G6A"], "owns_outputs": [], "contributes_to": ["SkillAvailabilityScan", "ManualEquivalentRecord"], "review_role": "contributor", "priority": 25},
+    {"id": "R09", "path": "references/09-context-engineering.md", "title": "Context Engineering", "stage": "startup", "modes": ["production", "skill_governance", "review_only"], "formats": ["html_interactive", "pptx_editable", "pdf_static", "review_only", "skill_governance"], "triggers": ["long_task", "many_files", "context_compression"], "gates": ["G2", "G4"], "owns_outputs": [], "contributes_to": [], "review_role": "support", "priority": 95},
+    {"id": "R10", "path": "references/10-version-evidence.md", "title": "Version Evidence", "stage": "post_build_qa", "modes": ["production", "failure_recovery"], "formats": ["html_interactive", "pptx_editable", "pdf_static", "screenshot_pack"], "triggers": ["evidence_pack", "qa_freeze", "versioning"], "gates": ["G3", "G5", "G7", "G8"], "owns_outputs": [], "contributes_to": ["BlockerList"], "review_role": "evidence", "priority": 75},
+    {"id": "R11", "path": "references/11-aesthetic-anti-ai.md", "title": "Aesthetic Anti-AI", "stage": "design", "modes": ["production", "failure_recovery"], "formats": ["html_interactive", "pptx_editable", "pdf_static"], "triggers": ["visual_design", "style_frame", "anti_ai_flavor", "aesthetic_recovery"], "gates": ["G1", "G4", "G7", "G7C", "G8"], "owns_outputs": [], "contributes_to": ["AntiTemplateReview", "DesignSynthesisContract"], "review_role": "contributor", "priority": 48},
+    {"id": "R12", "path": "references/12-project-type-patterns.md", "title": "Project Type Patterns", "stage": "intake", "modes": ["production", "review_only"], "formats": ["html_interactive", "pptx_editable", "pdf_static", "review_only"], "triggers": ["intent_detection", "project_type", "audience_unclear"], "gates": ["G1", "G2", "G3"], "owns_outputs": [], "contributes_to": ["WorkflowDecision"], "review_role": "contributor", "priority": 42},
+    {"id": "R13", "path": "references/13-template-intake.md", "title": "Template Intake", "stage": "intake", "modes": ["production"], "formats": ["html_interactive", "pptx_editable", "pdf_static"], "triggers": ["template", "reference_deck", "old_ppt", "user_assets_present"], "gates": ["G1", "G3", "G4", "G7"], "owns_outputs": [], "contributes_to": ["SourceMaterialIntake"], "review_role": "contributor", "priority": 43},
+    {"id": "R14", "path": "references/14-narrative-patterns.md", "title": "Narrative Patterns", "stage": "intake", "modes": ["production"], "formats": ["html_interactive", "pptx_editable", "pdf_static"], "triggers": ["narrative", "teaching", "client_report"], "gates": ["G1", "G3", "G4"], "owns_outputs": [], "contributes_to": ["DesignSynthesisContract"], "review_role": "contributor", "priority": 44},
+    {"id": "R15", "path": "references/15-visual-reference-library.md", "title": "Visual Reference Library", "stage": "design", "modes": ["production"], "formats": ["html_interactive", "pptx_editable", "pdf_static"], "triggers": ["visual_reference", "moodboard", "current_trends", "style_frame"], "gates": ["G1", "G4", "G6", "G7"], "owns_outputs": [], "contributes_to": ["AssetStyleExtraction", "DesignSynthesisContract"], "review_role": "contributor", "priority": 52},
+    {"id": "R16", "path": "references/16-multi-agent-governance.md", "title": "Multi-Agent Governance", "stage": "editorial_review", "modes": ["production", "failure_recovery"], "formats": ["html_interactive", "pptx_editable", "pdf_static"], "triggers": ["multi_agent", "subagent", "editorial_review", "qa_freeze"], "gates": ["G5", "G7", "G7E", "G8"], "owns_outputs": [], "contributes_to": ["EditorialDesignBoard", "DepartmentDraftRecords"], "review_role": "contributor", "priority": 65},
+    {"id": "R17", "path": "references/17-motion-design-standards.md", "title": "Motion Design Standards", "stage": "design", "modes": ["production", "failure_recovery"], "formats": ["html_interactive", "screenshot_pack"], "triggers": ["motion_required", "motion", "animation", "interactive_slides"], "gates": ["G1", "G4", "G7", "G7B", "G7D", "G8"], "owns_outputs": [], "contributes_to": ["MotionOpportunityMap", "MotionStateMatrix"], "review_role": "contributor", "priority": 58},
+    {"id": "R18", "path": "references/18-history-derived-governance.md", "title": "History Derived Governance", "stage": "failure_recovery", "modes": ["skill_governance", "failure_recovery"], "formats": ["skill_governance", "review_only"], "triggers": ["historical_audit", "recurring_failure", "skill_governance"], "gates": ["G3", "G4", "G5", "G8"], "owns_outputs": [], "contributes_to": ["BlockerList"], "review_role": "audit", "priority": 80},
+    {"id": "R19", "path": "references/19-approved-production-flow.md", "title": "Approved Production Flow", "stage": "qa_freeze", "modes": ["production", "failure_recovery"], "formats": ["html_interactive", "pptx_editable", "pdf_static", "screenshot_pack"], "triggers": ["qa_freeze", "review_for_delivery", "failure_recovery"], "gates": ["G2", "G5", "G7", "G8"], "owns_outputs": [], "contributes_to": ["FormalProductionHandoff"], "review_role": "reviewer", "priority": 85},
+    {"id": "R20", "path": "references/20-design-dna-guizang-integration.md", "title": "Design DNA Guizang Integration", "stage": "design", "modes": ["production", "failure_recovery"], "formats": ["html_interactive", "pptx_editable"], "triggers": ["named_external_skill", "design-dna", "guizang-ppt-skill", "style_frame"], "gates": ["G1", "G4", "G6A", "G7", "G8"], "owns_outputs": ["PresentationDesignDNA", "EngineBridgeTable", "DNAToPageMapping", "GuizangToPageMapping"], "contributes_to": ["SkillInvocationLedger", "SkillAbsorptionMatrix"], "review_role": "contributor", "priority": 55},
+    {"id": "R21", "path": "references/21-design-skill-stack-integration.md", "title": "Design Skill Stack Integration", "stage": "design", "modes": ["production", "failure_recovery"], "formats": ["html_interactive", "pptx_editable", "pdf_static"], "triggers": ["named_external_skill", "stylekit-skill", "taste-skill", "frontend-slides", "html-ppt", "huashu-design", "layout_failure"], "gates": ["G1", "G4", "G6A", "G7", "G8"], "owns_outputs": ["DesignSkillStackDecision"], "contributes_to": ["SkillInvocationLedger", "SkillAbsorptionMatrix"], "review_role": "contributor", "priority": 56},
+    {"id": "R22", "path": "references/22-html-pre-visual-director.md", "title": "HTML Pre Visual Director", "stage": "implementation", "modes": ["production", "failure_recovery"], "formats": ["html_interactive"], "triggers": ["html_interactive", "interactive_slides", "browser_validation"], "gates": ["G1", "G4", "G6", "G7", "G7D", "G8"], "owns_outputs": ["HTMLPreDirectorContract", "BrowserValidationPlan"], "contributes_to": ["HTMLExperienceContract"], "review_role": "contributor", "priority": 62},
+    {"id": "R23", "path": "references/23-online-research-toolchain.md", "title": "Online Research Toolchain", "stage": "intake", "modes": ["production", "review_only"], "formats": ["html_interactive", "pptx_editable", "pdf_static", "review_only"], "triggers": ["current_trends", "latest_information", "last30days-search", "online_research"], "gates": ["G6", "G7", "G8"], "owns_outputs": ["ResearchEvidence", "SourceList", "Last30DaysVisualPulse", "SourceToDesignTranslation"], "contributes_to": ["DesignSynthesisContract"], "review_role": "contributor", "priority": 47},
+    {"id": "R24", "path": "references/24-user-asset-intake-and-adaptation.md", "title": "User Asset Intake and Adaptation", "stage": "intake", "modes": ["production", "failure_recovery"], "formats": ["html_interactive", "pptx_editable", "pdf_static", "screenshot_pack"], "triggers": ["user_assets_present", "template", "old_ppt", "user_images", "visual_reference"], "gates": ["G3", "G7A", "G7C", "G8"], "owns_outputs": ["SourceMaterialIntake", "AssetToPageMapping", "AssetStyleExtraction", "AssetGapAndFallbackPlan"], "contributes_to": ["DesignSynthesisContract"], "review_role": "contributor", "priority": 46},
+    {"id": "R25", "path": "references/25-design-synthesis-governance.md", "title": "Design Synthesis Governance", "stage": "design", "modes": ["production", "failure_recovery"], "formats": ["html_interactive", "pptx_editable", "pdf_static", "screenshot_pack"], "triggers": ["visual_design", "style_frame", "design_synthesis", "failure_recovery"], "gates": ["G5", "G7", "G7A", "G7E", "G8"], "owns_outputs": ["DesignSynthesisContract"], "contributes_to": ["PreCodeVisualFreeze"], "review_role": "owner", "priority": 50},
+    {"id": "R26", "path": "references/26-motion-opportunity-governance.md", "title": "Motion Opportunity Governance", "stage": "design", "modes": ["production", "failure_recovery"], "formats": ["html_interactive", "screenshot_pack"], "triggers": ["motion_required", "html_interactive", "interactive_slides", "motion"], "gates": ["G7B", "G7D", "G8"], "owns_outputs": ["MotionOpportunityMap", "MotionStateMatrix", "StaticPageJustification"], "contributes_to": ["DesignSynthesisContract"], "review_role": "owner", "priority": 57},
+    {"id": "R27", "path": "references/27-anti-template-governance.md", "title": "Anti Template Governance", "stage": "design", "modes": ["production", "failure_recovery"], "formats": ["html_interactive", "pptx_editable", "pdf_static"], "triggers": ["anti_template_risk", "visual_design", "style_frame", "failure_recovery"], "gates": ["G7C", "G8"], "owns_outputs": ["AntiTemplateReview", "PageFamilyDiversityReport"], "contributes_to": ["DesignSynthesisContract"], "review_role": "owner", "priority": 59},
+    {"id": "R28", "path": "references/28-html-experience-governance.md", "title": "HTML Experience Governance", "stage": "implementation", "modes": ["production", "failure_recovery"], "formats": ["html_interactive"], "triggers": ["html_interactive", "interactive_slides", "browser_presentation"], "gates": ["G7D", "G8"], "owns_outputs": ["HTMLExperienceContract", "HTMLStateModel", "InteractionModel", "ExportPrintStableState"], "contributes_to": ["MotionOpportunityMap"], "review_role": "owner", "priority": 63},
+    {"id": "R29", "path": "references/29-editorial-design-approval.md", "title": "Editorial Design Approval", "stage": "editorial_review", "modes": ["production", "failure_recovery"], "formats": ["html_interactive", "pptx_editable", "pdf_static", "screenshot_pack"], "triggers": ["editorial_review", "multi_agent", "visual_design", "qa_freeze"], "gates": ["G5", "G7E", "G8"], "owns_outputs": ["EditorialDesignBoard", "DepartmentDraftRecords", "DeputyEditorConsensusRecord", "EditorInChiefApprovalRecord", "FormalProductionHandoff"], "contributes_to": ["DesignSynthesisContract"], "review_role": "owner", "priority": 66},
+    {"id": "R30", "path": "references/30-external-skill-invocation-governance.md", "title": "External Skill Invocation Governance", "stage": "design", "modes": ["production", "failure_recovery", "skill_governance"], "formats": ["html_interactive", "pptx_editable", "pdf_static", "skill_governance"], "triggers": ["named_external_skill", "external_skill", "user_requires_real_skill_invocation", "current_trends"], "gates": ["G4", "G5", "G6", "G6A", "G7", "G8"], "owns_outputs": ["SkillAvailabilityScan", "SkillInvocationLedger", "SkillAbsorptionMatrix", "ManualEquivalentRecord", "SkillCapabilityBlocker"], "contributes_to": ["DesignSynthesisContract"], "review_role": "owner", "priority": 54},
+    {"id": "RVIS", "path": "references/visual/reference-entries.md", "title": "Visual Reference Entries", "stage": "design", "modes": ["production", "review_only"], "formats": ["html_interactive", "pptx_editable", "pdf_static", "review_only"], "triggers": ["visual_reference_library", "style_reference_lookup", "full_visual_audit"], "gates": ["G4", "G6", "G7"], "owns_outputs": [], "contributes_to": ["DesignSynthesisContract"], "review_role": "support", "priority": 90}
+  ]
+}

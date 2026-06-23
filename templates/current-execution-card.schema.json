@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "required_fields": [
+    "run_id",
+    "mode",
+    "delivery_route",
+    "current_stage",
+    "user_requirement_lock",
+    "allowed_actions",
+    "forbidden_actions",
+    "active_reference_ids",
+    "required_skill_ids",
+    "reference_load_budget",
+    "blockers",
+    "gates"
+  ],
+  "gates": {
+    "G1": {"status": "pending|passed|blocked|not_applicable", "reason": "", "evidence_refs": [], "reviewer": "", "updated_at": ""},
+    "G2": {"status": "pending|passed|blocked|not_applicable", "reason": "", "evidence_refs": [], "reviewer": "", "updated_at": ""},
+    "G3": {"status": "pending|passed|blocked|not_applicable", "reason": "", "evidence_refs": [], "reviewer": "", "updated_at": ""},
+    "G4": {"status": "pending|passed|blocked|not_applicable", "reason": "", "evidence_refs": [], "reviewer": "", "updated_at": ""},
+    "G5": {"status": "pending|passed|blocked|not_applicable", "reason": "", "evidence_refs": [], "reviewer": "", "updated_at": ""},
+    "G6": {"status": "pending|passed|blocked|not_applicable", "reason": "", "evidence_refs": [], "reviewer": "", "updated_at": ""},
+    "G6A": {"status": "pending|passed|blocked|not_applicable", "reason": "", "evidence_refs": [], "reviewer": "", "updated_at": ""},
+    "G7": {"status": "pending|passed|blocked|not_applicable", "reason": "", "evidence_refs": [], "reviewer": "", "updated_at": ""},
+    "G7A": {"status": "pending|passed|blocked|not_applicable", "reason": "", "evidence_refs": [], "reviewer": "", "updated_at": ""},
+    "G7B": {"status": "pending|passed|blocked|not_applicable", "reason": "", "evidence_refs": [], "reviewer": "", "updated_at": ""},
+    "G7C": {"status": "pending|passed|blocked|not_applicable", "reason": "", "evidence_refs": [], "reviewer": "", "updated_at": ""},
+    "G7D": {"status": "pending|passed|blocked|not_applicable", "reason": "", "evidence_refs": [], "reviewer": "", "updated_at": ""},
+    "G7E": {"status": "pending|passed|blocked|not_applicable", "reason": "", "evidence_refs": [], "reviewer": "", "updated_at": ""},
+    "G8": {"status": "pending|passed|blocked|not_applicable", "reason": "", "evidence_refs": [], "reviewer": "", "updated_at": ""}
+  }
+}

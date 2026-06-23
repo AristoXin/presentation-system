@@ -22,6 +22,10 @@ required_outputs:
 
 # 20-design-dna-guizang-integration
 
+Canonical runtime IDs are `design-dna` and `guizang-ppt-skill`. Historical
+labels such as PPT DNA, PPT-Design-DNA-main, guizang, or guizang-ppt are aliases
+only and must be normalized before validation.
+
 读取时机：当任务涉及完整视觉生产、Style Frame、HTML/PPT/Slides、审美/UI/动效退回、用户质疑“没有深度集成design-dna/guizang/审美/UI/动效”等情况时读取。本文件是`design-dna`、`guizang-ppt-skill`、UI、审美和动效的统一落地合同；其他reference可以追加要求，不能降低本文件门槛。
 
 ## 核心原则

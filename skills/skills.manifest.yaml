@@ -1,171 +1,50 @@
-skills:
-  - name: presentation-system
-    role: lightweight-router-production-governance
-    required: required
-    source: "."
-    install: "project-local"
-    verify: "test -f SKILL.md && test -f references/index.yaml"
-    license_required: false
-    notes: "Entry router; detailed rules are routed through references/index.yaml."
-
-  - name: ppt-master
-    role: native-pptx-generation
-    required: conditional
-    source: "${CODEX_HOME:-$HOME/.codex}/skills/ppt-master"
-    install: "local"
-    verify: "test -f ${CODEX_HOME:-$HOME/.codex}/skills/ppt-master/SKILL.md"
-    license_required: false
-    required_when: "The approved delivery route requires native editable PPTX generation."
-
-  - name: frontend-slides
-    role: html-interactive-slides
-    required: conditional
-    source: "${CODEX_HOME:-$HOME/.codex}/skills/frontend-slides"
-    install: "local"
-    verify: "test -f ${CODEX_HOME:-$HOME/.codex}/skills/frontend-slides/SKILL.md"
-    license_required: false
-    required_when: "The approved delivery route requires HTML interactive slides."
-
-  - name: taste-skill
-    role: style-frame-and-anti-ai-review
-    required: optional
-    source: "${CODEX_HOME:-$HOME/.codex}/skills/taste-skill"
-    install: "local"
-    verify: "test -f ${CODEX_HOME:-$HOME/.codex}/skills/taste-skill/SKILL.md"
-    license_required: false
-
-  - name: stylekit-skill
-    role: stylekit-design-library-and-style-direction
-    required: optional
-    source: "${CODEX_HOME:-$HOME/.codex}/skills/stylekit-skill"
-    install: "local"
-    verify: "test -f ${CODEX_HOME:-$HOME/.codex}/skills/stylekit-skill/SKILL.md"
-    license_required: false
-
-  - name: headroom
-    role: long-task-context-recommended-mechanism
-    required: recommended
-    source: "skills/vendor/headroom"
-    install: "embedded"
-    verify: "test -f skills/vendor/headroom/SKILL.md"
-    license_required: false
-    recommended_when: "Long tasks, many files, many screenshots, many subagents, or risk of context compression."
-
-  - name: html-ppt-skill-main
-    role: html-ppt-basic-framework
-    required: optional
-    source: "${CODEX_HOME:-$HOME/.codex}/skills/html-ppt-skill"
-    install: "local"
-    verify: "test -f ${CODEX_HOME:-$HOME/.codex}/skills/html-ppt-skill/SKILL.md"
-    license_required: false
-
-  - name: PPT-Design-DNA-main
-    role: design-dna-system-style-effects-and-page-taxonomy
-    required: optional
-    source: "${CODEX_HOME:-$HOME/.codex}/skills/design-dna"
-    install: "local"
-    verify: "test -f ${CODEX_HOME:-$HOME/.codex}/skills/design-dna/SKILL.md"
-    license_required: false
-
-  - name: humanize-ppt-main
-    role: copy-compression-natural-expression
-    required: optional
-    source: "${CODEX_HOME:-$HOME/.codex}/skills/humanize-ppt"
-    install: "local"
-    verify: "test -f ${CODEX_HOME:-$HOME/.codex}/skills/humanize-ppt/SKILL.md"
-    license_required: false
-
-  - name: huashu-ppt
-    role: narrative-structure
-    required: optional
-    source: "${CODEX_HOME:-$HOME/.codex}/skills/huashu-slides"
-    install: "local"
-    verify: "test -f ${CODEX_HOME:-$HOME/.codex}/skills/huashu-slides/SKILL.md"
-    license_required: false
-
-  - name: guizang-ppt-skill
-    role: presentation-layout-theme-rhythm-and-motion-system
-    required: optional
-    source: "${CODEX_HOME:-$HOME/.codex}/skills/guizang-ppt-skill"
-    install: "local"
-    verify: "test -f ${CODEX_HOME:-$HOME/.codex}/skills/guizang-ppt-skill/SKILL.md"
-    license_required: false
-
-  - name: last30days-skill
-    role: recent-community-and-trend-research
-    required: conditional
-    source: "${CODEX_HOME:-$HOME/.codex}/skills/last30days-skill"
-    install: "github: mvanhorn/last30days-skill path=skills/last30days name=last30days-skill"
-    verify: "test -f ${CODEX_HOME:-$HOME/.codex}/skills/last30days-skill/SKILL.md"
-    license_required: false
-    required_when: "G6 requires recent community/trend signals, current aesthetic discourse, or last-30-days product/tool reactions."
-    repository: "https://github.com/mvanhorn/last30days-skill"
-
-online_toolchain:
-  - name: tavily-search
-    role: online-search-trends-excellent-cases
-    required: conditional
-    install: "requires-user-consent-and-api-key-or-connector"
-    verify: "requires-live-tool-check"
-    api_key_required: true
-    required_when: "G6 is active and this tool is the chosen search provider."
-
-  - name: brave-search
-    role: web-image-news-cross-search
-    required: conditional
-    install: "requires-user-consent-and-api-key-or-connector"
-    verify: "requires-live-tool-check"
-    api_key_required: true
-    required_when: "G6 is active and web/image/news cross-search is needed."
-
-  - name: firecrawl
-    role: webpage-extraction-structure-and-design-system-pages
-    required: conditional
-    install: "requires-user-consent-and-api-key-or-connector"
-    verify: "requires-live-tool-check"
-    api_key_required: true
-    required_when: "G6 is active and webpage extraction or structured capture is needed."
-
-  - name: context7
-    role: latest-frontend-library-official-docs
-    required: conditional
-    install: "requires-user-consent-or-connector"
-    verify: "requires-live-tool-check"
-    api_key_required: false
-    required_when: "G6 is active for latest frontend or library official docs."
-
-  - name: playwright-mcp
-    role: browser-visual-validation-hover-focus-responsive-chrome
-    required: conditional
-    install: "requires-user-consent-or-local-mcp"
-    verify: "requires-live-browser-check"
-    api_key_required: false
-    required_when: "G7 requires browser visual validation and no equivalent local evidence exists."
-
-capabilities:
-  - name: subagent
-    role: multi-agent-evidence-and-review
-    required: conditional
-    verify: "requires-live-tool-check"
-    required_when: "Production, repair, Style Frame, Vx review, or QA Freeze needs G5 evidence."
-    blocker_gate: G5
-
-  - name: browser
-    role: browser-rendering-and-interaction-check
-    required: conditional
-    verify: "requires-live-browser-check"
-    required_when: "Visual QA, browser validation, screenshots, or interactive HTML checks are required."
-    blocker_gate: G7
-
-  - name: visual QA
-    role: screenshot-and-human-visual-freeze
-    required: conditional
-    verify: "requires-screenshot-or-equivalent-evidence"
-    required_when: "The agent claims QA Freeze, final visual delivery, or browser/screenshot verification."
-    blocker_gate: G7
-
-  - name: context compression
-    role: long-task-continuity
-    required: recommended
-    verify: "headroom-or-equivalent-summary-available"
-    recommended_when: "The task spans many files, references, subagents, screenshots, or long context."
+{
+  "schema_version": 1,
+  "source_of_truth": "skills/visual-skill-registry.json",
+  "skills": [
+    {
+      "id": "presentation-system",
+      "role": "lightweight-router-production-governance",
+      "required": "required",
+      "source": ".",
+      "install": "project-local",
+      "verify": "test -f SKILL.md && test -f references/index.yaml"
+    },
+    {"id": "ppt-master", "required": "conditional", "install": "local", "required_when": "pptx_editable"},
+    {"id": "frontend-slides", "required": "conditional", "install": "local", "required_when": "html_interactive"},
+    {"id": "html-ppt", "required": "optional", "install": "local", "required_when": "html_deck"},
+    {"id": "design-dna", "required": "optional", "install": "local", "required_when": "design identity is required"},
+    {"id": "guizang-ppt-skill", "required": "optional", "install": "local", "required_when": "guizang route is required"},
+    {"id": "taste-skill", "required": "optional", "install": "local", "required_when": "aesthetic or anti-template preflight is required"},
+    {"id": "stylekit-skill", "required": "optional", "install": "local", "required_when": "style candidate exploration is required"},
+    {"id": "huashu-design", "required": "optional", "install": "local", "required_when": "high-fidelity design variants are required"},
+    {"id": "huashu-slides", "required": "optional", "install": "local", "required_when": "image-deck or brand-asset protocol is required"},
+    {"id": "humanize-ppt", "required": "optional", "install": "local", "required_when": "narrative AST or page briefs are required"},
+    {
+      "id": "last30days-search",
+      "required": "conditional",
+      "install": "public-github",
+      "repository": "https://github.com/mvanhorn/last30days-skill",
+      "required_when": "recent visual trend or current community signal research is required"
+    },
+    {
+      "id": "headroom",
+      "required": "recommended",
+      "install": "embedded",
+      "source": "skills/vendor/headroom",
+      "verify": "test -f skills/vendor/headroom/SKILL.md"
+    }
+  ],
+  "online_toolchain": [
+    {"id": "tavily-search", "required": "conditional", "install": "requires-user-consent-and-api-key-or-connector"},
+    {"id": "brave-search", "required": "conditional", "install": "requires-user-consent-and-api-key-or-connector"},
+    {"id": "firecrawl", "required": "conditional", "install": "requires-user-consent-and-api-key-or-connector"},
+    {"id": "context7", "required": "conditional", "install": "requires-user-consent-or-connector"},
+    {"id": "playwright-mcp", "required": "conditional", "install": "requires-user-consent-or-local-mcp"}
+  ],
+  "capabilities": [
+    {"id": "subagent", "required": "conditional", "verify": "requires-live-tool-check", "blocker_gate": "G5"},
+    {"id": "browser", "required": "conditional", "verify": "requires-live-browser-check", "blocker_gate": "G7"},
+    {"id": "visual-qa", "required": "conditional", "verify": "requires-screenshot-or-equivalent-evidence", "blocker_gate": "G7"}
+  ]
+}

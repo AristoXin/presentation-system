@@ -1,5 +1,9 @@
 # Skill Absorption Matrix
 
+This Markdown matrix is a planning worksheet only. It is invalid as machine
+evidence until converted into `evidence/<run_id>/skill-absorption.json` with
+downstream files, field paths, page/page-family mappings, and QA checks.
+
 ## Purpose
 
 This matrix proves that called Skills affected actual design and production.

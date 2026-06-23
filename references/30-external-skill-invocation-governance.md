@@ -33,6 +33,12 @@ required_outputs:
 
 Named Skills are not decorative references. If the production system says a task requires design-dna, PPT DNA, guizang, StyleKit, Taste, frontend-slides, html-ppt, huashu, ppt-master, humanize-ppt, or last30days search, Codex must not silently replace those Skills with its own default implementation.
 
+Canonical IDs come from `skills/visual-skill-registry.json`. Aliases such as
+PPT DNA, StyleKit, Taste, html-ppt-skill-main, humanize-ppt-main, huashu-ppt,
+huashu-slides, last30days, and last30days-skill are input aliases only. Runtime
+ledger, absorption, manifest, installer, and verifier records must use the
+canonical IDs.
+
 Every required Skill must be resolved into one state.
 
 | State | Meaning |

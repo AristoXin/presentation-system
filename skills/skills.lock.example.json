@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "purpose": "Example runtime-lock shape only. This file does not claim any skill is installed on the current machine.",
+  "generated_at": "example",
+  "machine": {
+    "hostname": "example",
+    "platform": "example",
+    "session": "example"
+  },
+  "codex_home": "example",
+  "skills": [
+    {
+      "canonical_skill_id": "design-dna",
+      "resolved_alias": null,
+      "resolved_path": null,
+      "availability": "unverified",
+      "skill_md_sha256": null,
+      "verify_result": "not-run"
+    }
+  ]
+}

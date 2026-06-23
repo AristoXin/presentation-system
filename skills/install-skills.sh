@@ -1,195 +1,105 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-MANIFEST="$ROOT_DIR/skills.manifest.yaml"
-VENDOR="$ROOT_DIR/vendor"
+SCRIPT_PATH="${BASH_SOURCE[0]}"
+ROOT_DIR="${SCRIPT_PATH%/*}"
+ROOT_DIR="$(cd "$ROOT_DIR" && pwd)"
+REGISTRY="$ROOT_DIR/visual-skill-registry.json"
 GLOBAL_SKILLS_DIR="${CODEX_HOME:-$HOME/.codex}/skills"
-
 INSTALL_MISSING=0
+
 for arg in "$@"; do
   case "$arg" in
-    --install-missing)
-      INSTALL_MISSING=1
-      ;;
+    --install-missing) INSTALL_MISSING=1 ;;
     -h|--help)
       cat <<'EOF'
 Usage:
   bash skills/install-skills.sh
   bash skills/install-skills.sh --install-missing
 
-Default mode audits required companion skills and prints installation help.
---install-missing installs public GitHub-backed skills known to this repo.
-
-Private/local user skills still require user-owned installation. The script
-prints exact missing names so Codex can ask the user before continuing.
+Audits public companion skills known to the canonical registry. Only public
+GitHub skills with an explicit public_repository may be installed. Local,
+private, account-bound, connector, MCP, or API-key capabilities are never
+auto-installed by this script.
 EOF
       exit 0
       ;;
-    *)
-      echo "Unknown argument: $arg" >&2
-      exit 2
-      ;;
+    *) echo "Unknown argument: $arg" >&2; exit 2 ;;
   esac
 done
 
-echo "Reading manifest: $MANIFEST"
-echo "Vendor directory: $VENDOR"
-echo "Global skills directory: $GLOBAL_SKILLS_DIR"
-echo "Installer contract: online tools, MCP servers, connectors, API keys, and account-bound skills require explicit user consent."
-
-if [ ! -f "$MANIFEST" ]; then
-  echo "Missing skills.manifest.yaml" >&2
-  exit 1
-fi
-
-mkdir -p "$VENDOR" "$GLOBAL_SKILLS_DIR"
-
-global_skill_candidates() {
-  case "$1" in
-    html-ppt-skill-main)
-      printf '%s\n' "html-ppt-skill"
-      ;;
-    humanize-ppt-main)
-      printf '%s\n' "humanize-ppt"
-      ;;
-    PPT-Design-DNA-main)
-      printf '%s\n' "design-dna"
-      ;;
-    stylekit-skill)
-      printf '%s\n' "stylekit-skill"
-      printf '%s\n' "stylekit-style-prompts"
-      ;;
-    huashu-ppt)
-      printf '%s\n' "huashu-slides"
-      ;;
-    last30days-skill)
-      printf '%s\n' "last30days-skill"
-      printf '%s\n' "last30days"
-      ;;
-  esac
-  printf '%s\n' "$1"
-}
-
-find_global_skill() {
-  local skill_name="$1"
-  local candidate
-  while IFS= read -r candidate; do
-    if [ -f "$GLOBAL_SKILLS_DIR/$candidate/SKILL.md" ]; then
-      printf '%s' "$GLOBAL_SKILLS_DIR/$candidate"
-      return 0
-    fi
-  done < <(global_skill_candidates "$skill_name")
-  return 1
-}
-
-install_last30days_skill() {
-  local dest="$GLOBAL_SKILLS_DIR/last30days-skill"
-  if [ -f "$dest/SKILL.md" ]; then
-    echo "last30days-skill already installed: $dest"
-    return 0
-  fi
-
-  echo "Installing last30days-skill from github.com/mvanhorn/last30days-skill..."
-
-  local installer="$HOME/.codex/skills/.system/skill-installer/scripts/install-skill-from-github.py"
-  if [ -f "$installer" ]; then
-    python3 "$installer" \
-      --repo mvanhorn/last30days-skill \
-      --path skills/last30days \
-      --name last30days-skill
-    return 0
-  fi
-
-  if ! command -v git >/dev/null 2>&1; then
-    echo "Cannot install last30days-skill: git is unavailable and Codex skill-installer is missing." >&2
-    return 1
-  fi
-
-  local tmp
-  tmp="$(mktemp -d)"
-  trap 'rm -rf "$tmp"' EXIT
-  git clone --depth 1 https://github.com/mvanhorn/last30days-skill.git "$tmp/last30days-skill" >/dev/null
-  if [ ! -f "$tmp/last30days-skill/skills/last30days/SKILL.md" ]; then
-    echo "Cannot install last30days-skill: skills/last30days/SKILL.md was not found." >&2
-    return 1
-  fi
-  mkdir -p "$dest"
-  cp -R "$tmp/last30days-skill/skills/last30days/." "$dest/"
-}
-
-public_install_supported() {
-  case "$1" in
-    last30days-skill)
-      return 0
-      ;;
-    *)
-      return 1
-      ;;
-  esac
-}
-
-install_public_skill() {
-  case "$1" in
-    last30days-skill)
-      install_last30days_skill
-      ;;
-    *)
-      echo "No public installer is registered for $1." >&2
-      return 1
-      ;;
-  esac
-}
-
-missing_local=()
-missing_public=()
-
-for skill_name in \
-  ppt-master \
-  frontend-slides \
-  taste-skill \
-  stylekit-skill \
-  html-ppt-skill-main \
-  PPT-Design-DNA-main \
-  humanize-ppt-main \
-  huashu-ppt \
-  guizang-ppt-skill \
-  last30days-skill
-do
-  if found_path="$(find_global_skill "$skill_name")"; then
-    printf -- "OK   %-24s %s\n" "$skill_name" "$found_path"
-  elif public_install_supported "$skill_name"; then
-    printf -- "MISS %-24s public GitHub installer available\n" "$skill_name"
-    missing_public+=("$skill_name")
-  else
-    printf -- "MISS %-24s user/local skill installation required\n" "$skill_name"
-    missing_local+=("$skill_name")
+PYTHON_BIN=""
+for candidate in python python3 py; do
+  if command -v "$candidate" >/dev/null 2>&1; then
+    PYTHON_BIN="$candidate"
+    break
   fi
 done
-
-if [ "${#missing_public[@]}" -gt 0 ] && [ "$INSTALL_MISSING" -eq 1 ]; then
-  echo
-  echo "Installing public GitHub-backed missing skills:"
-  for skill_name in "${missing_public[@]}"; do
-    install_public_skill "$skill_name"
-  done
+if [ -z "$PYTHON_BIN" ]; then
+  echo "No Python runtime found for skill install audit." >&2
+  exit 2
 fi
 
-echo
-if [ "${#missing_public[@]}" -gt 0 ] && [ "$INSTALL_MISSING" -eq 0 ]; then
-  echo "Public installable skills are missing: ${missing_public[*]}"
-  echo "Run: bash skills/install-skills.sh --install-missing"
-fi
+"$PYTHON_BIN" - "$REGISTRY" "$GLOBAL_SKILLS_DIR" "$INSTALL_MISSING" <<'PY'
+from __future__ import annotations
 
-if [ "${#missing_local[@]}" -gt 0 ]; then
-  echo "User/local skills still missing: ${missing_local[*]}"
-  echo "Codex must help the user install or enable these before claiming the related capability."
-  echo "Until then, resolve each as manual_equivalent, not_applicable, or blocked in the Skill Invocation Ledger."
-fi
+import json
+import shutil
+import subprocess
+import sys
+import tempfile
+from pathlib import Path
 
-echo "Tavily, Brave, Firecrawl, Context7, and Playwright MCP are not auto-installed here."
-echo "For those, Codex must request explicit user consent/API keys/connectors before setup."
+registry_path = Path(sys.argv[1])
+global_dir = Path(sys.argv[2])
+install_missing = sys.argv[3] == "1"
+registry = json.loads(registry_path.read_text(encoding="utf-8"))
+global_dir.mkdir(parents=True, exist_ok=True)
 
-if [ "$INSTALL_MISSING" -eq 1 ]; then
-  echo "Install pass completed. Restart Codex to pick up newly installed skills."
-fi
+def installed(candidate_names: list[str]) -> Path | None:
+    for name in candidate_names:
+        path = global_dir / name
+        if (path / "SKILL.md").exists():
+            return path
+    return None
+
+missing_public = []
+missing_local = []
+for skill in registry.get("skills", []):
+    installation = skill.get("installation", {})
+    candidates = installation.get("candidate_names", [])
+    path = installed(candidates)
+    if path:
+        print(f"OK   {skill['id']:<22} {path}")
+        continue
+    if installation.get("type") == "public-github" and installation.get("public_repository"):
+        print(f"MISS {skill['id']:<22} public installer available")
+        missing_public.append(skill)
+    else:
+        print(f"MISS {skill['id']:<22} user/local setup required")
+        missing_local.append(skill)
+
+if install_missing:
+    for skill in missing_public:
+        repo = skill["installation"]["public_repository"]
+        dest = global_dir / skill["installation"]["candidate_names"][0]
+        if dest.exists():
+            continue
+        if shutil.which("git") is None:
+            raise SystemExit(f"git is required to install {skill['id']} from {repo}")
+        with tempfile.TemporaryDirectory() as tmp:
+            checkout = Path(tmp) / "repo"
+            subprocess.check_call(["git", "clone", "--depth", "1", repo, str(checkout)])
+            source = checkout / "skills" / "last30days"
+            if not (source / "SKILL.md").exists():
+                raise SystemExit(f"{repo} does not contain expected skills/last30days/SKILL.md")
+            shutil.copytree(source, dest)
+            print(f"INSTALLED {skill['id']} -> {dest}")
+
+if missing_public and not install_missing:
+    print("Public installable missing:", ", ".join(skill["id"] for skill in missing_public))
+    print("Run with --install-missing after user consent.")
+if missing_local:
+    print("Local/account-bound missing:", ", ".join(skill["id"] for skill in missing_local))
+    print("Record these as manual_equivalent, not_applicable, or blocked before claiming capability.")
+PY

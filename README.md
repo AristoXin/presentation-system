@@ -13,6 +13,7 @@ presentation-system uses a lightweight entry router plus reference-based executi
 - `scripts/validate-skill-structure.py`: structural validation.
 - `tests/scenarios.yaml`: regression scenarios for mode and gate behavior.
 - `skills/skills.manifest.yaml`: conditional/recommended tool declarations, including `last30days-skill` for recent community and trend research.
+- `evidence/<run_id>/*.json`: runtime evidence consumed by validators.
 
 The entry file does not carry all detailed rules. It selects the mode, activates the relevant gates, and routes the agent to the smallest necessary reference set.
 
@@ -21,6 +22,9 @@ Complex tasks must establish or maintain a Current Execution Card. This is requi
 Review Only and Production tasks have different blocker rules. Missing production tools do not block read-only analysis, but they do block claims that require real evidence.
 
 Do not fabricate online research, screenshot/browser, subagent, multi-agent, QA Freeze, or final-delivery evidence.
+
+Markdown templates are worksheets. They do not pass validators until converted
+into the current run's JSON evidence files.
 
 `allow_implicit_invocation` is `true` because this Skill should auto-trigger for presentation, deck, HTML/PPT/PDF, visual QA, online research, failure recovery, and Skill governance tasks. It should not trigger for simple exports or tiny unrelated edits.
 
@@ -33,6 +37,10 @@ Run:
 ```bash
 bash skills/verify-skills.sh
 ```
+
+This writes `skills/runtime-lock.json` for the current machine. The file is
+ignored by git and must be regenerated or verified for each production run
+before a Skill can be marked `called`.
 
 To install public GitHub-backed companion Skills known to this repository, run:
 
@@ -64,3 +72,49 @@ Core chain:
 14. QA Freeze
 
 No visual implementation should start before the pre-code visual freeze.
+
+## Runtime Evidence
+
+A production run should write JSON evidence under:
+
+```text
+evidence/<run_id>/
+  run.json
+  current-execution-card.json
+  reference-route.json
+  skill-invocations.json
+  skill-absorption.json
+  source-material-intake.json
+  design-synthesis.json
+  page-manifest.json
+  motion-opportunities.json
+  anti-template-review.json
+  html-experience.json
+  editorial-approval.json
+  pre-code-freeze.json
+  browser-qa.json
+  qa-freeze.json
+```
+
+Resolve references deterministically:
+
+```bash
+python3 scripts/resolve-reference-route.py \
+  --mode production \
+  --delivery-route html_interactive \
+  --current-stage startup
+```
+
+Run validation:
+
+```bash
+python3 scripts/validate-skill-structure.py
+python3 scripts/run-scenario-tests.py
+python3 scripts/validate-skill-invocation.py <target_dir> --run-id <run_id>
+python3 scripts/validate-visual-production.py <target_dir> --run-id <run_id> --phase qa-freeze --strict
+bash skills/verify-skills.sh
+```
+
+Automated checks verify routing and evidence structure. They cannot prove
+absolute aesthetic quality by themselves; final aesthetic approval still needs
+real reviewer/subagent capability and screenshot or equivalent visual evidence.

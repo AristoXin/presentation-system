@@ -1,0 +1,1 @@
+{"run_id":"skill-na","invocations":[{"skill_id":"frontend-slides","state":"not_applicable","reason":"Current delivery route is pdf_static, so the HTML interactive engine is not part of this task."}]}

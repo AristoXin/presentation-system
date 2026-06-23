@@ -1,0 +1,1 @@
+{"run_id":"runtime-missing","invocations":[{"skill_id":"design-dna","state":"called","invocation_method":"skill","evidence_ref":"tool-call","tool_call_id":"fixture-call","output_files":[{"path":"outputs/dna.json"}],"absorbed_into":["design-synthesis.json"]}]}
