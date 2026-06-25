@@ -29,6 +29,28 @@ required_outputs:
 
 项目内`vendor=missing`不等于Skill不可用。只要用户本地已安装并能读取`SKILL.md`，就应按“可调用”记录，并在调用前完整读取该Skill正文。只有本地、vendor和真实verify命令均不可用，才算缺失；缺失且必要时必须先按本文件请求安装/启用或内嵌，用户拒绝或权限阻断时停止当前任务。
 
+## Skill调用搬运-转译硬契约
+
+调用任何外部设计、调研或生产 Skill（例如 `last30days`、`stylekit`、`design-dna`、`guizang`、`html-ppt`、`frontend-slides`、`huashu`、`ppt-master`）后，必须完成以下三步。缺少任一步时，Skill 只能记录为“已读取/已调用未吸收”，不得作为生产、审美通过或 QA 冻结证据。
+
+### Step 1：原始输出留存
+
+- 将 Skill 返回的原始 JSON、列表、风格标签、候选模板、命令输出或关键摘录存入 `evidence/<run_id>/skill-raw-data.json` 或同等结构化证据文件。
+- 若工具只返回自然语言，保留原始响应片段和调用参数。
+- 禁止只写总结后丢弃原始数据。
+
+### Step 2：冲突检查
+
+- 将 Skill 输出与《用户最新要求锁定表》中的品牌色、受众、交付格式、禁用项、核心内容和最新反馈逐项对比。
+- 输出《适配与弃用表》：列出采用项、弃用项、冲突项、改写方式和责任副主编。
+- Skill 输出与用户最新要求冲突时，用户要求优先；不得用“Skill 推荐”覆盖用户约束。
+
+### Step 3：Token 化落地
+
+- 将可采用项转化为 CSS 变量、PPT 母版字段、HTML class/data 属性、页面映射、字体栈、motion script、QA 字段或 Page Spec 规则。
+- 无法落到可执行字段的内容，只能作为灵感备注，不能标记为已吸收。
+- 若当前生产依赖该 Skill 且无法 Token 化，停止生产并记录 `SKILL_ABSORPTION_BLOCKER`。
+
 ## Skill调用决策权
 
 不是所有可用Skill都应该被调用。Skill调用必须服从团队协作分派，而不是由主Agent按清单全量加载。
@@ -207,6 +229,28 @@ guizang只有满足以下条件才算吸收：
 3. 若官方或指定来源无法安装，但Skill可以由本项目稳定复用，则按`skill-creator`规范内嵌到`presentation-system/skills/vendor/<skill-name>/SKILL.md`，并更新`skills.manifest.yaml`。
 4. 若既不能安装也不能内嵌，先暂停并提交总编；用户若拒绝安装/授权或权限阻断，停止当前任务。只有用户明确改写任务边界为不再需要该Skill时，才可另起新边界任务，并把原因写入《Skill可用性与版本确认单》和《阻断记录》。
 5. 安装或内嵌后必须重新运行`skills/verify-skills.sh`，验证为可用后才能在工单中调用。
+
+## 高风险工具调用硬阻断
+
+以下规则优先级高于通用“可用但不调用”说明，适用于 Production、Style Frame、QA Freeze 和 Failure Recovery：
+
+### `last30days` / 近期趋势调研
+
+若用户要求“最新/当前/主流/近30天”趋势，或系统将其判定为当前趋势证据来源，则至少需要 3 个独立来源，且来源时间必须落在当前日期前 30 天内或明确说明不可获得。结果不足时，写入 `evidence/<run_id>/research-blocker.json`，不得用模型记忆或旧参考库补齐“近期趋势”。
+
+### `design-dna` / `guizang`
+
+若设计系统输出的颜色、字体、组件语法或页面气质与用户品牌资产、现有母版或最新审美反馈明显冲突，必须在《适配与弃用表》中选择“弃用/重新生成/人工改写”。未经冲突检查，不得直接套用 Skill 输出。
+
+### `html-ppt` / `frontend-slides`
+
+若这些 Skill 参与生成 HTML，最终 `index.html` 的 `<head>` 附近或首行注释必须包含溯源注释：
+
+```html
+<!-- Adopted from [Skill_Name] Theme: [Theme_ID or manual-equivalent] -->
+```
+
+若没有溯源注释和吸收矩阵，QA 必须把产物记录为“无法证明 Skill 生效”，不得写“已使用该 Skill”。
 
 ## 缺失联网控件处理流程
 

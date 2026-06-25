@@ -7,9 +7,9 @@ description: Lightweight router for presentation, deck, HTML/PPT/PDF, visual QA,
 
 ## 1. Purpose
 
-`presentation-system` routes presentation and visual-production work through a small set of execution modes, numbered gates, reference files, and evidence requirements. It is not a complete rule encyclopedia. Detailed procedures live in `references/*.md` and are loaded only when the current task needs them.
+`presentation-system` routes presentation and visual-production work through execution modes, numbered gates, reference files, and evidence requirements. Detailed procedures live in `references/*.md` and are loaded only when needed.
 
-The Skill preserves the core production system: Style Frame, Page Spec, QA Freeze, Multi-Agent Governance, Online Research, Failure Recovery, Design Standards, Anti-AI flavor / 反AI味 review, User Requirement Lock, Production Gate, work platform governance, and `headroom` for long tasks.
+It preserves Style Frame, Page Spec, QA Freeze, Multi-Agent Governance, Online Research, Failure Recovery, Design Standards, Anti-AI flavor / 反AI味 review, User Requirement Lock, Production Gate, work platform governance, and `headroom`.
 
 ## 2. Use When
 
@@ -24,7 +24,7 @@ Use this Skill when the user asks to:
 
 ## 3. Do Not Use When
 
-Do not use this Skill for simple file conversion, tiny copy edits, ordinary code changes, or single-command exports unless the user also asks for presentation governance, visual QA, Skill governance, production gates, online research, or multi-agent evidence.
+Do not use this Skill for simple conversion, tiny copy edits, ordinary code changes, or single-command exports unless the user also asks for presentation governance, visual QA, Skill governance, production gates, online research, or multi-agent evidence.
 
 Do not use it to generate a final visual artifact when the task is only review, planning, or Skill governance.
 
@@ -39,6 +39,20 @@ Choose exactly one primary mode before acting. If the task changes, update the m
 | C | Production | The user asks to create, repair, freeze, export, or deliver PPT/HTML/PDF/decks/pages/materials. | Required gates can block final delivery. No QA Freeze claim without evidence. |
 | D | Failure Recovery | The user reports bad aesthetics, AI flavor, missing process, missing search, missing subagents, or mismatch with requirements. | Stop production first. Audit failed gates, rebuild the Current Execution Card, then repair process or Page Spec/Style Frame. |
 | E | Capability Limited | A required tool, connector, subagent, browser, screenshot, search, or validation capability is unavailable. | Blocks only tasks that require real execution evidence; does not block review-only analysis. |
+
+## 4.5 Runtime State Protocol
+
+For Mode C, Mode D, and substantive Mode B, declare `[STATE: <state_name>]` in the Current Execution Card or first execution note. This complements G1-G8.
+
+States:
+
+- `INIT`: read `index.yaml`, overview, and latest request; output project diagnosis.
+- `DIAGNOSIS`: read routed workflow/content refs; output content gaps and blueprint.
+- `DESIGN_SYNTHESIS`: read routed design/Skill/role/motion refs; output Design Synthesis Contract and Skill Absorption Matrix.
+- `PRODUCTION_QA`: read routed interaction/QA/evidence refs; output artifact, smoke evidence, screenshot/QA evidence.
+- `FAILURE`: read failure/flow/QA/history refs; output failure audit and recovery plan; continue only after user-approved recovery scope.
+
+Do not expand references unless the router, card, or blocker explains why. Do not auto-claim a later state because downstream work was attempted.
 
 ## 5. Core Gates
 

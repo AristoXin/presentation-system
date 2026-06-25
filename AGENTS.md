@@ -47,6 +47,21 @@ External Skill `called` records must reference the current `skills/runtime-lock.
 
 Production, repair, Style Frame, Vx review, and QA Freeze tasks usually require real multi-agent/subagent, browser/screenshot, and QA evidence. Review Only tasks may disclose missing evidence without blocking analysis.
 
+## 5.5 Subagent File Access Whitelist
+
+When creating or briefing a subagent, include a `[READ_ONLY_FILES]` block in the prompt. The subagent may read only those listed `presentation-system/references/` files unless the main agent explicitly expands the list in the Current Execution Card.
+
+| Subagent role | Default allowed reference files |
+| :--- | :--- |
+| 美衡副主编（审美） | `11-aesthetic-anti-ai.md`, `15-visual-reference-library.md`, relevant `references/visual/` entries, and adopted reference evidence |
+| 栅格副主编（UI） | `04-design-standards.md`, `20-design-dna-guizang-integration.md`, `27-anti-template-governance.md` |
+| 律动副主编（动效） | `17-motion-design-standards.md`, `26-motion-opportunity-governance.md`, and any adopted motion Skill records |
+| 铁尺副主编（QA） | `07-qa-checklist.md`, `10-version-evidence.md`, relevant validation and screenshot evidence |
+| 文脉副主编（内容） | `05-content-standards.md`, `14-narrative-patterns.md`, and the current source-material intake |
+| 工具链与上下文工程副主编 | `08-skill-governance.md`, `09-context-engineering.md`, `23-online-research-toolchain.md`, `30-external-skill-invocation-governance.md` |
+
+If a subagent cites concrete rules from files outside its whitelist and no expansion was recorded, its output is invalid for signoff and must be regenerated or downgraded to non-evidence commentary.
+
 ## 6. Blocker Handling
 
 For Production tasks, missing required tools can block final delivery:

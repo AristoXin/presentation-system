@@ -69,6 +69,8 @@ A Skill output is not absorbed until it affects downstream production fields.
 
 Reading a Skill description is not absorption. Mentioning a Skill name is not absorption. Copying a template is not absorption.
 
+If a visual artifact has already been produced before required Skill resolution and absorption evidence exists, do not backfill the evidence as if it preceded production. Mark the artifact as `FAILED_VISUAL_FREEZE` or governance evidence, then restart from the missing Skill decision point.
+
 ## Installation Assistance
 
 If a user downloads `presentation-system` without the companion Skills installed, Codex must help resolve the missing capabilities before Production.

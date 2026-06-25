@@ -21,6 +21,26 @@ required_outputs:
 
 读取时机：当用户要求“更高级”“不像AI做的”“提升审美”“避免模板感”，或任务涉及完整视觉生产、Style Frame、品牌气质、视觉方向确认、真实素材审查时读取。若涉及design-dna、PPT-DNA、guizang、HTML/PPT/Slides视觉生产或用户质疑审美/UI/动效没有深度集成，同时读取`20-design-dna-guizang-integration.md`。若用户指出排版/UI不好看、动效单一，或质疑stylekit/taste/frontend-slides/html-ppt/huashu-design等Skill没有集成，同时读取`21-design-skill-stack-integration.md`。
 
+## 0. CSS 毒性静态检查
+
+本节适用于 HTML slide、HTML report、web presentation 和由 HTML/CSS 渲染的截图包。PPTX/PDF 应转换为等价母版检查。QA 必须先做静态检查，再进入人工审美复核。
+
+| 序号 | 高风险项 | 默认判定 |
+| :--- | :--- | :--- |
+| 1 | `backdrop-filter: blur()`、玻璃拟态透明毛玻璃 | 未经品牌审美签署时退回 |
+| 2 | 页面主背景叠加超过 1 层 `radial-gradient` / `linear-gradient` | 退回；真实图像、纯色或语义色块优先 |
+| 3 | 卡片/容器 `border-radius` 大于 `8px`；正式商务页大于 `4px` 需说明 | 退回或要求例外说明 |
+| 4 | `box-shadow` 超过 `0 1px 2px rgba(0,0,0,0.05)` 的弥散阴影、霓虹发光 | 退回 |
+| 5 | 单页非中性色 hue 超过 3 种且无调色板语义表 | 退回 |
+| 6 | 以 `Inter`、`Roboto`、`Arial`、`Helvetica` 作为无说明的主字体 | 退回；优先使用系统中文/西文字体栈或项目签署字体 |
+| 7 | 胶囊标签、渐变按钮、图标卡片矩阵作为主要视觉语法 | 进入 Anti-Template Review |
+
+执行机制：
+
+- HTML 生产后，工程烟测或 QA 记录必须包含 `cssToxicityCheck` 字段，逐项标记 `passed` / `failed` / `exception_signed`。
+- 任一项 `failed` 时，不得标记审美通过；若已经生成候选稿，进入 `FAILED_VISUAL_FREEZE` 或退回 Style Frame。
+- 例外只允许来自用户品牌规范、真实参考转译或明确交付约束，不能用“看起来高级”解释。
+
 ## 设计目的
 
 演示文稿不得只做到“能看、能翻页、信息完整”。正式交付必须避免明显的AI生成感、模板感和组件堆叠感。任何项目进入完整页面生产前，必须先通过审美策略与反AI味评审。

@@ -27,6 +27,20 @@ required_outputs:
 - 修改/回退补充分支：当前Skill强制执行版本。
 - 历史“拟同意”措辞不得用于降低门槛；如用户最新要求冲突，以《用户最新要求锁定表》优先。
 
+## 阶段产物闸门表
+
+Mermaid 流程图用于描述状态导航，不能替代阶段产物验收。任何阶段缺少必填产物时，不得靠“流程已走到下一节点”继续推进。
+
+| 阶段 | 必须产出的文件或记录 | 闸门条件 | 下一阶段触发方式 |
+| :--- | :--- | :--- | :--- |
+| 1. 诊断 | 项目诊断卡、用户最新要求锁、内容差距清单 | G1-G4 清楚，缺失信息和风险已列出 | 用户继续授权或任务范围本身允许进入下一步 |
+| 2. 部门会议 | 部门会议记录、交付文件初始备忘录、职责化中文名称编制 | 适用部门有真实输入或阻断记录 | 用户显式继续，或生产任务已预先授权且无硬阻断 |
+| 3. 设计合成 | Design Synthesis Contract、Skill Invocation Ledger、Skill Absorption Matrix、Subagent 签署/阻断记录 | G5-G7A/G7B/G7C/G7D/G7E 满足或阻断清楚 | 进入关键页试生产或 Style Frame 探索 |
+| 4. 关键页/正式生产 | 可运行 HTML/PPT/PDF 或关键页样张、制作工单、文件所有权映射 | 工程烟测只能证明结构可运行，不能替代审美 QA | 用户确认可进入 QA，或既定流程进入实现后复核 |
+| 5. QA 冻结 | QA 冻结报告、截图包/contact sheet、人工重点页审美复核、自动验证最低字段 | 无 QA 阻断项，且没有缺失的流程/Skill/截图证据 | 提交用户验收 |
+
+阻断规则：阶段产物缺失时，记录对应 `PRE_CODE_VISUAL_BLOCKER`、`PROCESS_BLOCKED_NO_WORK_PLATFORM`、`PROCESS_BLOCKED_NO_SUBAGENT`、`SKILL_ABSORPTION_BLOCKER` 或 `FAILED_VISUAL_FREEZE`。已生成产物不能倒推补齐前置阶段。
+
 ## 总流程图
 
 ```mermaid

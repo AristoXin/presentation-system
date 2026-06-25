@@ -81,6 +81,8 @@ Skill 调用必须先于 Style Frame、Page Spec、HTML/CSS/JS/PPT/PDF 实现。
 
 缺少阶段B证据时，不得创建全稿产物，不得称为候选稿、冻结稿或可验收版本。
 
+若已经创建全稿产物后才发现阶段A或阶段B证据缺失，该产物不得补写追认；必须标记为`FAILED_VISUAL_FREEZE`或治理证据，并重新从缺失阶段恢复。
+
 ## 相关Skill分层
 
 | 层级 | Skill | 主要作用 | 必须吸收为 | 不合格信号 |

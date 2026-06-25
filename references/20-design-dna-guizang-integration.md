@@ -70,6 +70,8 @@ design-dna 决定这份演示的设计身份。guizang-ppt-skill 决定演示版
 
 四段缺任一段，不得进入全稿HTML/PPT/PDF生产；已经误生成的产物只能标为`FAILED_VISUAL_FREEZE`或治理证据。
 
+若四段链路缺失但尚未生成产物，记录 `PRE_CODE_VISUAL_BLOCKER` 或 `SKILL_ABSORPTION_BLOCKER` 并暂停。若缺失发生在产物生成之后，必须进入 `FAILED_VISUAL_FREEZE`，不得通过补写表格追认吸收。
+
 ## Presentation Design DNA档案
 
 每个正式视觉项目必须产出本档案。它可以是表格或JSON，但必须同时包含来源、页面映射和QA字段。仅输出design-dna原始JSON不算完成。
